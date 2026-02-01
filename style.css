@@ -41,7 +41,7 @@ ul{
 
 ul > li{
     font-size: 0.9em;
-    color: #9EF493;
+    color: lightgreen;
     list-style-type: none;
     margin-bottom: 5px;
     font-size: 1.1em;
@@ -61,6 +61,7 @@ header p{
 }
 
 #grid-card-box{
+    margin: 0 auto; /* EXCLUIR QUANDO TERMINAR O DIA */
     display: grid;
     /*grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));*/
     grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); 
@@ -85,7 +86,6 @@ header p{
         border: 1px solid #ddd;
         border-radius: 5px;
         overflow: hidden;
-        background-color: red;
         box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         transition: transform 0.2s;
     }
@@ -113,7 +113,9 @@ header p{
     border-radius: 5px;
 }
 
+
 .card-box > .card-info{
+    display: none;  /*EXCLUIR ESTA LINHA QUANDO VOLTAR A TRABALHAR */
     width: 70%;
     margin: 0 auto;
     text-align: left;
