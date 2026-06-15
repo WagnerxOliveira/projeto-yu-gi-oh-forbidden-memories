@@ -3,76 +3,41 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yu-Gi-Oh! Forbidden Memories — Card Database | Todas as 722 Cartas</title>
-  <meta name="description" content="Base de dados completa com todas as 722 cartas do jogo Yu-Gi-Oh! Forbidden Memories para PlayStation 1. Pesquise por nome, ID, ATK, DEF, Cost, Card-Type, Type e Level.">
-  <meta name="keywords" content="Yu-Gi-Oh, Forbidden Memories, PS1, PlayStation, cards, database, cartas, ATK, DEF, password, starchip, cost, fusion, duel, Konami">
-  <meta name="author" content="Yu-Gi-Oh! FM Database">
+  <title>Yu-Gi-Oh! Forbidden Memories | Card Database 722</title>
+  <meta name="description" content="Database completo e responsivo de Yu-Gi-Oh! Forbidden Memories (PS1). Pesquise todas as 722 cartas por ATK, DEF, Cost, Type e Level.">
+  <meta name="keywords" content="Yu-Gi-Oh, Forbidden Memories, PS1, Cards, Database, ATK, DEF, Starchips, Konami">
   <meta name="robots" content="index, follow">
-  <meta property="og:title" content="Yu-Gi-Oh! Forbidden Memories — Card Database">
-  <meta property="og:description" content="Todas as 722 cartas do Yu-Gi-Oh! Forbidden Memories (PS1) em um só lugar. Pesquise por nome, ATK, DEF, tipo e muito mais.">
-  <meta property="og:type" content="website">
-  <link rel="canonical" href="">
+  <meta name="theme-color" content="#07090f">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-  <!-- ── Header ──────────────────────────────────────────── -->
-  <header class="header" role="banner">
+  <header class="header">
     <h1 class="header__title">Yu-Gi-Oh! Forbidden Memories</h1>
-    <p class="header__subtitle">PlayStation — Card Database</p>
-    <p class="header__card-count">⬡ <span id="resultsTotal">722</span> CARDS CATALOGADAS ⬡</p>
+    <p class="header__subtitle">Database Oficial — 722 Cartas</p>
   </header>
 
-  <!-- ── Search & Filters ────────────────────────────────── -->
-  <nav class="search-container" role="search" aria-label="Pesquisar cartas">
+  <nav class="search-container">
     <div class="search-wrapper">
       <div class="search-row">
-        <div class="search-input-wrapper">
-          <span class="search-icon" aria-hidden="true">⌕</span>
-          <input
-            type="text"
-            id="searchInput"
-            placeholder="🔍 Pesquisar por Nome da Carta ou ID..."
-            autocomplete="off"
-            spellcheck="false"
-            aria-label="Campo de pesquisa"
-          />
-        </div>
+        <input type="text" id="searchInput" placeholder="🔍 Pesquisar por Nome da Carta ou ID..." autocomplete="off">
       </div>
-      <div class="search-row">
-        <div class="filter-buttons" role="group" aria-label="Filtros de pesquisa">
-          <button class="filter-btn active" data-filter="name" title="Pesquisar por Nome ou ID da carta">NOME/ID</button>
-          <button class="filter-btn" data-filter="atk" title="Pesquisar por ATK (Ataque)">ATK</button>
-          <button class="filter-btn" data-filter="def" title="Pesquisar por DEF (Defesa)">DEF</button>
-          <button class="filter-btn" data-filter="cost" title="Pesquisar por Cost (Custo em Starchips)">COST</button>
-          <button class="filter-btn" data-filter="card-type" title="Pesquisar por Card-Type (Monster, Equip, Magic, Field, Trap, Ritual)">CARD-TYPE</button>
-          <button class="filter-btn" data-filter="type" title="Pesquisar por Type (Dragon, Warrior, Spellcaster, etc.)">TYPE</button>
-          <button class="filter-btn" data-filter="level" title="Pesquisar por Level (1 a 8)">LEVEL</button>
-        </div>
-      </div>
-      <div class="results-info" id="resultsInfo">
-        <span id="filterLabel">Filtro: NOME / ID</span> — Mostrando <span id="resultsCount">722</span> de <span>722</span> cartas
+      <div class="search-row filter-buttons" id="filterButtons">
+        <button class="filter-btn active" data-filter="name">NOME / ID</button>
+        <button class="filter-btn" data-filter="atk">ATK</button>
+        <button class="filter-btn" data-filter="def">DEF</button>
+        <button class="filter-btn" data-filter="cost">COST</button>
+        <button class="filter-btn" data-filter="card-type">CARD-TYPE</button>
+        <button class="filter-btn" data-filter="type">TYPE</button>
+        <button class="filter-btn" data-filter="level">LEVEL</button>
       </div>
     </div>
   </nav>
 
-  <!-- ── Cards Grid ──────────────────────────────────────── -->
-  <main class="cards-grid" id="cardsGrid" role="main">
-    <!-- Cards rendered by JavaScript -->
-  </main>
+  <main class="cards-grid" id="cardsGrid">
+    </main>
 
-  <!-- ── Footer ──────────────────────────────────────────── -->
-  <footer class="footer" role="contentinfo">
-    <p class="footer__text">
-      Yu-Gi-Oh! Forbidden Memories — Card Database — 722 Cards<br>
-      <small>© Konami — Fan Project — Todos os direitos reservados aos respectivos proprietários</small>
-    </p>
-  </footer>
+  <button id="scrollTopBtn" class="scroll-top" title="Voltar ao Topo">↑</button>
 
-  <!-- ── Scroll to Top ───────────────────────────────────── -->
-  <button class="scroll-top-btn" id="scrollTopBtn" title="Voltar ao topo" aria-label="Voltar ao topo">↑</button>
-
-  <!-- ── Scripts ─────────────────────────────────────────── -->
   <script src="cards-data.js"></script>
   <script src="app.js"></script>
 </body>
