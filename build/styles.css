@@ -1,0 +1,494 @@
+/* ============================================================
+   Yu-Gi-Oh! Forbidden Memories — Futuristic Theme
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&family=Exo+2:wght@300;400;500;600;700&display=swap');
+
+/* ── CSS Variables ─────────────────────────────────────────── */
+:root {
+  --bg-primary: #07090f;
+  --bg-secondary: #0d1117;
+  --bg-tertiary: #161b22;
+  --neon-blue: #00d4ff;
+  --neon-purple: #a855f7;
+  --neon-pink: #ec4899;
+  --neon-gold: #f59e0b;
+  --neon-green: #22c55e;
+  --monster-color: #AB8326;
+  --equip-color: #5CAB26;
+  --magic-color: #5CAB26;
+  --field-color: #5CAB26;
+  --trap-color: #AB2641;
+  --ritual-color: #262AAB;
+  --text-primary: #e2e8f0;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --glass-border: rgba(0, 212, 255, 0.12);
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+}
+
+/* ── Reset ─────────────────────────────────────────────────── */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+  scrollbar-color: var(--neon-blue) var(--bg-secondary);
+}
+html::-webkit-scrollbar { width: 6px; }
+html::-webkit-scrollbar-track { background: var(--bg-secondary); }
+html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--neon-blue), var(--neon-purple)); border-radius: 3px; }
+
+body {
+  font-family: 'Rajdhani', 'Exo 2', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+/* ── Animated BG ───────────────────────────────────────────── */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background:
+    radial-gradient(ellipse at 15% 50%, rgba(0,212,255,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 85% 20%, rgba(168,85,247,0.04) 0%, transparent 50%),
+    radial-gradient(ellipse at 50% 80%, rgba(236,72,153,0.02) 0%, transparent 50%);
+  pointer-events: none; z-index: 0;
+}
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  background-image:
+    linear-gradient(rgba(0,212,255,0.02) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.02) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none; z-index: 0;
+}
+
+/* ── Header ────────────────────────────────────────────────── */
+.header {
+  position: relative; z-index: 10;
+  text-align: center;
+  padding: 28px 20px 14px;
+  background: linear-gradient(180deg, rgba(7,9,15,0.97), rgba(7,9,15,0.7));
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: blur(20px);
+}
+.header__title {
+  font-family: 'Orbitron', sans-serif;
+  font-size: clamp(1.3rem, 4vw, 2.6rem);
+  font-weight: 800;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  background: linear-gradient(135deg, var(--neon-blue), var(--neon-purple), var(--neon-pink));
+  background-clip: text; -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 0 18px rgba(0,212,255,0.3));
+  margin-bottom: 2px;
+}
+.header__subtitle {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: clamp(0.7rem, 1.6vw, 0.95rem);
+  color: var(--text-secondary);
+  letter-spacing: 5px;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+.header__card-count {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.7rem;
+  color: var(--neon-gold);
+  margin-top: 6px;
+  letter-spacing: 2px;
+}
+
+/* ── Search Container ──────────────────────────────────────── */
+.search-container {
+  position: sticky; top: 0; z-index: 100;
+  background: linear-gradient(180deg, rgba(7,9,15,0.98), rgba(7,9,15,0.93));
+  backdrop-filter: blur(30px);
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--glass-border);
+  box-shadow: 0 4px 30px rgba(0,0,0,0.5);
+}
+.search-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.search-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.search-input-wrapper {
+  flex: 1;
+  position: relative;
+}
+.search-input-wrapper .search-icon {
+  position: absolute;
+  left: 14px; top: 50%;
+  transform: translateY(-50%);
+  color: var(--neon-blue);
+  font-size: 1.1rem;
+  pointer-events: none;
+}
+#searchInput {
+  width: 100%;
+  padding: 11px 16px 11px 40px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  background: rgba(13,17,23,0.85);
+  border: 1px solid var(--glass-border);
+  border-radius: 10px;
+  outline: none;
+  transition: all var(--transition-normal);
+}
+#searchInput:focus {
+  border-color: var(--neon-blue);
+  box-shadow: 0 0 12px rgba(0,212,255,0.2), inset 0 0 12px rgba(0,212,255,0.04);
+}
+#searchInput::placeholder { color: var(--text-muted); font-weight: 400; }
+
+/* ── Filter Buttons ────────────────────────────────────────── */
+.filter-buttons {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+}
+.filter-btn {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 7px 12px;
+  border: 1px solid rgba(100,116,139,0.25);
+  border-radius: 8px;
+  background: rgba(13,17,23,0.5);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all var(--transition-normal);
+  white-space: nowrap;
+  position: relative;
+  overflow: hidden;
+}
+.filter-btn::before {
+  content: '';
+  position: absolute; top: 0; left: -100%;
+  width: 100%; height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+  transition: left 0.5s ease;
+}
+.filter-btn:hover::before { left: 100%; }
+.filter-btn:hover {
+  border-color: var(--neon-blue);
+  color: var(--neon-blue);
+  background: rgba(0,212,255,0.06);
+}
+.filter-btn.active {
+  border-color: var(--neon-blue);
+  color: #fff;
+  background: rgba(0,212,255,0.15);
+  box-shadow: 0 0 10px rgba(0,212,255,0.12), inset 0 0 10px rgba(0,212,255,0.05);
+}
+.filter-btn.active[data-filter="atk"]       { border-color: #ef4444; color: #fca5a5; background: rgba(239,68,68,0.12); box-shadow: 0 0 10px rgba(239,68,68,0.12); }
+.filter-btn.active[data-filter="def"]       { border-color: #3b82f6; color: #93c5fd; background: rgba(59,130,246,0.12); box-shadow: 0 0 10px rgba(59,130,246,0.12); }
+.filter-btn.active[data-filter="cost"]      { border-color: var(--neon-gold); color: #fcd34d; background: rgba(245,158,11,0.12); box-shadow: 0 0 10px rgba(245,158,11,0.12); }
+.filter-btn.active[data-filter="card-type"] { border-color: var(--neon-green); color: #86efac; background: rgba(34,197,94,0.12); box-shadow: 0 0 10px rgba(34,197,94,0.12); }
+.filter-btn.active[data-filter="type"]      { border-color: var(--neon-purple); color: #c4b5fd; background: rgba(168,85,247,0.12); box-shadow: 0 0 10px rgba(168,85,247,0.12); }
+.filter-btn.active[data-filter="level"]     { border-color: var(--neon-pink); color: #f9a8d4; background: rgba(236,72,153,0.12); box-shadow: 0 0 10px rgba(236,72,153,0.12); }
+
+/* ── Results Info ──────────────────────────────────────────── */
+.results-info {
+  position: relative; z-index: 5;
+  text-align: center;
+  padding: 8px 16px;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.65rem;
+  color: var(--text-muted);
+  letter-spacing: 1.5px;
+  background: rgba(7,9,15,0.4);
+}
+.results-info span { color: var(--neon-blue); font-weight: 700; }
+
+/* ── Cards Grid ────────────────────────────────────────────── */
+.cards-grid {
+  position: relative; z-index: 5;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 14px;
+  padding: 18px;
+  max-width: 1600px;
+  margin: 0 auto;
+}
+
+/* ── Card ──────────────────────────────────────────────────── */
+.card {
+  background: rgba(13,17,23,0.85);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all var(--transition-normal);
+  position: relative;
+  backdrop-filter: blur(8px);
+  animation: fadeInUp 0.35s ease forwards;
+}
+.card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--card-accent, var(--neon-blue)), transparent);
+  opacity: 0;
+  transition: opacity var(--transition-normal);
+}
+.card:hover {
+  transform: translateY(-3px);
+  border-color: rgba(0,212,255,0.25);
+  box-shadow: 0 10px 35px rgba(0,0,0,0.4), 0 0 15px rgba(0,212,255,0.06);
+}
+.card:hover::before { opacity: 1; }
+
+.card[data-card-type="Monster"] { --card-accent: #AB8326; }
+.card[data-card-type="Equip"]   { --card-accent: #5CAB26; }
+.card[data-card-type="Magic"]   { --card-accent: #5CAB26; }
+.card[data-card-type="Field"]   { --card-accent: #5CAB26; }
+.card[data-card-type="Trap"]    { --card-accent: #AB2641; }
+.card[data-card-type="Ritual"]  { --card-accent: #262AAB; }
+
+/* Card Header */
+.card__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.card__id {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--neon-blue);
+  letter-spacing: 1px;
+}
+.card__type-badge {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.52rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 2px 7px;
+  border-radius: 4px;
+  color: #fff;
+}
+.card__type-badge--monster { background: var(--monster-color); }
+.card__type-badge--equip   { background: var(--equip-color); }
+.card__type-badge--magic   { background: var(--magic-color); }
+.card__type-badge--field   { background: var(--field-color); }
+.card__type-badge--trap    { background: var(--trap-color); }
+.card__type-badge--ritual  { background: var(--ritual-color); }
+
+/* Card Image */
+.card__image-container {
+  width: 100%;
+  aspect-ratio: 59 / 86;
+  overflow: hidden;
+  background: linear-gradient(135deg, rgba(13,17,23,0.9), rgba(22,27,34,0.9));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.card__image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+.card:hover .card__image-container img { transform: scale(1.04); }
+.card__image-placeholder {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 2rem;
+  font-weight: 800;
+  color: rgba(0,212,255,0.12);
+  text-align: center;
+  line-height: 1.2;
+}
+.card__image-placeholder small {
+  display: block;
+  font-size: 0.55rem;
+  letter-spacing: 3px;
+  color: var(--text-muted);
+  margin-top: 6px;
+}
+
+/* Card Body */
+.card__body { padding: 8px 12px 12px; }
+.card__name {
+  font-family: 'Exo 2', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 7px;
+  line-height: 1.25;
+  min-height: 2.5em;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+.card__stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3px 8px;
+  font-size: 0.76rem;
+}
+.card__stat {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 2px 0;
+}
+.card__stat-label {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.55rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  min-width: 30px;
+}
+.card__stat-value {
+  font-family: 'Rajdhani', sans-serif;
+  font-weight: 600;
+  color: var(--text-primary);
+  font-size: 0.82rem;
+}
+.card__stat--atk .card__stat-label { color: #ef4444; }
+.card__stat--atk .card__stat-value { color: #fca5a5; }
+.card__stat--def .card__stat-label { color: #3b82f6; }
+.card__stat--def .card__stat-value { color: #93c5fd; }
+.card__stat--level .card__stat-label { color: var(--neon-gold); }
+.card__stat--level .card__stat-value { color: #fcd34d; }
+.card__stat--type .card__stat-label { color: var(--neon-purple); }
+.card__stat--type .card__stat-value { color: #c4b5fd; font-size: 0.72rem; }
+.card__stat--password .card__stat-label { color: var(--text-muted); }
+.card__stat--password .card__stat-value { color: var(--text-secondary); font-size: 0.72rem; font-family: 'Orbitron', sans-serif; font-weight: 400; letter-spacing: 0.5px; }
+.card__stat--cost .card__stat-label { color: var(--neon-gold); }
+.card__stat--cost .card__stat-value { color: #fbbf24; }
+.card__stat--password, .card__stat--cost { grid-column: 1 / -1; }
+
+/* Card Color Bar */
+.card__color-bar { height: 3px; width: 100%; }
+.card[data-card-type="Monster"] .card__color-bar { background: var(--monster-color); }
+.card[data-card-type="Equip"]   .card__color-bar { background: var(--equip-color); }
+.card[data-card-type="Magic"]   .card__color-bar { background: var(--magic-color); }
+.card[data-card-type="Field"]   .card__color-bar { background: var(--field-color); }
+.card[data-card-type="Trap"]    .card__color-bar { background: var(--trap-color); }
+.card[data-card-type="Ritual"]  .card__color-bar { background: var(--ritual-color); }
+
+/* ── Highlight on scroll-to ────────────────────────────────── */
+.card--highlight {
+  box-shadow: 0 0 30px rgba(0,212,255,0.45), 0 0 60px rgba(0,212,255,0.15) !important;
+  border-color: var(--neon-blue) !important;
+}
+
+/* ── No Results ────────────────────────────────────────────── */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 50px 20px;
+  font-family: 'Orbitron', sans-serif;
+  color: var(--text-muted);
+}
+.no-results__icon { font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5; }
+.no-results__text { font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 6px; }
+.no-results__hint { font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; opacity: 0.7; }
+
+/* ── Scroll Top ────────────────────────────────────────────── */
+.scroll-top-btn {
+  position: fixed;
+  bottom: 24px; right: 24px;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  background: rgba(0,212,255,0.12);
+  border: 1px solid var(--neon-blue);
+  color: var(--neon-blue);
+  font-size: 1.2rem;
+  cursor: pointer;
+  opacity: 0; visibility: hidden;
+  transition: all var(--transition-normal);
+  z-index: 200;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(10px);
+}
+.scroll-top-btn.visible { opacity: 1; visibility: visible; }
+.scroll-top-btn:hover {
+  background: rgba(0,212,255,0.25);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0,212,255,0.25);
+}
+
+/* ── Animation ─────────────────────────────────────────────── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Footer ────────────────────────────────────────────────── */
+.footer {
+  position: relative; z-index: 5;
+  text-align: center;
+  padding: 24px 20px;
+  border-top: 1px solid var(--glass-border);
+  background: rgba(7,9,15,0.8);
+}
+.footer__text {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  letter-spacing: 1px;
+}
+
+/* ── Responsive: Tablet ────────────────────────────────────── */
+@media (max-width: 1024px) {
+  .cards-grid { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 12px; padding: 14px; }
+}
+
+/* ── Responsive: Mobile ────────────────────────────────────── */
+@media (max-width: 768px) {
+  .header { padding: 18px 14px 10px; }
+  .header__subtitle { letter-spacing: 3px; font-size: 0.6rem; }
+  .search-container { padding: 8px 10px; }
+  .search-row { flex-direction: column; gap: 6px; }
+  .search-input-wrapper { width: 100%; }
+  .filter-buttons { width: 100%; justify-content: center; }
+  .filter-btn { font-size: 0.55rem; padding: 6px 9px; flex: 1; min-width: 0; text-align: center; }
+  .cards-grid { grid-template-columns: repeat(2, 1fr); padding: 8px; gap: 8px; }
+  .card__header { padding: 5px 8px 3px; }
+  .card__id { font-size: 0.58rem; }
+  .card__type-badge { font-size: 0.45rem; padding: 2px 5px; }
+  .card__body { padding: 5px 8px 8px; }
+  .card__name { font-size: 0.75rem; margin-bottom: 5px; min-height: auto; }
+  .card__stats { gap: 2px 5px; }
+  .card__stat-label { font-size: 0.48rem; min-width: 20px; }
+  .card__stat-value { font-size: 0.7rem; }
+  .card__stat--type .card__stat-value { font-size: 0.62rem; }
+  .card__stat--password .card__stat-value { font-size: 0.58rem; }
+  .scroll-top-btn { bottom: 14px; right: 14px; width: 38px; height: 38px; font-size: 1rem; }
+}
+
+/* ── Responsive: Small Mobile ──────────────────────────────── */
+@media (max-width: 400px) {
+  .filter-btn { font-size: 0.5rem; padding: 5px 5px; letter-spacing: 0.5px; }
+  .header__title { font-size: 1.1rem; letter-spacing: 2px; }
+  .card__stats { grid-template-columns: 1fr; }
+  .card__stat--password, .card__stat--cost { grid-column: auto; }
+}
+
+.hidden { display: none !important; }
