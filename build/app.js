@@ -78,7 +78,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentFilter = 'name';
   let allCards = [];
 
-  /* ── LÓGICA INFALÍVEL DO PAINEL DE INFORMAÇÕES ── */
+  /* ── LÓGICA DE GERENCIAMENTO DE OVERLAY (HOVER SEGURO) ── */
   document.addEventListener('mouseover', e => {
     const icon = e.target.closest('.info-icon');
     const overlay = e.target.closest('.card-overlay');
@@ -162,25 +162,23 @@ document.addEventListener('DOMContentLoaded', () => {
       const isNonMonster = ['Equip','Magic','Field','Trap','Ritual'].includes(ct);
       return { ...c, cardType: ct, finalType: isNonMonster ? '' : (c.type || '') };
     });
-    renderCards(allCards);
+    // O Segredo da Performance: Renderizamos TODO o HTML apenas uma vez!
+    renderAllCardsOnce();
   }
 
-  function renderCards(cards) {
+  function renderAllCardsOnce() {
     if (!cardsGrid) return;
-    if (cards.length === 0) {
-      cardsGrid.innerHTML = `
-        <div style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-family: 'Orbitron'; padding: 50px;">
-          <div style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5;">🔍</div>
-          <div style="font-size: 0.9rem; letter-spacing: 2px;">NENHUMA CARTA ENCONTRADA</div>
-        </div>`;
-      return;
-    }
-
-    cardsGrid.innerHTML = cards.map(c => {
+    
+    cardsGrid.innerHTML = allCards.map((c, index) => {
       const m = c.cardType === 'Monster';
       let infoIconHTML = '';
       let overlayHTML = '';
       let gStars = [];
+
+      // Lazy Loading inteligente
+      const isAboveTheFold = index < 12;
+      const lazyAttr = isAboveTheFold ? '' : 'loading="lazy"';
+      const fetchPrio = isAboveTheFold ? 'fetchpriority="high"' : '';
 
       if (extraCardData[c.id]) {
         const x = extraCardData[c.id];
@@ -201,19 +199,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
           if (sortedDrops.length > 0) {
              overlayHTML += `<h4 class="overlay-title"><span class="icon">💎</span> QUEM DROPA</h4><div class="overlay-list">`;
-             sortedDrops.forEach(d => overlayHTML += `<div class="overlay-item"><img class="char-img" src="images/icons/${d.icon}"><div class="overlay-text"><div class="overlay-row"><strong class="char-name">${d.name}</strong><span class="badge-rank">${d.rank}</span></div><div class="overlay-row rate-row"><span class="rate-pct">${d.rate}%</span> <span class="frac">(${d.fraction})</span></div></div></div>`);
+             sortedDrops.forEach(d => overlayHTML += `<div class="overlay-item"><img class="char-img" src="images/icons/${d.icon}" ${lazyAttr}><div class="overlay-text"><div class="overlay-row"><strong class="char-name">${d.name}</strong><span class="badge-rank">${d.rank}</span></div><div class="overlay-row rate-row"><span class="rate-pct">${d.rate}%</span> <span class="frac">(${d.fraction})</span></div></div></div>`);
              overlayHTML += `</div>`;
           }
 
           if (sortedUses.length > 0) {
              overlayHTML += `<h4 class="overlay-title"><span class="icon">⚔️</span> CHANCE DE USAR</h4><div class="overlay-list grid-2">`;
-             sortedUses.forEach(u => overlayHTML += `<div class="overlay-item item-small"><img class="char-img-small" src="images/icons/${u.icon}"><div class="overlay-text"><strong class="char-name">${u.name}</strong><div class="rate-row"><span class="rate-pct">${u.rate}%</span></div></div></div>`);
+             sortedUses.forEach(u => overlayHTML += `<div class="overlay-item item-small"><img class="char-img-small" src="images/icons/${u.icon}" ${lazyAttr}><div class="overlay-text"><strong class="char-name">${u.name}</strong><div class="rate-row"><span class="rate-pct">${u.rate}%</span></div></div></div>`);
              overlayHTML += `</div>`;
           }
 
           if (x.equips && x.equips.length > 0) {
              overlayHTML += `<h4 class="overlay-title"><span class="icon">🛡️</span> SE EQUIPA COM:</h4><div class="overlay-list">`;
-             x.equips.forEach(eq => overlayHTML += `<div class="overlay-item equip-item"><img class="equip-img" src="images/cards/${eq.img}" onerror="this.src='images/cards/placeholder.png'"><div class="overlay-text"><strong class="equip-name">${eq.id} ${eq.name}</strong></div></div>`);
+             x.equips.forEach(eq => overlayHTML += `<div class="overlay-item equip-item"><img class="equip-img" src="images/cards/${eq.img}" onerror="this.src='images/cards/placeholder.png'" ${lazyAttr}><div class="overlay-text"><strong class="equip-name">${eq.id} ${eq.name}</strong></div></div>`);
              overlayHTML += `</div>`;
           }
           overlayHTML += `</div></div>`;
@@ -234,33 +232,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return `
       <article class="card" data-type="${c.cardType}" id="card-${c.id}">
-        
         ${overlayHTML}
-        
         <div class="card-header">
-          <div class="card-id-wrapper">
-            <span class="card-id">ID: ${c.id}</span>
-            ${infoIconHTML}
-          </div>
+          <div class="card-id-wrapper"><span class="card-id">ID: ${c.id}</span>${infoIconHTML}</div>
           <span class="card-badge">${c.cardType}</span>
         </div>
-        
         <div class="card-img-wrapper" title="Ver descrição da carta">
-          <img class="card-img-front" src="images/cards/${c.id}.png" alt="${c.name}" loading="lazy" onerror="this.style.display='none'">
+          <img class="card-img-front" src="images/cards/${c.id}.png" alt="${c.name}" ${lazyAttr} ${fetchPrio} onerror="this.style.display='none'">
           <img class="card-img-back" src="images/card_descriptions/${c.id}.png" alt="Descrição ${c.name}" loading="lazy" onerror="this.parentElement.classList.add('no-desc'); this.remove();">
         </div>
-        
         <div class="card-body">
           <div class="card-title">${c.name}</div>
           <div class="card-stats">
             <div class="stat-row stat-atk"><span class="stat-label">ATK</span><span class="stat-val">${m ? `${c.atk} <img class="atk-def-icon" src="images/card_icon_atk_def/attack-icon.png" alt="ATK">` : '-'}</span></div>
             <div class="stat-row stat-def"><span class="stat-label">DEF</span><span class="stat-val">${m ? `${c.def} <img class="atk-def-icon" src="images/card_icon_atk_def/defense-icon.png" alt="DEF">` : '-'}</span></div>
-            
             <div class="stat-row stat-type full-width"><span class="stat-label">Type</span><span class="stat-val type-with-icon">${typeHtml}</span></div>
-            
             <div class="stat-row stat-level"><span class="stat-label">Level</span><span class="stat-val">${m && c.level > 0 ? `${c.level} <span class="star-icon">★</span>` : '-'}</span></div>
             <div class="stat-row stat-cost"><span class="stat-label">Cost</span><span class="stat-val">${c.cost !== null && c.cost !== undefined && c.cost !== '' ? `${c.cost} <span class="star-icon">★</span>` : '-'}</span></div>
-            
             ${guardianStarRow}
             <div class="stat-row stat-pass full-width"><span class="stat-label">Password</span><span class="stat-val">${c.password || '-'}</span></div>
           </div>
@@ -269,11 +257,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
   }
 
+  /* ── PERFORMANCE EXTREMA: Apenas Ocultamos as Cartas em vez de Recriar o HTML ── */
   function performSearch() {
     const q = searchInput.value.trim().toLowerCase();
-    if (!q) { renderCards(allCards); return; }
+    
+    // A lógica matemática continua a mesma para encontrar as cartas
     let out = [];
-
     switch (currentFilter) {
       case 'name':
         out = allCards.filter(c => c.name.toLowerCase().includes(q) || c.id.includes(q) || c.id === q.padStart(3, '0'));
@@ -291,25 +280,13 @@ document.addEventListener('DOMContentLoaded', () => {
       case 'def':
         out = allCards.filter(c => c.cardType === 'Monster' && String(c.def).startsWith(q));
         break;
-      
-      /* ── A MÁGICA INTELIGENTE DO FILTRO DE CUSTO (HÍBRIDO) ── */
       case 'cost':
         if (/^\d+$/.test(q)) {
-          // 1. Tenta achar cartas que custam EXATAMENTE o valor digitado.
           const exactMatches = allCards.filter(c => c.cost !== null && c.cost !== undefined && String(c.cost) === q);
-          
-          if (exactMatches.length > 0) {
-            // Se encontrar (ex: digitou 10 e existem cartas 10), trava apenas nessas!
-            out = exactMatches;
-          } else {
-            // Se não encontrar (ex: digitou 1), mostra todas que começam com 1 (10, 100...) para a tela não apagar.
-            out = allCards.filter(c => c.cost !== null && c.cost !== undefined && String(c.cost).startsWith(q));
-          }
-        } else { 
-          out = allCards; 
-        }
+          if (exactMatches.length > 0) { out = exactMatches; } 
+          else { out = allCards.filter(c => c.cost !== null && c.cost !== undefined && String(c.cost).startsWith(q)); }
+        } else { out = allCards; }
         break;
-
       case 'card-type':
         out = allCards.filter(c => c.cardType.toLowerCase().startsWith(q));
         break;
@@ -322,7 +299,30 @@ document.addEventListener('DOMContentLoaded', () => {
         } else { out = allCards; }
         break;
     }
-    renderCards(out);
+
+    // Criamos um mapa rápido com os IDs que devem aparecer
+    const matchedIds = new Set(out.map(c => c.id));
+    
+    // Varremos os elementos HTML que já existem e mostramos/escondemos (0ms de lentidão!)
+    const allCardNodes = document.querySelectorAll('.card');
+    allCardNodes.forEach(node => {
+      const id = node.id.replace('card-', '');
+      if (matchedIds.has(id)) {
+        node.style.display = 'flex'; // Exibe a carta
+      } else {
+        node.style.display = 'none'; // Esconde a carta
+      }
+    });
+
+    // Mostra mensagem se não achou nenhuma
+    let noResultMsg = document.getElementById('no-results-msg');
+    if (out.length === 0) {
+      if (!noResultMsg) {
+        cardsGrid.insertAdjacentHTML('beforeend', `<div id="no-results-msg" style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-family: 'Orbitron'; padding: 50px;"><div style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5;">🔍</div><div style="font-size: 0.9rem; letter-spacing: 2px;">NENHUMA CARTA ENCONTRADA</div></div>`);
+      }
+    } else {
+      if (noResultMsg) noResultMsg.remove();
+    }
   }
 
   function setFilter(name) {
@@ -336,7 +336,7 @@ document.addEventListener('DOMContentLoaded', () => {
     searchInput.placeholder = ph[currentFilter];
     searchInput.value = '';
     searchInput.focus();
-    renderCards(allCards);
+    performSearch(); // Aplica o filtro instantaneamente
   }
 
   searchInput.addEventListener('input', performSearch);
@@ -348,4 +348,13 @@ document.addEventListener('DOMContentLoaded', () => {
   scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
 
   init();
+
+  /* Registro PWA Offline Guard */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('./sw.js')
+        .then(reg => console.log('🚀 [PWA] Orquestrador Ativo!', reg.scope))
+        .catch(err => console.error('⚠️ [PWA] Erro:', err));
+    });
+  }
 });
