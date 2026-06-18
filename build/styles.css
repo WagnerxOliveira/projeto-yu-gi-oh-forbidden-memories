@@ -32,7 +32,7 @@ html::-webkit-scrollbar { width: 8px; }
 html::-webkit-scrollbar-track { background: var(--bg-space); }
 html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple)); border-radius: 20px; }
 
-/* ── 🚀 FIX MOBILE STICKY: Clip ao invés de Hidden ── */
+/* ── 🚀 FIX MOBILE WIDTH: Remoção de Overflow global que quebrava o Sticky ── */
 body {
   font-family: 'Rajdhani', sans-serif;
   background-color: var(--bg-space);
@@ -44,22 +44,32 @@ body {
     repeating-linear-gradient(to bottom, rgba(0, 245, 255, 0.02) 0px, rgba(0, 245, 255, 0.02) 1px, transparent 1px, transparent 50px);
   background-attachment: fixed;
   min-height: 100vh;
-  overflow-x: clip; 
-  max-width: 100vw;
+  /* Retirado overflow-x para não quebrar o sticky no mobile */
 }
 
 /* =========================================
    CABEÇALHO FUTURISTA
    ========================================= */
-.header { text-align: center; padding: 50px 20px 30px; position: relative; width: 100%; }
+.header { text-align: center; padding: 50px 20px 30px; position: relative; width: 100%; overflow: hidden;}
 .header::after { content: ''; position: absolute; bottom: 0; left: 15%; width: 70%; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), transparent); box-shadow: 0 0 12px var(--neon-cyan); }
 .header__title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 900; letter-spacing: 6px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 20%, var(--neon-cyan) 60%, var(--neon-purple) 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(0,245,255,0.3)); margin-bottom: 6px; }
 .header__subtitle { font-family: 'Orbitron', sans-serif; font-size: clamp(0.7rem, 1.5vw, 0.95rem); color: var(--neon-cyan); letter-spacing: 8px; text-transform: uppercase; font-weight: 600; text-shadow: 0 0 8px rgba(0,245,255,0.5); opacity: 0.85; }
 
 /* =========================================
-   PAINEL DE PESQUISA & HUD BOTÕES
+   PAINEL DE PESQUISA & HUD BOTÕES (FIXED STICKY)
    ========================================= */
-.search-container { position: sticky; top: 0; z-index: 2000; background: rgba(2, 4, 10, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 1.5rem; border-bottom: 1px solid rgba(0, 245, 255, 0.12); box-shadow: 0 15px 40px rgba(0,0,0,0.9); width: 100%; max-width: 100vw; box-sizing: border-box;}
+.search-container { 
+  position: -webkit-sticky; /* Suporte Safari */
+  position: sticky; 
+  top: 0; 
+  z-index: 2000; 
+  background: rgba(2, 4, 10, 0.85); 
+  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+  padding: 1.5rem; 
+  border-bottom: 1px solid rgba(0, 245, 255, 0.12); 
+  box-shadow: 0 15px 40px rgba(0,0,0,0.9); 
+  width: 100%;
+}
 .search-wrapper { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
 
 #searchInput { width: 100%; padding: 18px 24px; border-radius: 8px; background: rgba(6, 9, 16, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: #fff; font-family: 'Orbitron', sans-serif; font-size: 1rem; outline: none; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: inset 0 3px 12px rgba(0,0,0,0.7); }
@@ -70,31 +80,34 @@ body {
 .filter-btn { position: relative; padding: 12px 20px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, rgba(0, 245, 255, 0.15) 50%, rgba(255, 255, 255, 0.02) 100%); background-size: 300% 100%; background-position: 100% 0; border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-muted); font-family: 'Orbitron', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 6px; transition: all 0.4s ease, background-position 0.4s ease; flex-grow: 1; text-align: center; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; overflow: visible; }
 .filter-btn.active, .filter-btn:hover { border-color: var(--neon-cyan); color: #fff; background-position: 0% 0; box-shadow: 0 0 18px rgba(0, 245, 255, 0.35), inset 0 0 10px rgba(0, 245, 255, 0.2); text-shadow: 0 0 6px var(--neon-cyan); }
 
-.filter-btn::after { position: absolute; top: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(12px); background: rgba(6, 9, 16, 0.98); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 8px; padding: 14px 18px; font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; text-align: center; line-height: 1.6; width: max-content; max-width: 400px; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.9); white-space: pre-wrap; }
-.filter-btn::before { content: ''; position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%) translateY(12px); border-width: 6px; border-style: solid; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; }
-
-.filter-btn[data-filter="name"]::after { content: "NOME / ID 🔍 \A Digite o nome da carta ou o ID, de 001 à 722."; border: 1px solid var(--neon-cyan); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(0,245,255,0.4); }
-.filter-btn[data-filter="name"]::before { border-color: transparent transparent var(--neon-cyan) transparent; }
-
-.filter-btn[data-filter="atk"]::after { content: "ATK ⚔️ \A Digite um valor de ATK podendo ser: 0, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 920, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350, 1380, 1400, 1450, 1500, 1550, 1600, 1610, 1650, 1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100, 2150, 2200, 2250, 2300, 2350, 2400, 2450, 2500, 2550, 2600, 2650, 2750, 2800, 2850, 2900, 3000, 3200, 3500, 3750, 4500."; border: 1px solid var(--neon-red); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,51,102,0.4); }
-.filter-btn[data-filter="atk"]::before { border-color: transparent transparent var(--neon-red) transparent; }
-
-.filter-btn[data-filter="def"]::after { content: "DEF 🛡️ \A Digite um valor de DEF podendo ser: 0, 100, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1150, 1200, 1250, 1300, 1400, 1460, 1500, 1530, 1550, 1600, 1650, 1700, 1800, 1850, 1900, 1930, 1950, 2000, 2030, 2100, 2150, 2200, 2250, 2300, 2350, 2400, 2450, 2500, 2550, 2600, 3000, 3400, 3800."; border: 1px solid var(--neon-blue); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(51,204,255,0.4); }
-.filter-btn[data-filter="def"]::before { border-color: transparent transparent var(--neon-blue) transparent; }
-
-.filter-btn[data-filter="cost"]::after { content: "COST 💰 \A Digite o valor de custo podendo ser: 0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 100, 120, 140, 160, 180, 200, 230, 260, 290, 320, 350, 400, 500, 550, 700, 800, 900, 1000, 1700, 1900, 20000, 35000, 50000, 999999."; border: 1px solid var(--neon-gold); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,183,3,0.4); }
-.filter-btn[data-filter="cost"]::before { border-color: transparent transparent var(--neon-gold) transparent; }
-
-.filter-btn[data-filter="card-type"]::after { content: "CARD-TYPE 📋 \A Equip, Magic, Ritual, Field, Trap."; border: 1px solid var(--neon-cyan); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(0,245,255,0.4); }
-.filter-btn[data-filter="card-type"]::before { border-color: transparent transparent var(--neon-cyan) transparent; }
-
-.filter-btn[data-filter="type"]::after { content: "TYPE 🐉 \A Aqua, Magic, Beast, Beast-Warrior, Dinosaur, Dragon, Fairy, Fiend, Fish, Insect, Machine, Plant, Pyro, Reptile, Rock, Sea Serpent, Spellcaster, Thunder, Warrior, Winged Beast, Zombie."; border: 1px solid var(--neon-purple); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
-.filter-btn[data-filter="type"]::before { border-color: transparent transparent var(--neon-purple) transparent; }
-
-.filter-btn[data-filter="level"]::after { content: "LEVEL ⭐ \A Digite um valor de level sendo de 1 a 12."; border: 1px solid var(--neon-gold); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,183,3,0.4); }
-.filter-btn[data-filter="level"]::before { border-color: transparent transparent var(--neon-gold) transparent; }
-
-.filter-btn:hover::after, .filter-btn:hover::before { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+/* TOOLTIPS OCULTADOS EM TELAS MUITO PEQUENAS PARA NÃO QUEBRAR O LAYOUT */
+@media (min-width: 1024px) {
+  .filter-btn::after { position: absolute; top: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(12px); background: rgba(6, 9, 16, 0.98); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 8px; padding: 14px 18px; font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; text-align: center; line-height: 1.6; width: max-content; max-width: 400px; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.9); white-space: pre-wrap; }
+  .filter-btn::before { content: ''; position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%) translateY(12px); border-width: 6px; border-style: solid; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; }
+  
+  .filter-btn[data-filter="name"]::after { content: "NOME / ID 🔍 \A Digite o nome da carta ou o ID, de 001 à 722."; border: 1px solid var(--neon-cyan); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(0,245,255,0.4); }
+  .filter-btn[data-filter="name"]::before { border-color: transparent transparent var(--neon-cyan) transparent; }
+  
+  .filter-btn[data-filter="atk"]::after { content: "ATK ⚔️ \A Digite um valor de ATK podendo ser: 0, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 920, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350, 1380, 1400, 1450, 1500, 1550, 1600, 1610, 1650, 1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100, 2150, 2200, 2250, 2300, 2350, 2400, 2450, 2500, 2550, 2600, 2650, 2750, 2800, 2850, 2900, 3000, 3200, 3500, 3750, 4500."; border: 1px solid var(--neon-red); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,51,102,0.4); }
+  .filter-btn[data-filter="atk"]::before { border-color: transparent transparent var(--neon-red) transparent; }
+  
+  .filter-btn[data-filter="def"]::after { content: "DEF 🛡️ \A Digite um valor de DEF podendo ser: 0, 100, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1150, 1200, 1250, 1300, 1400, 1460, 1500, 1530, 1550, 1600, 1650, 1700, 1800, 1850, 1900, 1930, 1950, 2000, 2030, 2100, 2150, 2200, 2250, 2300, 2350, 2400, 2450, 2500, 2550, 2600, 3000, 3400, 3800."; border: 1px solid var(--neon-blue); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(51,204,255,0.4); }
+  .filter-btn[data-filter="def"]::before { border-color: transparent transparent var(--neon-blue) transparent; }
+  
+  .filter-btn[data-filter="cost"]::after { content: "COST 💰 \A Digite o valor de custo podendo ser: 0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 100, 120, 140, 160, 180, 200, 230, 260, 290, 320, 350, 400, 500, 550, 700, 800, 900, 1000, 1700, 1900, 20000, 35000, 50000, 999999."; border: 1px solid var(--neon-gold); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,183,3,0.4); }
+  .filter-btn[data-filter="cost"]::before { border-color: transparent transparent var(--neon-gold) transparent; }
+  
+  .filter-btn[data-filter="card-type"]::after { content: "CARD-TYPE 📋 \A Equip, Magic, Ritual, Field, Trap."; border: 1px solid var(--neon-cyan); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(0,245,255,0.4); }
+  .filter-btn[data-filter="card-type"]::before { border-color: transparent transparent var(--neon-cyan) transparent; }
+  
+  .filter-btn[data-filter="type"]::after { content: "TYPE 🐉 \A Aqua, Magic, Beast, Beast-Warrior, Dinosaur, Dragon, Fairy, Fiend, Fish, Insect, Machine, Plant, Pyro, Reptile, Rock, Sea Serpent, Spellcaster, Thunder, Warrior, Winged Beast, Zombie."; border: 1px solid var(--neon-purple); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
+  .filter-btn[data-filter="type"]::before { border-color: transparent transparent var(--neon-purple) transparent; }
+  
+  .filter-btn[data-filter="level"]::after { content: "LEVEL ⭐ \A Digite um valor de level sendo de 1 a 12."; border: 1px solid var(--neon-gold); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,183,3,0.4); }
+  .filter-btn[data-filter="level"]::before { border-color: transparent transparent var(--neon-gold) transparent; }
+  
+  .filter-btn:hover::after, .filter-btn:hover::before { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
+}
 
 /* =========================================
    GRID DA DATABASE
@@ -160,7 +173,6 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
   box-shadow: 0 20px 40px rgba(0,0,0,0.95), inset 0 2px 6px rgba(255,255,255,0.3); 
   transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.8s ease; z-index: 2;
 }
-
 .card-img-front { opacity: 1; transform: scale(1); filter: brightness(1); }
 .card-img-back { opacity: 0; z-index: 1; transform: scale(0.93); filter: blur(2px); } 
 .card-img-wrapper:hover .card-img-front { transform: scale(1.06) translateY(-3px); }
@@ -188,7 +200,7 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 .stat-row { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.04); border-left: 2px solid var(--neon-cyan); }
 .stat-row.full-width-desk { grid-column: 1 / -1; }
 
-.stat-label { color: var(--neon-cyan); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; font-family: 'Orbitron', sans-serif; opacity: 0.85; }
+.stat-label { color: var(--neon-cyan); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; font-family: 'Orbitron', sans-serif; opacity: 0.85; white-space: nowrap;}
 .stat-val { color: #fff; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; text-align: right; display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px; font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
 .text-mobile { display: none; }
@@ -276,7 +288,7 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
   .header { padding: 30px 15px 15px; }
   .header__title { font-size: 1.5rem; letter-spacing: 2px;}
   
-  /* 🚀 FIX MOBILE WIDTH BUGS: minmax(0, 1fr) impede blowout de grid! */
+  /* 🚀 FIX MOBILE HORIZONTAL SCROLL BUGS: minmax(0, 1fr) força as quebras de linha corretas! */
   .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 10px; gap: 8px; width: 100%;}
   .card { min-width: 0; }
   
@@ -291,12 +303,12 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
   .text-mobile { display: inline; }
   
   .card-body { padding: 10px 8px; gap: 6px;}
-  .card-title { font-size: 0.75rem; margin-bottom: 2px; padding-bottom: 8px; min-height: auto; white-space: normal; word-break: break-word;}
+  .card-title { font-size: 0.75rem; margin-bottom: 2px; padding-bottom: 8px; min-height: auto; white-space: normal; word-wrap: break-word;}
   
+  /* Quebra de linha rigorosa para os valores */
   .stat-row { padding: 6px 4px; gap: 4px; border-left-width: 2px;}
   .stat-label { font-size: 0.5rem; letter-spacing: 0.5px;}
-  /* Password overflow breaker resuelto aqui: */
-  .stat-val { font-size: 0.7rem; gap: 4px; word-break: break-word;} 
+  .stat-val { font-size: 0.7rem; gap: 4px; overflow-wrap: anywhere; word-break: break-all;} 
   
   .overlay-list.grid-2 { grid-template-columns: 1fr; }
   .overlay-header-name { font-size: 0.75rem; }

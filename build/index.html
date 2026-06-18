@@ -2,26 +2,23 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Yu-Gi-Oh! Forbidden Memories | Card Database 722</title>
-  <meta name="description" content="Database completo e responsivo de Yu-Gi-Oh! Forbidden Memories (PS1). Pesquise todas as 722 cartas por ATK, DEF, Cost, Type e Level.">
-  <meta name="keywords" content="Yu-Gi-Oh, Forbidden Memories, PS1, Cards, Database, ATK, DEF, Starchips, Konami">
-  <meta name="robots" content="index, follow">
-  <meta name="theme-color" content="#07090f">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Yu-Gi-Oh! Forbidden Memories - Database</title>
   <link rel="stylesheet" href="styles.css">
+  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
 </head>
 <body>
+
   <header class="header">
     <h1 class="header__title">Yu-Gi-Oh! Forbidden Memories</h1>
-    <p class="header__subtitle">Database Oficial — 722 Cartas</p>
+    <h2 class="header__subtitle">Database Oficial - 722 Cartas</h2>
   </header>
 
-  <nav class="search-container">
+  <div class="search-container">
     <div class="search-wrapper">
-      <div class="search-row">
-        <input type="text" id="searchInput" placeholder="🔍 Pesquisar por Nome da Carta ou ID..." autocomplete="off">
-      </div>
-      <div class="search-row filter-buttons" id="filterButtons">
+      <input type="text" id="searchInput" placeholder="Pesquisar por Nome da Carta ou ID..." autocomplete="off">
+      <div class="filter-buttons">
         <button class="filter-btn active" data-filter="name">NOME / ID</button>
         <button class="filter-btn" data-filter="atk">ATK</button>
         <button class="filter-btn" data-filter="def">DEF</button>
@@ -31,12 +28,12 @@
         <button class="filter-btn" data-filter="level">LEVEL</button>
       </div>
     </div>
-  </nav>
+  </div>
 
   <main class="cards-grid" id="cardsGrid">
     </main>
 
-  <button id="scrollTopBtn" class="scroll-top" title="Voltar ao Topo">↑</button>
+  <button id="scrollTopBtn" class="scroll-top-btn" title="Voltar ao topo">&#8679;</button>
 
   <script src="cards-data.js"></script>
   <script src="app.js"></script>
