@@ -164,19 +164,28 @@ const extraCardData = {
   '008': { guardianStars: ['Jupiter', 'Sun'] },
   '009': { guardianStars: ['Moon', 'Pluto'] },
   '010': { guardianStars: ['Moon', 'Pluto'] }
-  // Continue inserindo da 011 em diante...
 };
 
 document.addEventListener('DOMContentLoaded', () => {
   const searchInput = document.getElementById('searchInput');
   const cardsGrid = document.getElementById('cardsGrid');
   const filterBtns = document.querySelectorAll('.filter-btn');
+  
+  // 🚀 INJEÇÃO DINÂMICA DO BOTÃO SCROLL TO TOP 🚀
+  if (!document.getElementById('scrollTopBtn')) {
+    const btn = document.createElement('button');
+    btn.id = 'scrollTopBtn';
+    btn.className = 'scroll-top-btn';
+    btn.innerHTML = '&#8679;'; // Código HTML para Seta para cima (⇧)
+    btn.title = 'Voltar ao topo';
+    document.body.appendChild(btn);
+  }
   const scrollTopBtn = document.getElementById('scrollTopBtn');
   
   let currentFilter = 'name';
   let allCards = [];
 
-  /* ── 💡 UX SÊNIOR: GESTÃO INTELIGENTE DE MÚLTIPLOS OVERLAYS ── */
+  /* ── LÓGICA DE GERENCIAMENTO DE OVERLAY ── */
   document.addEventListener('mouseover', e => {
     const infoIcon = e.target.closest('.info-icon');
     const infoOverlay = e.target.closest('.card-overlay-info');
@@ -186,16 +195,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (infoIcon || infoOverlay) {
       const card = (infoIcon || infoOverlay).closest('.card');
       if (card) {
-         card.classList.remove('show-equip-overlay'); // Oculta o de equipamentos
-         card.classList.add('show-info-overlay'); // Mostra o de infos
+         card.classList.remove('show-equip-overlay'); 
+         card.classList.add('show-info-overlay'); 
       }
     }
     
     if (equipIcon || equipOverlay) {
       const card = (equipIcon || equipOverlay).closest('.card');
       if (card) {
-         card.classList.remove('show-info-overlay'); // Oculta o de infos
-         card.classList.add('show-equip-overlay'); // Mostra o de equipamentos
+         card.classList.remove('show-info-overlay'); 
+         card.classList.add('show-equip-overlay'); 
       }
     }
   });
@@ -204,11 +213,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = e.target.closest('.card');
     if (card) {
       const rel = e.relatedTarget;
-      // Esconde Info se sair dele e não for pro outro
       if (!rel || (!rel.closest('.info-icon') && !rel.closest('.card-overlay-info'))) {
         card.classList.remove('show-info-overlay');
       }
-      // Esconde Equip se sair dele e não for pro outro
       if (!rel || (!rel.closest('.equip-icon') && !rel.closest('.card-overlay-equip'))) {
         card.classList.remove('show-equip-overlay');
       }
@@ -288,12 +295,10 @@ document.addEventListener('DOMContentLoaded', () => {
     cardsGrid.innerHTML = allCards.map((c, index) => {
       const m = c.cardType === 'Monster';
       
-      /* Variáveis separadas para os ícones e painéis */
       let infoIconHTML = '';
       let equipIconHTML = '';
       let infoOverlayHTML = '';
       let equipOverlayHTML = '';
-      
       let gStars = [];
 
       const isAboveTheFold = index < 12;
@@ -317,7 +322,6 @@ document.addEventListener('DOMContentLoaded', () => {
         const sortedDrops = sortData(x.drops || []);
         const sortedUses = sortData(x.uses || []);
 
-        /* ── MONTAGEM DO PAINEL DE DROPS E USOS (INFO) ── */
         if (sortedDrops.length > 0 || sortedUses.length > 0) {
           infoIconHTML = `<img class="info-icon" src="images/others-icon/info-icon_2.png" alt="Info" title="Ver Drops e Usos">`;
           infoOverlayHTML = `
@@ -342,7 +346,6 @@ document.addEventListener('DOMContentLoaded', () => {
           infoOverlayHTML += `</div></div>`;
         }
 
-        /* ── MONTAGEM DO PAINEL DE EQUIPAMENTOS (E-ICON) ── */
         if (x.equips && x.equips.length > 0) {
           equipIconHTML = `<img class="equip-icon" src="images/others-icon/e-icon.png" alt="Equips" title="Ver Cartas de Equipamento">`;
           equipOverlayHTML = `
@@ -372,7 +375,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       return `
       <article class="card" data-type="${c.cardType}" id="card-${c.id}">
-        <!-- Renderização Inteligente dos 2 Overlays (Se existirem) -->
         ${infoOverlayHTML}
         ${equipOverlayHTML}
 
@@ -495,8 +497,14 @@ document.addEventListener('DOMContentLoaded', () => {
     b.addEventListener('click', () => setFilter(currentFilter === b.dataset.filter ? 'name' : b.dataset.filter));
   });
 
-  window.addEventListener('scroll', () => { scrollTopBtn.classList.toggle('show', window.scrollY > 400); });
-  scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  /* Lógica de exibir/ocultar botão Scroll To Top */
+  window.addEventListener('scroll', () => { 
+    scrollTopBtn.classList.toggle('show', window.scrollY > 400); 
+  });
+  
+  scrollTopBtn.addEventListener('click', () => { 
+    window.scrollTo({ top: 0, behavior: 'smooth' }); 
+  });
 
   init();
 

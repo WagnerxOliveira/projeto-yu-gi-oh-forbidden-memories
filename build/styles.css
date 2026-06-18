@@ -32,6 +32,7 @@ html::-webkit-scrollbar { width: 8px; }
 html::-webkit-scrollbar-track { background: var(--bg-space); }
 html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple)); border-radius: 20px; }
 
+/* ── 🚀 FIX MOBILE STICKY: Clip ao invés de Hidden ── */
 body {
   font-family: 'Rajdhani', sans-serif;
   background-color: var(--bg-space);
@@ -43,13 +44,14 @@ body {
     repeating-linear-gradient(to bottom, rgba(0, 245, 255, 0.02) 0px, rgba(0, 245, 255, 0.02) 1px, transparent 1px, transparent 50px);
   background-attachment: fixed;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow-x: clip; 
+  max-width: 100vw;
 }
 
 /* =========================================
    CABEÇALHO FUTURISTA
    ========================================= */
-.header { text-align: center; padding: 50px 20px 30px; position: relative; }
+.header { text-align: center; padding: 50px 20px 30px; position: relative; width: 100%; }
 .header::after { content: ''; position: absolute; bottom: 0; left: 15%; width: 70%; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), transparent); box-shadow: 0 0 12px var(--neon-cyan); }
 .header__title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 900; letter-spacing: 6px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 20%, var(--neon-cyan) 60%, var(--neon-purple) 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(0,245,255,0.3)); margin-bottom: 6px; }
 .header__subtitle { font-family: 'Orbitron', sans-serif; font-size: clamp(0.7rem, 1.5vw, 0.95rem); color: var(--neon-cyan); letter-spacing: 8px; text-transform: uppercase; font-weight: 600; text-shadow: 0 0 8px rgba(0,245,255,0.5); opacity: 0.85; }
@@ -57,7 +59,7 @@ body {
 /* =========================================
    PAINEL DE PESQUISA & HUD BOTÕES
    ========================================= */
-.search-container { position: sticky; top: 0; z-index: 100; background: rgba(2, 4, 10, 0.75); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 1.5rem; border-bottom: 1px solid rgba(0, 245, 255, 0.12); box-shadow: 0 15px 40px rgba(0,0,0,0.9); }
+.search-container { position: sticky; top: 0; z-index: 2000; background: rgba(2, 4, 10, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 1.5rem; border-bottom: 1px solid rgba(0, 245, 255, 0.12); box-shadow: 0 15px 40px rgba(0,0,0,0.9); width: 100%; max-width: 100vw; box-sizing: border-box;}
 .search-wrapper { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
 
 #searchInput { width: 100%; padding: 18px 24px; border-radius: 8px; background: rgba(6, 9, 16, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: #fff; font-family: 'Orbitron', sans-serif; font-size: 1rem; outline: none; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: inset 0 3px 12px rgba(0,0,0,0.7); }
@@ -68,9 +70,6 @@ body {
 .filter-btn { position: relative; padding: 12px 20px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, rgba(0, 245, 255, 0.15) 50%, rgba(255, 255, 255, 0.02) 100%); background-size: 300% 100%; background-position: 100% 0; border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-muted); font-family: 'Orbitron', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 6px; transition: all 0.4s ease, background-position 0.4s ease; flex-grow: 1; text-align: center; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; overflow: visible; }
 .filter-btn.active, .filter-btn:hover { border-color: var(--neon-cyan); color: #fff; background-position: 0% 0; box-shadow: 0 0 18px rgba(0, 245, 255, 0.35), inset 0 0 10px rgba(0, 245, 255, 0.2); text-shadow: 0 0 6px var(--neon-cyan); }
 
-/* ============================================================
-   🔥 TOOLTIPS INTELIGENTES (UI/UX DESIGN EXPERT) 🔥
-   ============================================================ */
 .filter-btn::after { position: absolute; top: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(12px); background: rgba(6, 9, 16, 0.98); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 8px; padding: 14px 18px; font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; text-align: center; line-height: 1.6; width: max-content; max-width: 400px; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.9); white-space: pre-wrap; }
 .filter-btn::before { content: ''; position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%) translateY(12px); border-width: 6px; border-style: solid; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; }
 
@@ -127,15 +126,10 @@ body {
 .card-id { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: 800; color: var(--neon-cyan); letter-spacing: 1px; text-shadow: 0 0 8px rgba(0,245,255,0.4);}
 .card-badge { padding: 4px 10px; border-radius: 4px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: #fff; box-shadow: inset 0 0 8px rgba(0,0,0,0.6); z-index: 18; position: relative; letter-spacing: 1px;}
 
-/* 🔥 GRUPO DE ÍCONES (INFO & E-ICON) 🔥 */
 .icon-group { display: flex; align-items: center; gap: 6px; }
-
-img.info-icon, img.equip-icon { 
-  width: 16px; height: 16px; object-fit: contain; cursor: help; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-}
+img.info-icon, img.equip-icon { width: 16px; height: 16px; object-fit: contain; cursor: help; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 img.info-icon { filter: drop-shadow(0 0 2px rgba(0, 245, 255, 0.4)); }
 img.info-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-shadow(0 0 8px var(--neon-cyan)) brightness(1.2); }
-
 img.equip-icon { filter: drop-shadow(0 0 2px rgba(0, 255, 136, 0.4)); }
 img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-shadow(0 0 8px var(--neon-green)) brightness(1.2); }
 
@@ -150,22 +144,15 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
   aspect-ratio: 280 / 300; overflow: hidden;
 }
 
-/* UX SÊNIOR: EFEITO DE NICHO NÃO DROPÁVEL (CUSTO 0) */
 .card-img-wrapper.non-droppable-niche {
-  background: 
-    repeating-linear-gradient(0deg, rgba(168, 85, 247, 0.05) 0px, rgba(168, 85, 247, 0.05) 1px, transparent 1px, transparent 4px), 
-    radial-gradient(circle, rgba(15, 5, 25, 1) 0%, rgba(5, 2, 8, 1) 100%); 
+  background: repeating-linear-gradient(0deg, rgba(168, 85, 247, 0.05) 0px, rgba(168, 85, 247, 0.05) 1px, transparent 1px, transparent 4px), radial-gradient(circle, rgba(15, 5, 25, 1) 0%, rgba(5, 2, 8, 1) 100%); 
   box-shadow: inset 0 10px 40px rgba(0, 0, 0, 1), inset 0 0 20px rgba(168, 85, 247, 0.15); 
 }
 
-/* O Vidro Principal que cobre a caixa */
 .card-img-wrapper::after { content: ''; position: absolute; inset: 0; border-radius: 8px; pointer-events: none; background: linear-gradient(105deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(0,245,255,0.1) 100%); z-index: 10; box-shadow: inset 0 1px 1px rgba(255,255,255,0.25); }
-
-/* O Feixe de Luz Holográfico "Glass Sweep" contínuo a cada 6s */
 .card-img-wrapper::before { content: ''; position: absolute; top: -50%; left: -150%; width: 50%; height: 200%; pointer-events: none; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); animation: superGlassSweep 6s infinite ease-in-out; z-index: 11; }
 @keyframes superGlassSweep { 0% { left: -150%; } 15% { left: 250%; } 100% { left: 250%; } }
 
-/* A Própria Carta (O Bloco de Acrílico Lapidado) */
 .card-img-front, .card-img-back { 
   grid-area: 1 / 1; width: 100%; max-width: 195px; border-radius: 8px; padding: 6px; 
   background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(0,245,255,0.05) 40%, rgba(0,0,0,0.5) 100%);
@@ -173,13 +160,13 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
   box-shadow: 0 20px 40px rgba(0,0,0,0.95), inset 0 2px 6px rgba(255,255,255,0.3); 
   transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.8s ease; z-index: 2;
 }
+
 .card-img-front { opacity: 1; transform: scale(1); filter: brightness(1); }
 .card-img-back { opacity: 0; z-index: 1; transform: scale(0.93); filter: blur(2px); } 
 .card-img-wrapper:hover .card-img-front { transform: scale(1.06) translateY(-3px); }
 .card-img-wrapper:not(.no-desc):hover .card-img-front { opacity: 0; transform: scale(1.08) translateY(-3px); filter: blur(3px); }
 .card-img-wrapper:not(.no-desc):hover .card-img-back { opacity: 1; z-index: 3; transform: scale(1.06) translateY(-3px); filter: blur(0); }
 
-/* ── FAIXA SMOKED GLASS "NÃO DROPÁVEL" NO CANTO INFERIOR DIREITO DA IMAGEM ── */
 .non-droppable-ribbon {
   position: absolute; bottom: 15px; right: 0; background: rgba(5, 7, 12, 0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); 
   border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(0, 0, 0, 0.5); border-left: 2px solid rgba(225, 29, 72, 0.4); 
@@ -217,7 +204,6 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 
 .type-icon { width: 16px; height: 16px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)); }
 .atk-def-icon { width: 15px; height: 15px; object-fit: contain; filter: drop-shadow(0 1px 3px rgba(0,0,0,0.9)); }
-
 .guardian-stars-container { display: flex; justify-content: flex-end; align-items: center; gap: 12px; flex-wrap: wrap; }
 .g-star-item { display: inline-flex; align-items: center; gap: 5px; font-family: 'Rajdhani', sans-serif; font-weight: 700; font-size: 0.85rem; color: #fff; }
 .g-star-icon { width: 18px; height: 18px; object-fit: contain; filter: drop-shadow(0 2px 4px rgba(0,0,0,0.8)); }
@@ -231,8 +217,6 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
   z-index: 50; opacity: 0; visibility: hidden; transition: all 0.35s ease; display: flex; flex-direction: column; 
   border-radius: 12px; overflow: hidden; pointer-events: none; text-align: left; font-weight: normal; color: var(--text-main); cursor: default; 
 }
-
-/* Acionadores JS */
 .card.show-info-overlay .card-overlay-info { opacity: 1; visibility: visible; pointer-events: auto; }
 .card.show-equip-overlay .card-overlay-equip { opacity: 1; visibility: visible; pointer-events: auto; }
 
@@ -244,7 +228,6 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 .overlay-content::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 4px; }
 .overlay-title { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--neon-cyan); border-bottom: 1px solid rgba(0, 245, 255, 0.3); padding-bottom: 6px; margin-bottom: -4px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
-/* TEMA ESMERALDA PARA O PAINEL DE EQUIPAMENTOS (E-ICON) */
 .card-overlay-equip .overlay-header { background: linear-gradient(180deg, rgba(0,255,136,0.08), rgba(0,0,0,0.3)); border-bottom: 1px solid var(--neon-green); }
 .card-overlay-equip .overlay-header-id { color: var(--neon-green); }
 .card-overlay-equip .overlay-title { color: var(--neon-green); border-bottom-color: rgba(0, 255, 136, 0.3); }
@@ -253,7 +236,6 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 .overlay-list { display: flex; flex-direction: column; gap: 8px; }
 .overlay-list.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .overlay-item { display: flex; align-items: center; justify-content: space-between; gap: 10px; background: rgba(255, 255, 255, 0.03); padding: 10px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.06); transition: all 0.2s ease; }
-
 .card-overlay-info .overlay-item:hover { background: rgba(0, 245, 255, 0.1); border-color: rgba(0, 245, 255, 0.4); transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
 .card-overlay-equip .overlay-item:hover { background: rgba(0, 255, 136, 0.1); border-color: rgba(0, 255, 136, 0.4); transform: translateX(4px); box-shadow: 0 4px 12px rgba(0,0,0,0.6); }
 
@@ -272,25 +254,35 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 .frac { color: rgba(255,255,255,0.5); font-size: 0.7rem; }
 
 /* ============================================================
-   BOTÃO VOLTAR AO TOPO
+   🚀 BOTÃO SCROLL TO TOP 🚀
    ============================================================ */
-.scroll-top-btn { position: fixed; bottom: 30px; right: 30px; width: 50px; height: 50px; border-radius: 50%; background: rgba(0,245,255,0.1); border: 1px solid var(--neon-cyan); color: var(--neon-cyan); font-size: 1.4rem; cursor: pointer; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 200; display: inline-flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); box-shadow: 0 0 15px rgba(0,245,255,0.2);}
-.scroll-top-btn.visible { opacity: 1; visibility: visible; }
-.scroll-top-btn:hover { background: var(--neon-cyan); color: #000; transform: translateY(-4px); box-shadow: 0 10px 25px rgba(0,245,255,0.4); }
+.scroll-top-btn { 
+  position: fixed; bottom: 25px; right: 25px; width: 45px; height: 45px; 
+  border-radius: 50%; background: rgba(0, 245, 255, 0.15); border: 1px solid var(--neon-cyan); 
+  color: var(--neon-cyan); font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden; 
+  transform: translateY(20px); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
+  z-index: 9999; display: flex; align-items: center; justify-content: center; 
+  backdrop-filter: blur(10px); box-shadow: 0 0 15px rgba(0,245,255,0.2);
+}
+.scroll-top-btn.show { opacity: 1; visibility: visible; transform: translateY(0); }
+.scroll-top-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 20px var(--neon-cyan); }
 
 /* ============================================================
-   🔥 RESPONSIVIDADE E EMPILHAMENTO MÓVEL 🔥
+   🔥 RESPONSIVIDADE EXTREMA E EMPILHAMENTO MÓVEL 🔥
    ============================================================ */
 @media (max-width: 1200px) { .cards-grid { grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.5rem; padding: 2rem; } }
 
 @media (max-width: 768px) {
   .header { padding: 30px 15px 15px; }
-  .header__title { font-size: 1.7rem; letter-spacing: 3px;}
-  .cards-grid { grid-template-columns: repeat(2, 1fr); padding: 10px; gap: 10px; }
+  .header__title { font-size: 1.5rem; letter-spacing: 2px;}
+  
+  /* 🚀 FIX MOBILE WIDTH BUGS: minmax(0, 1fr) impede blowout de grid! */
+  .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 10px; gap: 8px; width: 100%;}
+  .card { min-width: 0; }
   
   .card-header { padding: 8px 10px; }
-  .card-id { font-size: 0.65rem; }
-  .card-badge { font-size: 0.5rem; padding: 3px 6px; }
+  .card-id { font-size: 0.60rem; }
+  .card-badge { font-size: 0.45rem; padding: 3px 5px; }
   
   .card-stats { grid-template-columns: 1fr; gap: 5px; } 
   .stat-row.full-width-desk, .stat-row.stat-type, .stat-row.stat-level, .stat-row.stat-atk, .stat-row.stat-def { grid-column: 1 / -1; }
@@ -298,24 +290,26 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
   .text-desktop { display: none; }
   .text-mobile { display: inline; }
   
-  .card-body { padding: 12px 10px; gap: 6px;}
-  .card-title { font-size: 0.85rem; margin-bottom: 2px; padding-bottom: 8px; min-height: auto; }
+  .card-body { padding: 10px 8px; gap: 6px;}
+  .card-title { font-size: 0.75rem; margin-bottom: 2px; padding-bottom: 8px; min-height: auto; white-space: normal; word-break: break-word;}
   
-  .stat-row { padding: 6px 8px; border-left-width: 2px;}
-  .stat-label { font-size: 0.5rem; }
-  .stat-val { font-size: 0.75rem; gap: 4px;}
+  .stat-row { padding: 6px 4px; gap: 4px; border-left-width: 2px;}
+  .stat-label { font-size: 0.5rem; letter-spacing: 0.5px;}
+  /* Password overflow breaker resuelto aqui: */
+  .stat-val { font-size: 0.7rem; gap: 4px; word-break: break-word;} 
   
   .overlay-list.grid-2 { grid-template-columns: 1fr; }
   .overlay-header-name { font-size: 0.75rem; }
   .char-img { width: 30px; height: 30px; }
   .equip-img { width: 24px; height: 34px; }
+  
   .scroll-top-btn { bottom: 15px; right: 15px; width: 40px; height: 40px; font-size: 1rem; }
-  .badge-rank { min-width: 85px; width: 85px; font-size: 0.5rem;}
-  .char-name { max-width: 90px; }
+  .badge-rank { min-width: 80px; width: 80px; font-size: 0.45rem;}
+  .char-name { max-width: 80px; }
   
   .type-icon { width: 14px; height: 14px; }
-  .g-star-item { font-size: 0.8rem; gap: 4px; }
+  .g-star-item { font-size: 0.7rem; gap: 3px; }
   .g-star-icon { width: 14px; height: 14px; }
   .atk-def-icon { width: 12px; height: 12px; }
-  .star-icon { font-size: 0.85rem; }
+  .star-icon { font-size: 0.8rem; }
 }
