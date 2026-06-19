@@ -32,7 +32,6 @@ html::-webkit-scrollbar { width: 8px; }
 html::-webkit-scrollbar-track { background: var(--bg-space); }
 html::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple)); border-radius: 20px; }
 
-/* ── 🚀 FIX MOBILE WIDTH: Remoção de Overflow global que quebrava o Sticky ── */
 body {
   font-family: 'Rajdhani', sans-serif;
   background-color: var(--bg-space);
@@ -44,32 +43,16 @@ body {
     repeating-linear-gradient(to bottom, rgba(0, 245, 255, 0.02) 0px, rgba(0, 245, 255, 0.02) 1px, transparent 1px, transparent 50px);
   background-attachment: fixed;
   min-height: 100vh;
-  /* Retirado overflow-x para não quebrar o sticky no mobile */
+  overflow-x: clip; 
+  max-width: 100vw;
 }
 
-/* =========================================
-   CABEÇALHO FUTURISTA
-   ========================================= */
 .header { text-align: center; padding: 50px 20px 30px; position: relative; width: 100%; overflow: hidden;}
 .header::after { content: ''; position: absolute; bottom: 0; left: 15%; width: 70%; height: 1px; background: linear-gradient(90deg, transparent, var(--neon-cyan), var(--neon-purple), transparent); box-shadow: 0 0 12px var(--neon-cyan); }
 .header__title { font-family: 'Orbitron', sans-serif; font-size: clamp(1.8rem, 5vw, 3.2rem); font-weight: 900; letter-spacing: 6px; text-transform: uppercase; background: linear-gradient(135deg, #ffffff 20%, var(--neon-cyan) 60%, var(--neon-purple) 100%); background-clip: text; -webkit-background-clip: text; -webkit-text-fill-color: transparent; filter: drop-shadow(0 0 20px rgba(0,245,255,0.3)); margin-bottom: 6px; }
 .header__subtitle { font-family: 'Orbitron', sans-serif; font-size: clamp(0.7rem, 1.5vw, 0.95rem); color: var(--neon-cyan); letter-spacing: 8px; text-transform: uppercase; font-weight: 600; text-shadow: 0 0 8px rgba(0,245,255,0.5); opacity: 0.85; }
 
-/* =========================================
-   PAINEL DE PESQUISA & HUD BOTÕES (FIXED STICKY)
-   ========================================= */
-.search-container { 
-  position: -webkit-sticky; /* Suporte Safari */
-  position: sticky; 
-  top: 0; 
-  z-index: 2000; 
-  background: rgba(2, 4, 10, 0.85); 
-  backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
-  padding: 1.5rem; 
-  border-bottom: 1px solid rgba(0, 245, 255, 0.12); 
-  box-shadow: 0 15px 40px rgba(0,0,0,0.9); 
-  width: 100%;
-}
+.search-container { position: -webkit-sticky; position: sticky; top: 0; z-index: 2000; background: rgba(2, 4, 10, 0.85); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); padding: 1.5rem; border-bottom: 1px solid rgba(0, 245, 255, 0.12); box-shadow: 0 15px 40px rgba(0,0,0,0.9); width: 100%;}
 .search-wrapper { max-width: 1200px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; }
 
 #searchInput { width: 100%; padding: 18px 24px; border-radius: 8px; background: rgba(6, 9, 16, 0.6); border: 1px solid rgba(255, 255, 255, 0.08); color: #fff; font-family: 'Orbitron', sans-serif; font-size: 1rem; outline: none; transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1); box-shadow: inset 0 3px 12px rgba(0,0,0,0.7); }
@@ -80,43 +63,28 @@ body {
 .filter-btn { position: relative; padding: 12px 20px; background: linear-gradient(90deg, rgba(255, 255, 255, 0.02) 0%, rgba(0, 245, 255, 0.15) 50%, rgba(255, 255, 255, 0.02) 100%); background-size: 300% 100%; background-position: 100% 0; border: 1px solid rgba(255, 255, 255, 0.08); color: var(--text-muted); font-family: 'Orbitron', sans-serif; font-size: 0.75rem; cursor: pointer; border-radius: 6px; transition: all 0.4s ease, background-position 0.4s ease; flex-grow: 1; text-align: center; text-transform: uppercase; font-weight: 700; letter-spacing: 1.5px; overflow: visible; }
 .filter-btn.active, .filter-btn:hover { border-color: var(--neon-cyan); color: #fff; background-position: 0% 0; box-shadow: 0 0 18px rgba(0, 245, 255, 0.35), inset 0 0 10px rgba(0, 245, 255, 0.2); text-shadow: 0 0 6px var(--neon-cyan); }
 
-/* TOOLTIPS OCULTADOS EM TELAS MUITO PEQUENAS PARA NÃO QUEBRAR O LAYOUT */
 @media (min-width: 1024px) {
   .filter-btn::after { position: absolute; top: calc(100% + 15px); left: 50%; transform: translateX(-50%) translateY(12px); background: rgba(6, 9, 16, 0.98); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); border-radius: 8px; padding: 14px 18px; font-family: 'Rajdhani', sans-serif; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px; text-align: center; line-height: 1.6; width: max-content; max-width: 400px; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; color: #ffffff; text-shadow: 0 1px 3px rgba(0,0,0,0.9); white-space: pre-wrap; }
   .filter-btn::before { content: ''; position: absolute; top: calc(100% + 4px); left: 50%; transform: translateX(-50%) translateY(12px); border-width: 6px; border-style: solid; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); z-index: 1000; }
-  
   .filter-btn[data-filter="name"]::after { content: "NOME / ID 🔍 \A Digite o nome da carta ou o ID, de 001 à 722."; border: 1px solid var(--neon-cyan); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(0,245,255,0.4); }
   .filter-btn[data-filter="name"]::before { border-color: transparent transparent var(--neon-cyan) transparent; }
-  
-  .filter-btn[data-filter="atk"]::after { content: "ATK ⚔️ \A Digite um valor de ATK podendo ser: 0, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 920, 950, 1000, 1050, 1100, 1150, 1200, 1250, 1300, 1350, 1380, 1400, 1450, 1500, 1550, 1600, 1610, 1650, 1700, 1750, 1800, 1850, 1900, 1950, 2000, 2050, 2100, 2150, 2200, 2250, 2300, 2350, 2400, 2450, 2500, 2550, 2600, 2650, 2750, 2800, 2850, 2900, 3000, 3200, 3500, 3750, 4500."; border: 1px solid var(--neon-red); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,51,102,0.4); }
+  .filter-btn[data-filter="atk"]::after { content: "ATK ⚔️"; border: 1px solid var(--neon-red); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,51,102,0.4); }
   .filter-btn[data-filter="atk"]::before { border-color: transparent transparent var(--neon-red) transparent; }
-  
-  .filter-btn[data-filter="def"]::after { content: "DEF 🛡️ \A Digite um valor de DEF podendo ser: 0, 100, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800, 850, 900, 950, 1000, 1100, 1150, 1200, 1250, 1300, 1400, 1460, 1500, 1530, 1550, 1600, 1650, 1700, 1800, 1850, 1900, 1930, 1950, 2000, 2030, 2100, 2150, 2200, 2250, 2300, 2350, 2400, 2450, 2500, 2550, 2600, 3000, 3400, 3800."; border: 1px solid var(--neon-blue); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(51,204,255,0.4); }
+  .filter-btn[data-filter="def"]::after { content: "DEF 🛡️"; border: 1px solid var(--neon-blue); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(51,204,255,0.4); }
   .filter-btn[data-filter="def"]::before { border-color: transparent transparent var(--neon-blue) transparent; }
-  
-  .filter-btn[data-filter="cost"]::after { content: "COST 💰 \A Digite o valor de custo podendo ser: 0, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 70, 80, 100, 120, 140, 160, 180, 200, 230, 260, 290, 320, 350, 400, 500, 550, 700, 800, 900, 1000, 1700, 1900, 20000, 35000, 50000, 999999."; border: 1px solid var(--neon-gold); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,183,3,0.4); }
+  .filter-btn[data-filter="cost"]::after { content: "COST 💰"; border: 1px solid var(--neon-gold); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,183,3,0.4); }
   .filter-btn[data-filter="cost"]::before { border-color: transparent transparent var(--neon-gold) transparent; }
-  
   .filter-btn[data-filter="card-type"]::after { content: "CARD-TYPE 📋 \A Equip, Magic, Ritual, Field, Trap."; border: 1px solid var(--neon-cyan); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(0,245,255,0.4); }
   .filter-btn[data-filter="card-type"]::before { border-color: transparent transparent var(--neon-cyan) transparent; }
-  
-  .filter-btn[data-filter="type"]::after { content: "TYPE 🐉 \A Aqua, Magic, Beast, Beast-Warrior, Dinosaur, Dragon, Fairy, Fiend, Fish, Insect, Machine, Plant, Pyro, Reptile, Rock, Sea Serpent, Spellcaster, Thunder, Warrior, Winged Beast, Zombie."; border: 1px solid var(--neon-purple); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
+  .filter-btn[data-filter="type"]::after { content: "TYPE 🐉 \A Aqua, Beast, Dragon, Spellcaster, etc."; border: 1px solid var(--neon-purple); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(168,85,247,0.4); }
   .filter-btn[data-filter="type"]::before { border-color: transparent transparent var(--neon-purple) transparent; }
-  
   .filter-btn[data-filter="level"]::after { content: "LEVEL ⭐ \A Digite um valor de level sendo de 1 a 12."; border: 1px solid var(--neon-gold); box-shadow: 0 15px 35px rgba(0,0,0,0.95), 0 0 20px rgba(255,183,3,0.4); }
   .filter-btn[data-filter="level"]::before { border-color: transparent transparent var(--neon-gold) transparent; }
-  
   .filter-btn:hover::after, .filter-btn:hover::before { opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0); }
 }
 
-/* =========================================
-   GRID DA DATABASE
-   ========================================= */
 .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(295px, 1fr)); gap: 2.5rem; padding: 3rem; max-width: 1550px; margin: 0 auto; }
 
-/* ============================================================
-   HYPER-GLASSMORPHISM DA CARTA GERAL
-   ============================================================ */
 .card {
   background: var(--bg-card); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.06); border-radius: 18px;
   overflow: hidden; transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; flex-direction: column; 
@@ -133,82 +101,53 @@ body {
 .card[data-type="Trap"]    { border-top: 4px solid var(--c-trap); box-shadow: inset 0 4px 15px rgba(190, 18, 60, 0.12), 0 15px 35px rgba(0,0,0,0.6); }
 .card[data-type="Ritual"]  { border-top: 4px solid var(--c-ritual); box-shadow: inset 0 4px 15px rgba(29, 78, 216, 0.12), 0 15px 35px rgba(0,0,0,0.6); }
 
-/* CABEÇALHO INTERNO DO CARD */
 .card-header { padding: 12px 18px; background: rgba(0, 0, 0, 0.3); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.04); position: relative; z-index: 2; }
 .card-id-wrapper { display: flex; align-items: center; gap: 8px; z-index: 18; position: relative;}
 .card-id { font-family: 'Orbitron', sans-serif; font-size: 0.85rem; font-weight: 800; color: var(--neon-cyan); letter-spacing: 1px; text-shadow: 0 0 8px rgba(0,245,255,0.4);}
 .card-badge { padding: 4px 10px; border-radius: 4px; font-size: 0.65rem; font-weight: 900; text-transform: uppercase; color: #fff; box-shadow: inset 0 0 8px rgba(0,0,0,0.6); z-index: 18; position: relative; letter-spacing: 1px;}
 
+/* 🔥 GRUPO DE ÍCONES (INFO, E-ICON, R-ICON) 🔥 */
 .icon-group { display: flex; align-items: center; gap: 6px; }
-img.info-icon, img.equip-icon { width: 16px; height: 16px; object-fit: contain; cursor: help; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
+img.info-icon, img.equip-icon, img.ritual-icon { width: 16px; height: 16px; object-fit: contain; cursor: help; transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); }
 img.info-icon { filter: drop-shadow(0 0 2px rgba(0, 245, 255, 0.4)); }
 img.info-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-shadow(0 0 8px var(--neon-cyan)) brightness(1.2); }
 img.equip-icon { filter: drop-shadow(0 0 2px rgba(0, 255, 136, 0.4)); }
 img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-shadow(0 0 8px var(--neon-green)) brightness(1.2); }
+img.ritual-icon { filter: drop-shadow(0 0 2px rgba(168, 85, 247, 0.4)); }
+img.ritual-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-shadow(0 0 8px var(--neon-purple)) brightness(1.2); }
 
-/* ============================================================
-   🔥 UPGRADE: ACRYLIC GLASS BOX E SCANLINE HOLOGRÁFICO 🔥
-   ============================================================ */
-.card-img-wrapper { 
-  width: 100%; padding: 25px; 
-  background: linear-gradient(145deg, rgba(25, 35, 50, 0.95) 0%, rgba(5, 7, 12, 1) 100%); 
-  display: grid; place-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.04); position: relative; cursor: pointer; z-index: 18; 
-  box-shadow: inset 0 12px 35px rgba(0, 0, 0, 0.95), inset 0 0 15px rgba(0, 245, 255, 0.1), 0 5px 15px rgba(0,0,0,0.5); 
-  aspect-ratio: 280 / 300; overflow: hidden;
-}
-
-.card-img-wrapper.non-droppable-niche {
-  background: repeating-linear-gradient(0deg, rgba(168, 85, 247, 0.05) 0px, rgba(168, 85, 247, 0.05) 1px, transparent 1px, transparent 4px), radial-gradient(circle, rgba(15, 5, 25, 1) 0%, rgba(5, 2, 8, 1) 100%); 
-  box-shadow: inset 0 10px 40px rgba(0, 0, 0, 1), inset 0 0 20px rgba(168, 85, 247, 0.15); 
-}
-
+.card-img-wrapper { width: 100%; padding: 25px; background: linear-gradient(145deg, rgba(25, 35, 50, 0.95) 0%, rgba(5, 7, 12, 1) 100%); display: grid; place-items: center; border-bottom: 1px solid rgba(255, 255, 255, 0.04); position: relative; cursor: pointer; z-index: 18; box-shadow: inset 0 12px 35px rgba(0, 0, 0, 0.95), inset 0 0 15px rgba(0, 245, 255, 0.1), 0 5px 15px rgba(0,0,0,0.5); aspect-ratio: 280 / 300; overflow: hidden; }
+.card-img-wrapper.non-droppable-niche { background: repeating-linear-gradient(0deg, rgba(168, 85, 247, 0.05) 0px, rgba(168, 85, 247, 0.05) 1px, transparent 1px, transparent 4px), radial-gradient(circle, rgba(15, 5, 25, 1) 0%, rgba(5, 2, 8, 1) 100%); box-shadow: inset 0 10px 40px rgba(0, 0, 0, 1), inset 0 0 20px rgba(168, 85, 247, 0.15); }
 .card-img-wrapper::after { content: ''; position: absolute; inset: 0; border-radius: 8px; pointer-events: none; background: linear-gradient(105deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0) 30%, rgba(255,255,255,0) 70%, rgba(0,245,255,0.1) 100%); z-index: 10; box-shadow: inset 0 1px 1px rgba(255,255,255,0.25); }
 .card-img-wrapper::before { content: ''; position: absolute; top: -50%; left: -150%; width: 50%; height: 200%; pointer-events: none; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.25) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); animation: superGlassSweep 6s infinite ease-in-out; z-index: 11; }
 @keyframes superGlassSweep { 0% { left: -150%; } 15% { left: 250%; } 100% { left: 250%; } }
 
-.card-img-front, .card-img-back { 
-  grid-area: 1 / 1; width: 100%; max-width: 195px; border-radius: 8px; padding: 6px; 
-  background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(0,245,255,0.05) 40%, rgba(0,0,0,0.5) 100%);
-  border-top: 1px solid rgba(255,255,255,0.6); border-left: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(0,0,0,0.9); border-right: 1px solid rgba(0,0,0,0.7);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.95), inset 0 2px 6px rgba(255,255,255,0.3); 
-  transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.8s ease; z-index: 2;
-}
+.card-img-front, .card-img-back { grid-area: 1 / 1; width: 100%; max-width: 195px; border-radius: 8px; padding: 6px; background: linear-gradient(135deg, rgba(255,255,255,0.25) 0%, rgba(0,245,255,0.05) 40%, rgba(0,0,0,0.5) 100%); border-top: 1px solid rgba(255,255,255,0.6); border-left: 1px solid rgba(255,255,255,0.3); border-bottom: 1px solid rgba(0,0,0,0.9); border-right: 1px solid rgba(0,0,0,0.7); box-shadow: 0 20px 40px rgba(0,0,0,0.95), inset 0 2px 6px rgba(255,255,255,0.3); transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), transform 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), filter 0.8s ease; z-index: 2; }
 .card-img-front { opacity: 1; transform: scale(1); filter: brightness(1); }
 .card-img-back { opacity: 0; z-index: 1; transform: scale(0.93); filter: blur(2px); } 
 .card-img-wrapper:hover .card-img-front { transform: scale(1.06) translateY(-3px); }
 .card-img-wrapper:not(.no-desc):hover .card-img-front { opacity: 0; transform: scale(1.08) translateY(-3px); filter: blur(3px); }
 .card-img-wrapper:not(.no-desc):hover .card-img-back { opacity: 1; z-index: 3; transform: scale(1.06) translateY(-3px); filter: blur(0); }
 
-.non-droppable-ribbon {
-  position: absolute; bottom: 15px; right: 0; background: rgba(5, 7, 12, 0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); 
-  border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(0, 0, 0, 0.5); border-left: 2px solid rgba(225, 29, 72, 0.4); 
-  color: rgba(255, 255, 255, 0.4); padding: 4px 10px 4px 12px; border-radius: 12px 0 0 12px; font-family: 'Orbitron', sans-serif; font-size: 0.55rem; font-weight: 700; letter-spacing: 1px; z-index: 25; 
-  box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.3); text-transform: uppercase; display: flex; align-items: center; gap: 6px; transition: all 0.4s ease;
-}
+.non-droppable-ribbon { position: absolute; bottom: 15px; right: 0; background: rgba(5, 7, 12, 0.5); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px); border-top: 1px solid rgba(255, 255, 255, 0.05); border-bottom: 1px solid rgba(0, 0, 0, 0.5); border-left: 2px solid rgba(225, 29, 72, 0.4); color: rgba(255, 255, 255, 0.4); padding: 4px 10px 4px 12px; border-radius: 12px 0 0 12px; font-family: 'Orbitron', sans-serif; font-size: 0.55rem; font-weight: 700; letter-spacing: 1px; z-index: 25; box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.3); text-transform: uppercase; display: flex; align-items: center; gap: 6px; transition: all 0.4s ease; }
 .non-droppable-ribbon::before { content: ''; width: 4px; height: 4px; border-radius: 50%; background-color: rgba(225, 29, 72, 0.5); box-shadow: 0 0 4px rgba(225, 29, 72, 0.2); transition: all 0.4s ease; }
 .card:hover .non-droppable-ribbon { background: rgba(15, 5, 10, 0.85); color: rgba(255, 255, 255, 0.95); border-left: 2px solid rgba(225, 29, 72, 0.95); box-shadow: -4px 4px 15px rgba(0, 0, 0, 0.8), 0 0 10px rgba(225, 29, 72, 0.3); }
 .card:hover .non-droppable-ribbon::before { background-color: #ff3366; box-shadow: 0 0 6px #ff3366, 0 0 12px #ff3366; animation: pulseRedDot 1.5s infinite ease-in-out; }
 @keyframes pulseRedDot { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(0.8); } }
 
-/* ============================================================
-   STATUS GRID - CONFIGURAÇÃO DOS CAMPOS DE ATRIBUTOS
-   ============================================================ */
 .card-body { padding: 20px 16px; display: flex; flex-direction: column; gap: 10px; flex-grow: 1; z-index: 2; position: relative;}
 .card-title { font-family: 'Exo 2', sans-serif; font-size: 1.15rem; font-weight: 800; color: #fff; text-shadow: 0 2px 5px rgba(0,0,0,0.9); text-align: center; text-transform: uppercase; letter-spacing: 1.5px; min-height: 3rem; display: flex; align-items: center; justify-content: center; border-bottom: 1px solid rgba(0, 245, 255, 0.18); padding-bottom: 15px; margin-bottom: 4px; }
 
 .card-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 .stat-row { display: flex; justify-content: space-between; align-items: center; background: linear-gradient(90deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%); padding: 10px 12px; border-radius: 6px; border: 1px solid rgba(255, 255, 255, 0.04); border-left: 2px solid var(--neon-cyan); }
 .stat-row.full-width-desk { grid-column: 1 / -1; }
-
 .stat-label { color: var(--neon-cyan); font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; font-family: 'Orbitron', sans-serif; opacity: 0.85; white-space: nowrap;}
 .stat-val { color: #fff; font-family: 'Orbitron', sans-serif; font-size: 0.85rem; text-align: right; display: inline-flex; align-items: center; justify-content: flex-end; gap: 8px; font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.8); }
 
 .text-mobile { display: none; }
 .text-desktop { display: inline; }
-
 .stat-row.stat-type { justify-content: flex-start; gap: 12px; border-left-color: var(--neon-purple); }
 .stat-row.stat-type .type-with-icon { justify-content: flex-start; }
-
 .stat-atk .stat-val { color: var(--neon-red); text-shadow: 0 0 10px rgba(255, 51, 102, 0.5); }
 .stat-def .stat-val { color: var(--neon-blue); text-shadow: 0 0 10px rgba(51, 204, 255, 0.5); }
 .stat-cost .stat-val { color: var(--neon-gold); text-shadow: 0 0 10px rgba(255, 183, 3, 0.5); }
@@ -222,7 +161,7 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 .star-icon { color: #facc15; font-size: 1.05rem; text-shadow: -1px -1px 0 #991b1b, 1px -1px 0 #991b1b, -1px 1px 0 #991b1b, 1px 1px 0 #991b1b, 0 2px 5px rgba(0,0,0,0.9); line-height: 1; display: inline-block; transform: translateY(-1px); }
 
 /* ============================================================
-   🔥 LÓGICA DE MULTI-OVERLAYS (INFO vs EQUIP) 🔥
+   🔥 LÓGICA DE MULTI-OVERLAYS (INFO, EQUIP, RITUAL) 🔥
    ============================================================ */
 .card-overlay { 
   position: absolute; inset: 0; background: rgba(3, 5, 10, 0.96); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
@@ -231,6 +170,7 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 }
 .card.show-info-overlay .card-overlay-info { opacity: 1; visibility: visible; pointer-events: auto; }
 .card.show-equip-overlay .card-overlay-equip { opacity: 1; visibility: visible; pointer-events: auto; }
+.card.show-ritual-overlay .card-overlay-ritual { opacity: 1; visibility: visible; pointer-events: auto; }
 
 .overlay-header { background: linear-gradient(180deg, rgba(0,245,255,0.08), rgba(0,0,0,0.3)); padding: 14px 10px; text-align: center; display: flex; flex-direction: column; align-items: center; border-bottom: 1px solid var(--neon-cyan); }
 .overlay-header-id { font-family: 'Orbitron', sans-serif; font-size: 0.65rem; color: var(--neon-cyan); font-weight: 800; letter-spacing: 2px; }
@@ -240,10 +180,17 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 .overlay-content::-webkit-scrollbar-thumb { background: var(--neon-cyan); border-radius: 4px; }
 .overlay-title { font-family: 'Orbitron', sans-serif; font-size: 0.7rem; color: var(--neon-cyan); border-bottom: 1px solid rgba(0, 245, 255, 0.3); padding-bottom: 6px; margin-bottom: -4px; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; text-shadow: 0 2px 4px rgba(0,0,0,0.8); }
 
+/* TEMA EQUIPAMENTOS (ESMERALDA) */
 .card-overlay-equip .overlay-header { background: linear-gradient(180deg, rgba(0,255,136,0.08), rgba(0,0,0,0.3)); border-bottom: 1px solid var(--neon-green); }
 .card-overlay-equip .overlay-header-id { color: var(--neon-green); }
 .card-overlay-equip .overlay-title { color: var(--neon-green); border-bottom-color: rgba(0, 255, 136, 0.3); }
 .card-overlay-equip::-webkit-scrollbar-thumb { background: var(--neon-green); }
+
+/* TEMA RITUAL (ROXO MÍSTICO NEON) */
+.card-overlay-ritual .overlay-header { background: linear-gradient(180deg, rgba(168,85,247,0.08), rgba(0,0,0,0.3)); border-bottom: 1px solid var(--neon-purple); }
+.card-overlay-ritual .overlay-header-id { color: var(--neon-purple); }
+.card-overlay-ritual .overlay-title { color: var(--neon-purple); border-bottom-color: rgba(168, 85, 247, 0.3); }
+.card-overlay-ritual::-webkit-scrollbar-thumb { background: var(--neon-purple); }
 
 .overlay-list { display: flex; flex-direction: column; gap: 8px; }
 .overlay-list.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
@@ -265,17 +212,22 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 .rate-pct { color: var(--neon-green); font-weight: 700; text-shadow: 0 0 8px rgba(0, 255, 135, 0.5); }
 .frac { color: rgba(255,255,255,0.5); font-size: 0.7rem; }
 
+/* ── ESTILOS EXCLUSIVOS DO RITUAL (EQUATION TREE) ── */
+.ritual-list { display: flex; flex-direction: column; gap: 15px; }
+.ritual-container { display: flex; flex-direction: column; gap: 12px; background: rgba(0, 0, 0, 0.4); padding: 16px 12px; border-radius: 8px; border: 1px solid rgba(168, 85, 247, 0.25); box-shadow: inset 0 0 15px rgba(0,0,0,0.8); }
+.ritual-equation { display: flex; align-items: center; justify-content: center; gap: 10px; }
+.ritual-part { position: relative; display: flex; flex-direction: column; align-items: center; transition: transform 0.3s ease;}
+.ritual-part:hover { transform: scale(1.08); }
+.ritual-qty { position: absolute; top: -10px; left: -10px; background: var(--neon-purple); color: #fff; font-family: 'Orbitron'; font-size: 0.7rem; font-weight: 900; padding: 2px 6px; border-radius: 4px; box-shadow: 0 0 8px var(--neon-purple), 0 2px 4px #000; z-index: 5; }
+.ritual-card-img { width: 50px; height: 72px; object-fit: cover; border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.9); border: 1px solid rgba(255,255,255,0.2); }
+.result-img { width: 65px; height: 93px; border: 2px solid var(--neon-gold); box-shadow: 0 0 15px rgba(255, 183, 3, 0.6), 0 5px 15px #000; }
+.ritual-math { font-family: 'Orbitron'; font-size: 1.4rem; font-weight: 900; color: var(--neon-purple); text-shadow: 0 0 8px var(--neon-purple); }
+.ritual-desc { font-family: 'Rajdhani'; font-size: 0.8rem; color: #e2e8f0; text-align: center; line-height: 1.4; margin-top: 5px; border-top: 1px dashed rgba(168,85,247,0.3); padding-top: 10px; }
+
 /* ============================================================
    🚀 BOTÃO SCROLL TO TOP 🚀
    ============================================================ */
-.scroll-top-btn { 
-  position: fixed; bottom: 25px; right: 25px; width: 45px; height: 45px; 
-  border-radius: 50%; background: rgba(0, 245, 255, 0.15); border: 1px solid var(--neon-cyan); 
-  color: var(--neon-cyan); font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden; 
-  transform: translateY(20px); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); 
-  z-index: 9999; display: flex; align-items: center; justify-content: center; 
-  backdrop-filter: blur(10px); box-shadow: 0 0 15px rgba(0,245,255,0.2);
-}
+.scroll-top-btn { position: fixed; bottom: 25px; right: 25px; width: 45px; height: 45px; border-radius: 50%; background: rgba(0, 245, 255, 0.15); border: 1px solid var(--neon-cyan); color: var(--neon-cyan); font-size: 1.5rem; cursor: pointer; opacity: 0; visibility: hidden; transform: translateY(20px); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); z-index: 9999; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(10px); box-shadow: 0 0 15px rgba(0,245,255,0.2); }
 .scroll-top-btn.show { opacity: 1; visibility: visible; transform: translateY(0); }
 .scroll-top-btn:hover { background: var(--neon-cyan); color: #000; box-shadow: 0 0 20px var(--neon-cyan); }
 
@@ -287,41 +239,37 @@ img.equip-icon:hover { transform: scale(1.15) translateY(-1px); filter: drop-sha
 @media (max-width: 768px) {
   .header { padding: 30px 15px 15px; }
   .header__title { font-size: 1.5rem; letter-spacing: 2px;}
-  
-  /* 🚀 FIX MOBILE HORIZONTAL SCROLL BUGS: minmax(0, 1fr) força as quebras de linha corretas! */
   .cards-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); padding: 10px; gap: 8px; width: 100%;}
   .card { min-width: 0; }
-  
   .card-header { padding: 8px 10px; }
   .card-id { font-size: 0.60rem; }
   .card-badge { font-size: 0.45rem; padding: 3px 5px; }
-  
   .card-stats { grid-template-columns: 1fr; gap: 5px; } 
   .stat-row.full-width-desk, .stat-row.stat-type, .stat-row.stat-level, .stat-row.stat-atk, .stat-row.stat-def { grid-column: 1 / -1; }
-  
   .text-desktop { display: none; }
   .text-mobile { display: inline; }
-  
   .card-body { padding: 10px 8px; gap: 6px;}
   .card-title { font-size: 0.75rem; margin-bottom: 2px; padding-bottom: 8px; min-height: auto; white-space: normal; word-wrap: break-word;}
-  
-  /* Quebra de linha rigorosa para os valores */
   .stat-row { padding: 6px 4px; gap: 4px; border-left-width: 2px;}
   .stat-label { font-size: 0.5rem; letter-spacing: 0.5px;}
   .stat-val { font-size: 0.7rem; gap: 4px; overflow-wrap: anywhere; word-break: break-all;} 
-  
   .overlay-list.grid-2 { grid-template-columns: 1fr; }
   .overlay-header-name { font-size: 0.75rem; }
   .char-img { width: 30px; height: 30px; }
   .equip-img { width: 24px; height: 34px; }
-  
   .scroll-top-btn { bottom: 15px; right: 15px; width: 40px; height: 40px; font-size: 1rem; }
   .badge-rank { min-width: 80px; width: 80px; font-size: 0.45rem;}
   .char-name { max-width: 80px; }
-  
   .type-icon { width: 14px; height: 14px; }
   .g-star-item { font-size: 0.7rem; gap: 3px; }
   .g-star-icon { width: 14px; height: 14px; }
   .atk-def-icon { width: 12px; height: 12px; }
   .star-icon { font-size: 0.8rem; }
+  
+  /* Ajustes para a Equação do Ritual caber no Mobile */
+  .ritual-card-img { width: 35px; height: 50px; }
+  .result-img { width: 45px; height: 65px; }
+  .ritual-qty { font-size: 0.5rem; top: -6px; left: -6px; }
+  .ritual-math { font-size: 1.1rem; }
+  .ritual-equation { gap: 6px; }
 }

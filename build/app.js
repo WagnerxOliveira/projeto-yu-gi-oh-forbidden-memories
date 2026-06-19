@@ -2,7 +2,7 @@
    Yu-Gi-Oh! Forbidden Memories — Application Logic
    ============================================================ */
 
-/* ── BANCO DE DADOS DE DROPS E EQUIPAMENTOS ── */
+/* ── BANCO DE DADOS DE DROPS, EQUIPAMENTOS E RITUAIS ── */
 const extraCardData = {
   '001': {
     guardianStars: ['Sun', 'Mars'],
@@ -21,6 +21,15 @@ const extraCardData = {
       { id: '315', name: 'Dragon Treasure', img: '315.png' },
       { id: '657', name: 'Megamorph', img: '657.png' },
       { id: '668', name: 'Bright Castle', img: '668.png' }
+    ],
+    /* 🔥 NOVO BLOCO: RITUAL SÍNTESE 🔥 */
+    rituals: [
+      {
+        materials: [{ id: '001', name: 'Blue-Eyes White Dragon', count: 3 }],
+        ritualCard: { id: '675', name: 'Ultimate Dragon' },
+        result: { id: '380', name: 'Blue-Eyes Ultimate Dragon' },
+        description: 'É necessário ter 3 "Blue-Eyes White Dragon" em campo. Ative a carta mágica de ritual "Ultimate Dragon" para fundi-los e invocar a besta suprema, "Blue-Eyes Ultimate Dragon"!'
+      }
     ]
   },
   '002': {
@@ -110,9 +119,9 @@ const extraCardData = {
       { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
       { name: 'DarkNite', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
       { name: 'DarkNite', rank: 'POW/TEC: B/C/D', rate: '1.27', fraction: '26 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'Duel Master K', rank: 'TEC: S/A', rate: '0.73', fraction: '15 de 2048º', icon: 'duel-master-k-icon.png' },
-      { name: 'Duel Master K', rank: 'POW: S/A', rate: '0.68', fraction: '14 de 2048º', icon: 'duel-master-k-icon.png' },
-      { name: 'Duel Master K', rank: 'POW/TEC: B/C/D', rate: '0.88', fraction: '18 de 2048º', icon: 'duel-master-k-icon.png' },
+      { name: 'Duel Master K', rank: 'TEC: S/A', rate: '0.73', fraction: '15 de 2048º', icon: 'master-k-icon.png' },
+      { name: 'Duel Master K', rank: 'POW: S/A', rate: '0.68', fraction: '14 de 2048º', icon: 'master-k-icon.png' },
+      { name: 'Duel Master K', rank: 'POW/TEC: B/C/D', rate: '0.88', fraction: '18 de 2048º', icon: 'master-k-icon.png' },
       { name: 'High Mage Kepura', rank: 'POW: S/A', rate: '1.46', fraction: '30 de 2048º', icon: 'high-mage-kepura-icon.png' },
       { name: 'High Mage Kepura', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'high-mage-kepura-icon.png' },
       { name: 'High Mage Kepura', rank: 'TEC: S/A', rate: '2.73', fraction: '56 de 2048º', icon: 'high-mage-kepura-icon.png' },
@@ -123,9 +132,9 @@ const extraCardData = {
       { name: 'Isis', rank: 'POW/TEC: B/C/D', rate: '3.13', fraction: '64 de 2048º', icon: 'isis-icon.png' },
       { name: 'Isis', rank: 'TEC: S/A', rate: '2.73', fraction: '56 de 2048º', icon: 'isis-icon.png' },
       { name: 'Jono', rank: 'POW: S/A', rate: '0.98', fraction: '20 de 2048º', icon: 'jono-icon.png' },
-      { name: 'Jono 2nd', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'jono-2nd-icon.png' },
-      { name: 'Jono 2nd', rank: 'POW/TEC: B/C/D', rate: '1.12', fraction: '23 de 2048º', icon: 'jono-2nd-icon.png' },
-      { name: 'Jono 2nd', rank: 'TEC: S/A', rate: '0.88', fraction: '18 de 2048º', icon: 'jono-2nd-icon.png' },
+      { name: 'Jono 2nd', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'joey-icon.png' },
+      { name: 'Jono 2nd', rank: 'POW/TEC: B/C/D', rate: '1.12', fraction: '23 de 2048º', icon: 'joey-icon.png' },
+      { name: 'Jono 2nd', rank: 'TEC: S/A', rate: '0.88', fraction: '18 de 2048º', icon: 'joey-icon.png' },
       { name: 'Kaiba', rank: 'POW/TEC: B/C/D', rate: '4.20', fraction: '86 de 2048º', icon: 'kaiba-icon.png' },
       { name: 'Kaiba', rank: 'TEC: S/A', rate: '4.20', fraction: '86 de 2048º', icon: 'kaiba-icon.png' },
       { name: 'Kaiba', rank: 'POW: S/A', rate: '3.42', fraction: '70 de 2048º', icon: 'kaiba-icon.png' },
@@ -135,18 +144,18 @@ const extraCardData = {
       { name: 'Pegasus', rank: 'TEC: S/A', rate: '1.56', fraction: '32 de 2048º', icon: 'pegasus-icon.png' },
       { name: 'Pegasus', rank: 'POW: S/A', rate: '1.66', fraction: '34 de 2048º', icon: 'pegasus-icon.png' },
       { name: 'Pegasus', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Villager3', rank: 'POW: S/A', rate: '0.68', fraction: '14 de 2048º', icon: 'villager3-icon.png' },
-      { name: 'Villager3', rank: 'POW/TEC: B/C/D', rate: '0.88', fraction: '18 de 2048º', icon: 'villager3-icon.png' },
-      { name: 'Villager3', rank: 'TEC: S/A', rate: '0.73', fraction: '15 de 2048º', icon: 'villager3-icon.png' }
+      { name: 'Villager3', rank: 'POW: S/A', rate: '0.68', fraction: '14 de 2048º', icon: 'villager-3-icon.png' },
+      { name: 'Villager3', rank: 'POW/TEC: B/C/D', rate: '0.88', fraction: '18 de 2048º', icon: 'villager-3-icon.png' },
+      { name: 'Villager3', rank: 'TEC: S/A', rate: '0.73', fraction: '15 de 2048º', icon: 'villager-3-icon.png' }
     ],
     uses: [
       { name: 'Isis', rate: '0.49', fraction: '10 de 2048º', icon: 'isis-icon.png' },
       { name: 'Jono', rate: '0.10', fraction: '2 de 2048º', icon: 'jono-icon.png' },
-      { name: 'Jono 2nd', rate: '0.39', fraction: '8 de 2048º', icon: 'jono-2nd-icon.png' },
+      { name: 'Jono 2nd', rate: '0.39', fraction: '8 de 2048º', icon: 'joey-icon.png' },
       { name: 'Kaiba', rate: '0.05', fraction: '1 de 2048º', icon: 'kaiba-icon.png' },
       { name: 'Mountain Mage', rate: '1.17', fraction: '24 de 2048º', icon: 'mountain-mage-icon.png' },
       { name: 'Pegasus', rate: '0.39', fraction: '8 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Villager3', rate: '0.88', fraction: '18 de 2048º', icon: 'villager3-icon.png' }
+      { name: 'Villager3', rate: '0.88', fraction: '18 de 2048º', icon: 'villager-3-icon.png' }
     ],
     equips: [
       { id: '305', name: 'Laser Cannon Armor', img: '305.png' },
@@ -158,8 +167,101 @@ const extraCardData = {
       { id: '668', name: 'Bright Castle', img: '668.png' }
     ]
   },
-  '005': { guardianStars: ['Saturn', 'Sun'] },
-  '006': { guardianStars: ['Moon', 'Jupiter'] },
+  '005': {
+    guardianStars: ['Saturn', 'Sun'],
+    drops: [
+      { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
+      { name: 'DarkNite', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
+      { name: 'DarkNite', rank: 'POW/TEC: B/C/D', rate: '1.27', fraction: '26 de 2048º', icon: 'darknite-icon.png' },
+      { name: 'High Mage Anubisius', rank: 'POW/TEC: B/C/D', rate: '1.17', fraction: '24 de 2048º', icon: 'high-mage-anubisius-icon.png' },
+      { name: 'High Mage Anubisius', rank: 'TEC: S/A', rate: '1.03', fraction: '21 de 2048º', icon: 'high-mage-anubisius-icon.png' },
+      { name: 'High Mage Anubisius', rank: 'POW: S/A', rate: '1.17', fraction: '24 de 2048º', icon: 'high-mage-anubisius-icon.png' },
+      { name: 'High Mage Kepura', rank: 'TEC: S/A', rate: '4.88', fraction: '100 de 2048º', icon: 'high-mage-kepura-icon.png' },
+      { name: 'High Mage Kepura', rank: 'POW: S/A', rate: '2.93', fraction: '60 de 2048º', icon: 'high-mage-kepura-icon.png' },
+      { name: 'High Mage Kepura', rank: 'POW/TEC: B/C/D', rate: '3.91', fraction: '80 de 2048º', icon: 'high-mage-kepura-icon.png' },
+      { name: 'High Mage Martis', rank: 'POW: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
+      { name: 'High Mage Martis', rank: 'POW/TEC: B/C/D', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
+      { name: 'High Mage Martis', rank: 'TEC: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
+      { name: 'Kaiba', rank: 'POW: S/A', rate: '6.84', fraction: '140 de 2048º', icon: 'kaiba-icon.png' },
+      { name: 'Kaiba', rank: 'POW/TEC: B/C/D', rate: '8.50', fraction: '174 de 2048º', icon: 'kaiba-icon.png' },
+      { name: 'Pegasus', rank: 'POW: S/A', rate: '1.66', fraction: '34 de 2048º', icon: 'pegasus-icon.png' },
+      { name: 'Pegasus', rank: 'POW/TEC: B/C/D', rate: '2.15', fraction: '44 de 2048º', icon: 'pegasus-icon.png' },
+      { name: 'Weevil Underwood', rank: 'POW: S/A', rate: '0.98', fraction: '20 de 2048º', icon: 'weevil-underwood-icon.png' },
+      { name: 'Weevil Underwood', rank: 'POW/TEC: B/C/D', rate: '1.61', fraction: '33 de 2048º', icon: 'weevil-underwood-icon.png' }
+    ],
+    uses: [
+      { name: 'Forest Mage', rate: '0.78', fraction: '16 de 2048º', icon: 'forest-mage-icon.png' },
+      { name: 'High Mage Anubisius', rate: '0.20', fraction: '4 de 2048º', icon: 'high-mage-anubisius-icon.png' },
+      { name: 'High Mage Kepura', rate: '0.05', fraction: '1 de 2048º', icon: 'high-mage-kepura-icon.png' },
+      { name: 'High Mage Martis', rate: '0.39', fraction: '8 de 2048º', icon: 'high-mage-martis-icon.png' },
+      { name: 'Kaiba', rate: '0.05', fraction: '1 de 2048º', icon: 'kaiba-icon.png' },
+      { name: 'Mage Soldier', rate: '0.59', fraction: '12 de 2048º', icon: 'mage-soldier-icon.png' },
+      { name: 'Meadow Mage', rate: '1.17', fraction: '24 de 2048º', icon: 'meadow-mage-icon.png' },
+      { name: 'Pegasus', rate: '0.39', fraction: '8 de 2048º', icon: 'pegasus-icon.png' },
+      { name: 'Seto', rate: '0.59', fraction: '12 de 2048º', icon: 'seto-icon.png' },
+      { name: 'Weevil Underwood', rate: '0.78', fraction: '16 de 2048º', icon: 'weevil-underwood-icon.png' }
+    ],
+    equips: [
+      { id: '303', name: 'Dark Energy', img: '303.png' },
+      { id: '304', name: 'Axe of Despair', img: '304.png' },
+      { id: '305', name: 'Laser Cannon Armor', img: '305.png' },
+      { id: '308', name: 'Beast Fangs', img: '308.png' },
+      { id: '316', name: 'Electro-whip', img: '316.png' },
+      { id: '321', name: 'Malevolent Nuzzler', img: '321.png' },
+      { id: '657', name: 'Megamorph', img: '657.png' },
+      { id: '668', name: 'Bright Castle', img: '668.png' }
+    ]
+  },
+  '006': { 
+    guardianStars: ['Moon', 'Jupiter'],
+    drops: [
+      { name: 'High Mage Atenza', rank: 'TEC: S/A', rate: '1.37', fraction: '28 de 2048º', icon: 'high-mage-atenza-icon.png' },
+      { name: 'High Mage Atenza', rank: 'POW: S/A', rate: '1.22', fraction: '25 de 2048º', icon: 'high-mage-atenza-icon.png' },
+      { name: 'High Mage Atenza', rank: 'POW/TEC: B/C/D', rate: '1.46', fraction: '30 de 2048º', icon: 'high-mage-atenza-icon.png' },
+      { name: 'High Mage Martis', rank: 'POW: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
+      { name: 'High Mage Martis', rank: 'POW/TEC: B/C/D', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
+      { name: 'High Mage Martis', rank: 'TEC: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
+      { name: 'Mage Soldier', rank: 'POW: S/A', rate: '2.20', fraction: '45 de 2048º', icon: 'mage-soldier-icon.png' },
+      { name: 'Mage Soldier', rank: 'POW/TEC: B/C/D', rate: '2.54', fraction: '52 de 2048º', icon: 'mage-soldier-icon.png' },
+      { name: 'Mai Valentine', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'mai-valentine-icon.png' },
+      { name: 'Mai Valentine', rank: 'POW: S/A', rate: '1.56', fraction: '32 de 2048º', icon: 'mai-valentine-icon.png' },
+      { name: 'Meadow Mage', rank: 'POW: S/A', rate: '2.15', fraction: '44 de 2048º', icon: 'meadow-mage-icon.png' },
+      { name: 'Meadow Mage', rank: 'POW/TEC: B/C/D', rate: '2.44', fraction: '50 de 2048º', icon: 'meadow-mage-icon.png' },
+      { name: 'Meadow Mage', rank: 'TEC: S/A', rate: '2.25', fraction: '46 de 2048º', icon: 'meadow-mage-icon.png' },
+      { name: 'Neku', rank: 'TEC: S/A', rate: '2.05', fraction: '42 de 2048º', icon: 'neku-icon.png' },
+      { name: 'Neku', rank: 'POW: S/A', rate: '2.15', fraction: '44 de 2048º', icon: 'neku-icon.png' },
+      { name: 'Neku', rank: 'POW/TEC: B/C/D', rate: '2.25', fraction: '46 de 2048º', icon: 'neku-icon.png' },
+      { name: 'Seto 2nd', rank: 'TEC: S/A', rate: '1.56', fraction: '32 de 2048º', icon: 'seto-kaiba-second-icon.png' },
+      { name: 'Seto 2nd', rank: 'POW: S/A', rate: '1.56', fraction: '32 de 2048º', icon: 'seto-kaiba-second-icon.png' },
+      { name: 'Seto 2nd', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'seto-kaiba-second-icon.png' },
+      { name: 'Seto 3rd', rank: 'POW: S/A', rate: '1.17', fraction: '24 de 2048º', icon: 'seto-kaiba-third-icon.png' },
+      { name: 'Seto 3rd', rank: 'POW/TEC: B/C/D', rate: '1.56', fraction: '32 de 2048º', icon: 'seto-kaiba-third-icon.png' },
+      { name: 'Seto 3rd', rank: 'TEC: S/A', rate: '0.78', fraction: '16 de 2048º', icon: 'seto-kaiba-third-icon.png' }
+    ],
+    uses: [
+      { name: 'Bandit Keith', rate: '0.98', fraction: '20 de 2048º', icon: 'bandit-keith-icon.png' },
+      { name: 'High Mage Atenza', rate: '0.29', fraction: '6 de 2048º', icon: 'high-mage-atenza-icon.png' },
+      { name: 'High Mage Martis', rate: '0.39', fraction: '8 de 2048º', icon: 'high-mage-martis-icon.png' },
+      { name: 'Mage Soldier', rate: '0.29', fraction: '6 de 2048º', icon: 'mage-soldier-icon.png' },
+      { name: 'Mai Valentine', rate: '0.78', fraction: '16 de 2048º', icon: 'mai-valentine-icon.png' },
+      { name: 'Neku', rate: '0.39', fraction: '8 de 2048º', icon: 'neku-icon.png' },
+      { name: 'Sebek', rate: '0.20', fraction: '4 de 2048º', icon: 'sebek-icon.png' },
+      { name: 'Seto 2nd', rate: '0.10', fraction: '2 de 2048º', icon: 'seto-kaiba-second-icon.png' }
+    ],
+    equips: [
+      { id: '303', name: 'Dark Energy', img: '303.png' },
+      { id: '304', name: 'Axe of Despair', img: '304.png' },
+      { id: '305', name: 'Laser Cannon Armor', img: '305.png' },
+      { id: '308', name: 'Beast Fangs', img: '308.png' },
+      { id: '314', name: 'Horn of the Unicorn', img: '314.png' },
+      { id: '316', name: 'Electro-whip', img: '316.png' },
+      { id: '319', name: 'Mystical Moon', img: '319.png' },
+      { id: '327', name: 'Follow Wind', img: '327.png' },
+      { id: '657', name: 'Megamorph', img: '657.png' },
+      { id: '668', name: 'Bright Castle', img: '668.png' }
+    ]
+  },
+  
   '007': { guardianStars: ['Saturn', 'Moon'] },
   '008': { guardianStars: ['Jupiter', 'Sun'] },
   '009': { guardianStars: ['Moon', 'Pluto'] },
@@ -171,12 +273,11 @@ document.addEventListener('DOMContentLoaded', () => {
   const cardsGrid = document.getElementById('cardsGrid');
   const filterBtns = document.querySelectorAll('.filter-btn');
   
-  // 🚀 INJEÇÃO DINÂMICA DO BOTÃO SCROLL TO TOP 🚀
   if (!document.getElementById('scrollTopBtn')) {
     const btn = document.createElement('button');
     btn.id = 'scrollTopBtn';
     btn.className = 'scroll-top-btn';
-    btn.innerHTML = '&#8679;'; // Código HTML para Seta para cima (⇧)
+    btn.innerHTML = '&#8679;'; 
     btn.title = 'Voltar ao topo';
     document.body.appendChild(btn);
   }
@@ -185,17 +286,19 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentFilter = 'name';
   let allCards = [];
 
-  /* ── LÓGICA DE GERENCIAMENTO DE OVERLAY ── */
+  /* ── 💡 UX SÊNIOR: GESTÃO DE RITUAL OVERLAYS ── */
   document.addEventListener('mouseover', e => {
     const infoIcon = e.target.closest('.info-icon');
     const infoOverlay = e.target.closest('.card-overlay-info');
     const equipIcon = e.target.closest('.equip-icon');
     const equipOverlay = e.target.closest('.card-overlay-equip');
+    const ritualIcon = e.target.closest('.ritual-icon');
+    const ritualOverlay = e.target.closest('.card-overlay-ritual');
 
     if (infoIcon || infoOverlay) {
       const card = (infoIcon || infoOverlay).closest('.card');
       if (card) {
-         card.classList.remove('show-equip-overlay'); 
+         card.classList.remove('show-equip-overlay', 'show-ritual-overlay'); 
          card.classList.add('show-info-overlay'); 
       }
     }
@@ -203,8 +306,16 @@ document.addEventListener('DOMContentLoaded', () => {
     if (equipIcon || equipOverlay) {
       const card = (equipIcon || equipOverlay).closest('.card');
       if (card) {
-         card.classList.remove('show-info-overlay'); 
+         card.classList.remove('show-info-overlay', 'show-ritual-overlay'); 
          card.classList.add('show-equip-overlay'); 
+      }
+    }
+
+    if (ritualIcon || ritualOverlay) {
+      const card = (ritualIcon || ritualOverlay).closest('.card');
+      if (card) {
+         card.classList.remove('show-info-overlay', 'show-equip-overlay'); 
+         card.classList.add('show-ritual-overlay'); 
       }
     }
   });
@@ -218,6 +329,9 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       if (!rel || (!rel.closest('.equip-icon') && !rel.closest('.card-overlay-equip'))) {
         card.classList.remove('show-equip-overlay');
+      }
+      if (!rel || (!rel.closest('.ritual-icon') && !rel.closest('.card-overlay-ritual'))) {
+        card.classList.remove('show-ritual-overlay');
       }
     }
   });
@@ -297,8 +411,11 @@ document.addEventListener('DOMContentLoaded', () => {
       
       let infoIconHTML = '';
       let equipIconHTML = '';
+      let ritualIconHTML = '';
+      
       let infoOverlayHTML = '';
       let equipOverlayHTML = '';
+      let ritualOverlayHTML = '';
       let gStars = [];
 
       const isAboveTheFold = index < 12;
@@ -361,6 +478,43 @@ document.addEventListener('DOMContentLoaded', () => {
           x.equips.forEach(eq => equipOverlayHTML += `<div class="overlay-item equip-item"><img class="equip-img" src="images/cards/${eq.img}" onerror="this.src='images/cards/placeholder.png'" ${lazyAttr}><div class="overlay-text"><strong class="equip-name">${eq.id} ${eq.name}</strong></div></div>`);
           equipOverlayHTML += `</div></div></div>`;
         }
+
+        /* 🔥 MOTOR DO NOVO PAINEL DE RITUAL 🔥 */
+        if (x.rituals && x.rituals.length > 0) {
+          ritualIconHTML = `<img class="ritual-icon" src="images/others-icon/r-icon.png" alt="Ritual" title="Ver Síntese de Ritual">`;
+          ritualOverlayHTML = `
+          <div class="card-overlay card-overlay-ritual ritual-theme">
+            <div class="overlay-header">
+              <span class="overlay-header-id">ID: ${c.id}</span>
+              <span class="overlay-header-name">${c.name}</span>
+            </div>
+            <div class="overlay-content">
+              <h4 class="overlay-title"><span class="icon">🔥</span> SÍNTESE DE RITUAL</h4>
+              <div class="ritual-list">`;
+          
+          x.rituals.forEach(r => {
+             ritualOverlayHTML += `
+               <div class="ritual-container">
+                 <div class="ritual-equation">
+                   <div class="ritual-part material-part">
+                     <span class="ritual-qty">${r.materials[0].count}x</span>
+                     <img class="ritual-card-img" src="images/cards/${r.materials[0].id}.png" alt="${r.materials[0].name}" loading="lazy">
+                   </div>
+                   <div class="ritual-math">+</div>
+                   <div class="ritual-part ritual-spell">
+                     <img class="ritual-card-img" src="images/cards/${r.ritualCard.id}.png" alt="${r.ritualCard.name}" loading="lazy">
+                   </div>
+                   <div class="ritual-math">=</div>
+                   <div class="ritual-part result-part">
+                     <img class="ritual-card-img result-img" src="images/cards/${r.result.id}.png" alt="${r.result.name}" loading="lazy">
+                   </div>
+                 </div>
+                 <p class="ritual-desc">${r.description}</p>
+               </div>
+             `;
+          });
+          ritualOverlayHTML += `</div></div></div>`;
+        }
       }
 
       const displayType = c.finalType || c.cardType;
@@ -377,6 +531,7 @@ document.addEventListener('DOMContentLoaded', () => {
       <article class="card" data-type="${c.cardType}" id="card-${c.id}">
         ${infoOverlayHTML}
         ${equipOverlayHTML}
+        ${ritualOverlayHTML} <!-- O Novo Overlay de Ritual -->
 
         <div class="card-header">
           <div class="card-id-wrapper">
@@ -384,6 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="icon-group">
                ${infoIconHTML}
                ${equipIconHTML}
+               ${ritualIconHTML} <!-- O R-Icon posicionado automaticamente -->
             </div>
           </div>
           <span class="card-badge">${c.cardType}</span>
@@ -497,7 +653,6 @@ document.addEventListener('DOMContentLoaded', () => {
     b.addEventListener('click', () => setFilter(currentFilter === b.dataset.filter ? 'name' : b.dataset.filter));
   });
 
-  /* Lógica de exibir/ocultar botão Scroll To Top */
   window.addEventListener('scroll', () => { 
     scrollTopBtn.classList.toggle('show', window.scrollY > 400); 
   });
