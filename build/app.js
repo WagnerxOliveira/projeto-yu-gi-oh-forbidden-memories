@@ -1,8 +1,7 @@
 /* ============================================================
-   Yu-Gi-Oh! Forbidden Memories — Application Logic
+   Yu-Gi-Oh! Forbidden Memories — Application Logic & QA Master
    ============================================================ */
 
-/* ── BANCO DE DADOS DE DROPS, EQUIPAMENTOS E RITUAIS ── */
 const extraCardData = {
   '001': {
     guardianStars: ['Sun', 'Mars'],
@@ -22,13 +21,12 @@ const extraCardData = {
       { id: '657', name: 'Megamorph', img: '657.png' },
       { id: '668', name: 'Bright Castle', img: '668.png' }
     ],
-    /* 🔥 NOVO BLOCO: RITUAL SÍNTESE 🔥 */
     rituals: [
       {
         materials: [{ id: '001', name: 'Blue-Eyes White Dragon', count: 3 }],
         ritualCard: { id: '675', name: 'Ultimate Dragon' },
         result: { id: '380', name: 'Blue-Eyes Ultimate Dragon' },
-        description: 'É necessário ter 3 "Blue-Eyes White Dragon" em campo. Ative a carta mágica de ritual "Ultimate Dragon" para fundi-los e invocar a besta suprema, "Blue-Eyes Ultimate Dragon"!'
+        description: 'É necessário ter 3 "Blue-Eyes White Dragon" em campo. Ative a carta mágica de ritual "Ultimate Dragon".'
       }
     ]
   },
@@ -66,6 +64,33 @@ const extraCardData = {
       { id: '323', name: 'Book of Secret Arts', img: '323.png' },
       { id: '657', name: 'Megamorph', img: '657.png' },
       { id: '668', name: 'Bright Castle', img: '668.png' }
+    ],
+    fusions: [
+      {
+        rule: [
+          { label: 'ELF', icon: 'spellcaster-icon.png' },
+          { label: 'FAIRY', icon: 'fairy-icon.png' }
+        ],
+        material1: [
+          { id: '264', name: 'Wing Egg Elf' },
+          { id: '395', name: 'Dancing Elf' }
+        ],
+        material2: [
+          { id: '130', name: 'Weather Control' },
+          { id: '134', name: 'Mystical Capture Chain' },
+          { id: '183', name: 'Lucky Trinket' },
+          { id: '192', name: 'Key Mace' },
+          { id: '208', name: 'Petit Angel' },
+          { id: '229', name: 'Hourglass of Life' },
+          { id: '260', name: 'Lunar Queen Elzaim' },
+          { id: '264', name: 'Wing Egg Elf' },
+          { id: '428', name: 'Magician of Faith' },
+          { id: '486', name: 'Boo Koo' },
+          { id: '492', name: 'Hoshiningen' },
+          { id: '601', name: 'Tenderness' }
+        ],
+        result: { id: '002', name: 'Mystical Elf' }
+      }
     ]
   },
   '003': { 
@@ -75,193 +100,52 @@ const extraCardData = {
       { name: 'DarkNite', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
       { name: 'DarkNite', rank: 'POW/TEC: B/C/D', rate: '1.27', fraction: '26 de 2048º', icon: 'darknite-icon.png' },
       { name: 'High Mage Anubisius', rank: 'POW/TEC: B/C/D', rate: '1.17', fraction: '24 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Anubisius', rank: 'TEC: S/A', rate: '1.03', fraction: '21 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Anubisius', rank: 'POW: S/A', rate: '1.17', fraction: '24 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Kepura', rank: 'TEC: S/A', rate: '4.88', fraction: '100 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Kepura', rank: 'POW: S/A', rate: '2.93', fraction: '60 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Kepura', rank: 'POW/TEC: B/C/D', rate: '3.91', fraction: '80 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Martis', rank: 'POW: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'High Mage Martis', rank: 'POW/TEC: B/C/D', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'High Mage Martis', rank: 'TEC: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'Kaiba', rank: 'POW: S/A', rate: '6.84', fraction: '140 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Kaiba', rank: 'POW/TEC: B/C/D', rate: '8.50', fraction: '174 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Pegasus', rank: 'POW: S/A', rate: '1.66', fraction: '34 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Pegasus', rank: 'POW/TEC: B/C/D', rate: '2.15', fraction: '44 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Weevil Underwood', rank: 'POW: S/A', rate: '0.98', fraction: '20 de 2048º', icon: 'weevil-underwood-icon.png' },
-      { name: 'Weevil Underwood', rank: 'POW/TEC: B/C/D', rate: '1.61', fraction: '33 de 2048º', icon: 'weevil-underwood-icon.png' }
+      { name: 'High Mage Anubisius', rank: 'TEC: S/A', rate: '1.03', fraction: '21 de 2048º', icon: 'high-mage-anubisius-icon.png' }
     ],
     uses: [
-      { name: 'Forest Mage', rate: '0.78', fraction: '16 de 2048º', icon: 'forest-mage-icon.png' },
-      { name: 'High Mage Anubisius', rate: '0.20', fraction: '4 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Kepura', rate: '0.05', fraction: '1 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Martis', rate: '0.39', fraction: '8 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'Kaiba', rate: '0.05', fraction: '1 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Mage Soldier', rate: '0.59', fraction: '12 de 2048º', icon: 'mage-soldier-icon.png' },
-      { name: 'Meadow Mage', rate: '1.17', fraction: '24 de 2048º', icon: 'meadow-mage-icon.png' },
-      { name: 'Pegasus', rate: '0.39', fraction: '8 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Seto', rate: '0.59', fraction: '12 de 2048º', icon: 'seto-icon.png' },
-      { name: 'Weevil Underwood', rate: '0.78', fraction: '16 de 2048º', icon: 'weevil-underwood-icon.png' }
+      { name: 'Forest Mage', rate: '0.78', fraction: '16 de 2048º', icon: 'forest-mage-icon.png' }
     ],
     equips: [
       { id: '303', name: 'Dark Energy', img: '303.png' },
-      { id: '304', name: 'Axe of Despair', img: '304.png' },
-      { id: '305', name: 'Laser Cannon Armor', img: '305.png' },
-      { id: '308', name: 'Beast Fangs', img: '308.png' },
-      { id: '316', name: 'Electro-whip', img: '316.png' },
-      { id: '321', name: 'Malevolent Nuzzler', img: '321.png' },
-      { id: '657', name: 'Megamorph', img: '657.png' },
-      { id: '668', name: 'Bright Castle', img: '668.png' }
+      { id: '304', name: 'Axe of Despair', img: '304.png' }
     ]
   },
   '004': { 
     guardianStars: ['Moon', 'Mars'],
     drops: [
-      { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'DarkNite', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'DarkNite', rank: 'POW/TEC: B/C/D', rate: '1.27', fraction: '26 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'Duel Master K', rank: 'TEC: S/A', rate: '0.73', fraction: '15 de 2048º', icon: 'master-k-icon.png' },
-      { name: 'Duel Master K', rank: 'POW: S/A', rate: '0.68', fraction: '14 de 2048º', icon: 'master-k-icon.png' },
-      { name: 'Duel Master K', rank: 'POW/TEC: B/C/D', rate: '0.88', fraction: '18 de 2048º', icon: 'master-k-icon.png' },
-      { name: 'High Mage Kepura', rank: 'POW: S/A', rate: '1.46', fraction: '30 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Kepura', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Kepura', rank: 'TEC: S/A', rate: '2.73', fraction: '56 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Martis', rank: 'POW/TEC: B/C/D', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'High Mage Martis', rank: 'TEC: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'High Mage Martis', rank: 'POW: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'Isis', rank: 'POW: S/A', rate: '2.15', fraction: '44 de 2048º', icon: 'isis-icon.png' },
-      { name: 'Isis', rank: 'POW/TEC: B/C/D', rate: '3.13', fraction: '64 de 2048º', icon: 'isis-icon.png' },
-      { name: 'Isis', rank: 'TEC: S/A', rate: '2.73', fraction: '56 de 2048º', icon: 'isis-icon.png' },
-      { name: 'Jono', rank: 'POW: S/A', rate: '0.98', fraction: '20 de 2048º', icon: 'jono-icon.png' },
-      { name: 'Jono 2nd', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'joey-icon.png' },
-      { name: 'Jono 2nd', rank: 'POW/TEC: B/C/D', rate: '1.12', fraction: '23 de 2048º', icon: 'joey-icon.png' },
-      { name: 'Jono 2nd', rank: 'TEC: S/A', rate: '0.88', fraction: '18 de 2048º', icon: 'joey-icon.png' },
-      { name: 'Kaiba', rank: 'POW/TEC: B/C/D', rate: '4.20', fraction: '86 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Kaiba', rank: 'TEC: S/A', rate: '4.20', fraction: '86 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Kaiba', rank: 'POW: S/A', rate: '3.42', fraction: '70 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Nitemare', rank: 'POW: S/A', rate: '1.46', fraction: '30 de 2048º', icon: 'nightmare-icon.png' },
-      { name: 'Nitemare', rank: 'POW/TEC: B/C/D', rate: '2.34', fraction: '48 de 2048º', icon: 'nightmare-icon.png' },
-      { name: 'Nitemare', rank: 'TEC: S/A', rate: '1.46', fraction: '30 de 2048º', icon: 'nightmare-icon.png' },
-      { name: 'Pegasus', rank: 'TEC: S/A', rate: '1.56', fraction: '32 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Pegasus', rank: 'POW: S/A', rate: '1.66', fraction: '34 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Pegasus', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Villager3', rank: 'POW: S/A', rate: '0.68', fraction: '14 de 2048º', icon: 'villager-3-icon.png' },
-      { name: 'Villager3', rank: 'POW/TEC: B/C/D', rate: '0.88', fraction: '18 de 2048º', icon: 'villager-3-icon.png' },
-      { name: 'Villager3', rank: 'TEC: S/A', rate: '0.73', fraction: '15 de 2048º', icon: 'villager-3-icon.png' }
+      { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' }
     ],
     uses: [
-      { name: 'Isis', rate: '0.49', fraction: '10 de 2048º', icon: 'isis-icon.png' },
-      { name: 'Jono', rate: '0.10', fraction: '2 de 2048º', icon: 'jono-icon.png' },
-      { name: 'Jono 2nd', rate: '0.39', fraction: '8 de 2048º', icon: 'joey-icon.png' },
-      { name: 'Kaiba', rate: '0.05', fraction: '1 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Mountain Mage', rate: '1.17', fraction: '24 de 2048º', icon: 'mountain-mage-icon.png' },
-      { name: 'Pegasus', rate: '0.39', fraction: '8 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Villager3', rate: '0.88', fraction: '18 de 2048º', icon: 'villager-3-icon.png' }
+      { name: 'Isis', rate: '0.49', fraction: '10 de 2048º', icon: 'isis-icon.png' }
     ],
     equips: [
-      { id: '305', name: 'Laser Cannon Armor', img: '305.png' },
-      { id: '308', name: 'Beast Fangs', img: '308.png' },
-      { id: '313', name: 'Horn of Light', img: '313.png' },
-      { id: '315', name: 'Dragon Treasure', img: '315.png' },
-      { id: '327', name: 'Follow Wind', img: '327.png' },
-      { id: '657', name: 'Megamorph', img: '657.png' },
-      { id: '668', name: 'Bright Castle', img: '668.png' }
+      { id: '305', name: 'Laser Cannon Armor', img: '305.png' }
     ]
   },
   '005': {
     guardianStars: ['Saturn', 'Sun'],
     drops: [
-      { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'DarkNite', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'DarkNite', rank: 'POW/TEC: B/C/D', rate: '1.27', fraction: '26 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'High Mage Anubisius', rank: 'POW/TEC: B/C/D', rate: '1.17', fraction: '24 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Anubisius', rank: 'TEC: S/A', rate: '1.03', fraction: '21 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Anubisius', rank: 'POW: S/A', rate: '1.17', fraction: '24 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Kepura', rank: 'TEC: S/A', rate: '4.88', fraction: '100 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Kepura', rank: 'POW: S/A', rate: '2.93', fraction: '60 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Kepura', rank: 'POW/TEC: B/C/D', rate: '3.91', fraction: '80 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Martis', rank: 'POW: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'High Mage Martis', rank: 'POW/TEC: B/C/D', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'High Mage Martis', rank: 'TEC: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'Kaiba', rank: 'POW: S/A', rate: '6.84', fraction: '140 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Kaiba', rank: 'POW/TEC: B/C/D', rate: '8.50', fraction: '174 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Pegasus', rank: 'POW: S/A', rate: '1.66', fraction: '34 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Pegasus', rank: 'POW/TEC: B/C/D', rate: '2.15', fraction: '44 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Weevil Underwood', rank: 'POW: S/A', rate: '0.98', fraction: '20 de 2048º', icon: 'weevil-underwood-icon.png' },
-      { name: 'Weevil Underwood', rank: 'POW/TEC: B/C/D', rate: '1.61', fraction: '33 de 2048º', icon: 'weevil-underwood-icon.png' }
+      { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' }
     ],
     uses: [
-      { name: 'Forest Mage', rate: '0.78', fraction: '16 de 2048º', icon: 'forest-mage-icon.png' },
-      { name: 'High Mage Anubisius', rate: '0.20', fraction: '4 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Kepura', rate: '0.05', fraction: '1 de 2048º', icon: 'high-mage-kepura-icon.png' },
-      { name: 'High Mage Martis', rate: '0.39', fraction: '8 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'Kaiba', rate: '0.05', fraction: '1 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'Mage Soldier', rate: '0.59', fraction: '12 de 2048º', icon: 'mage-soldier-icon.png' },
-      { name: 'Meadow Mage', rate: '1.17', fraction: '24 de 2048º', icon: 'meadow-mage-icon.png' },
-      { name: 'Pegasus', rate: '0.39', fraction: '8 de 2048º', icon: 'pegasus-icon.png' },
-      { name: 'Seto', rate: '0.59', fraction: '12 de 2048º', icon: 'seto-icon.png' },
-      { name: 'Weevil Underwood', rate: '0.78', fraction: '16 de 2048º', icon: 'weevil-underwood-icon.png' }
+      { name: 'Forest Mage', rate: '0.78', fraction: '16 de 2048º', icon: 'forest-mage-icon.png' }
     ],
     equips: [
-      { id: '303', name: 'Dark Energy', img: '303.png' },
-      { id: '304', name: 'Axe of Despair', img: '304.png' },
-      { id: '305', name: 'Laser Cannon Armor', img: '305.png' },
-      { id: '308', name: 'Beast Fangs', img: '308.png' },
-      { id: '316', name: 'Electro-whip', img: '316.png' },
-      { id: '321', name: 'Malevolent Nuzzler', img: '321.png' },
-      { id: '657', name: 'Megamorph', img: '657.png' },
-      { id: '668', name: 'Bright Castle', img: '668.png' }
+      { id: '303', name: 'Dark Energy', img: '303.png' }
     ]
   },
   '006': { 
     guardianStars: ['Moon', 'Jupiter'],
     drops: [
-      { name: 'High Mage Atenza', rank: 'TEC: S/A', rate: '1.37', fraction: '28 de 2048º', icon: 'high-mage-atenza-icon.png' },
-      { name: 'High Mage Atenza', rank: 'POW: S/A', rate: '1.22', fraction: '25 de 2048º', icon: 'high-mage-atenza-icon.png' },
-      { name: 'High Mage Atenza', rank: 'POW/TEC: B/C/D', rate: '1.46', fraction: '30 de 2048º', icon: 'high-mage-atenza-icon.png' },
-      { name: 'High Mage Martis', rank: 'POW: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'High Mage Martis', rank: 'POW/TEC: B/C/D', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'High Mage Martis', rank: 'TEC: S/A', rate: '0.59', fraction: '12 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'Mage Soldier', rank: 'POW: S/A', rate: '2.20', fraction: '45 de 2048º', icon: 'mage-soldier-icon.png' },
-      { name: 'Mage Soldier', rank: 'POW/TEC: B/C/D', rate: '2.54', fraction: '52 de 2048º', icon: 'mage-soldier-icon.png' },
-      { name: 'Mai Valentine', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'mai-valentine-icon.png' },
-      { name: 'Mai Valentine', rank: 'POW: S/A', rate: '1.56', fraction: '32 de 2048º', icon: 'mai-valentine-icon.png' },
-      { name: 'Meadow Mage', rank: 'POW: S/A', rate: '2.15', fraction: '44 de 2048º', icon: 'meadow-mage-icon.png' },
-      { name: 'Meadow Mage', rank: 'POW/TEC: B/C/D', rate: '2.44', fraction: '50 de 2048º', icon: 'meadow-mage-icon.png' },
-      { name: 'Meadow Mage', rank: 'TEC: S/A', rate: '2.25', fraction: '46 de 2048º', icon: 'meadow-mage-icon.png' },
-      { name: 'Neku', rank: 'TEC: S/A', rate: '2.05', fraction: '42 de 2048º', icon: 'neku-icon.png' },
-      { name: 'Neku', rank: 'POW: S/A', rate: '2.15', fraction: '44 de 2048º', icon: 'neku-icon.png' },
-      { name: 'Neku', rank: 'POW/TEC: B/C/D', rate: '2.25', fraction: '46 de 2048º', icon: 'neku-icon.png' },
-      { name: 'Seto 2nd', rank: 'TEC: S/A', rate: '1.56', fraction: '32 de 2048º', icon: 'seto-kaiba-second-icon.png' },
-      { name: 'Seto 2nd', rank: 'POW: S/A', rate: '1.56', fraction: '32 de 2048º', icon: 'seto-kaiba-second-icon.png' },
-      { name: 'Seto 2nd', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'seto-kaiba-second-icon.png' },
-      { name: 'Seto 3rd', rank: 'POW: S/A', rate: '1.17', fraction: '24 de 2048º', icon: 'seto-kaiba-third-icon.png' },
-      { name: 'Seto 3rd', rank: 'POW/TEC: B/C/D', rate: '1.56', fraction: '32 de 2048º', icon: 'seto-kaiba-third-icon.png' },
-      { name: 'Seto 3rd', rank: 'TEC: S/A', rate: '0.78', fraction: '16 de 2048º', icon: 'seto-kaiba-third-icon.png' }
+      { name: 'High Mage Atenza', rank: 'TEC: S/A', rate: '1.37', fraction: '28 de 2048º', icon: 'high-mage-atenza-icon.png' }
     ],
     uses: [
-      { name: 'Bandit Keith', rate: '0.98', fraction: '20 de 2048º', icon: 'bandit-keith-icon.png' },
-      { name: 'High Mage Atenza', rate: '0.29', fraction: '6 de 2048º', icon: 'high-mage-atenza-icon.png' },
-      { name: 'High Mage Martis', rate: '0.39', fraction: '8 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'Mage Soldier', rate: '0.29', fraction: '6 de 2048º', icon: 'mage-soldier-icon.png' },
-      { name: 'Mai Valentine', rate: '0.78', fraction: '16 de 2048º', icon: 'mai-valentine-icon.png' },
-      { name: 'Neku', rate: '0.39', fraction: '8 de 2048º', icon: 'neku-icon.png' },
-      { name: 'Sebek', rate: '0.20', fraction: '4 de 2048º', icon: 'sebek-icon.png' },
-      { name: 'Seto 2nd', rate: '0.10', fraction: '2 de 2048º', icon: 'seto-kaiba-second-icon.png' }
+      { name: 'Bandit Keith', rate: '0.98', fraction: '20 de 2048º', icon: 'bandit-keith-icon.png' }
     ],
     equips: [
-      { id: '303', name: 'Dark Energy', img: '303.png' },
-      { id: '304', name: 'Axe of Despair', img: '304.png' },
-      { id: '305', name: 'Laser Cannon Armor', img: '305.png' },
-      { id: '308', name: 'Beast Fangs', img: '308.png' },
-      { id: '314', name: 'Horn of the Unicorn', img: '314.png' },
-      { id: '316', name: 'Electro-whip', img: '316.png' },
-      { id: '319', name: 'Mystical Moon', img: '319.png' },
-      { id: '327', name: 'Follow Wind', img: '327.png' },
-      { id: '657', name: 'Megamorph', img: '657.png' },
-      { id: '668', name: 'Bright Castle', img: '668.png' }
+      { id: '303', name: 'Dark Energy', img: '303.png' }
     ]
   },
-  
   '007': { guardianStars: ['Saturn', 'Moon'] },
   '008': { guardianStars: ['Jupiter', 'Sun'] },
   '009': { guardianStars: ['Moon', 'Pluto'] },
@@ -269,8 +153,8 @@ const extraCardData = {
 };
 
 document.addEventListener('DOMContentLoaded', () => {
-  const searchInput = document.getElementById('searchInput');
   const cardsGrid = document.getElementById('cardsGrid');
+  const searchInput = document.getElementById('searchInput');
   const filterBtns = document.querySelectorAll('.filter-btn');
   
   if (!document.getElementById('scrollTopBtn')) {
@@ -283,40 +167,48 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   const scrollTopBtn = document.getElementById('scrollTopBtn');
   
-  let currentFilter = 'name';
-  let allCards = [];
+  /* 🔥 UX SÊNIOR: INJEÇÃO DO PREVIEW FLUTUANTE GLOBAL 🔥 */
+  let globalPreview = document.getElementById('globalCardPreview');
+  if (!globalPreview) {
+    globalPreview = document.createElement('img');
+    globalPreview.id = 'globalCardPreview';
+    globalPreview.className = 'global-card-preview';
+    document.body.appendChild(globalPreview);
+  }
 
-  /* ── 💡 UX SÊNIOR: GESTÃO DE RITUAL OVERLAYS ── */
+  /* Exibe Tooltip nas Pílulas Textuais */
   document.addEventListener('mouseover', e => {
-    const infoIcon = e.target.closest('.info-icon');
-    const infoOverlay = e.target.closest('.card-overlay-info');
-    const equipIcon = e.target.closest('.equip-icon');
-    const equipOverlay = e.target.closest('.card-overlay-equip');
-    const ritualIcon = e.target.closest('.ritual-icon');
-    const ritualOverlay = e.target.closest('.card-overlay-ritual');
-
-    if (infoIcon || infoOverlay) {
-      const card = (infoIcon || infoOverlay).closest('.card');
-      if (card) {
-         card.classList.remove('show-equip-overlay', 'show-ritual-overlay'); 
-         card.classList.add('show-info-overlay'); 
-      }
+    const link = e.target.closest('.fusion-text-link');
+    if (link) {
+      globalPreview.src = link.dataset.preview;
+      globalPreview.classList.add('show');
     }
-    
-    if (equipIcon || equipOverlay) {
-      const card = (equipIcon || equipOverlay).closest('.card');
-      if (card) {
-         card.classList.remove('show-info-overlay', 'show-ritual-overlay'); 
-         card.classList.add('show-equip-overlay'); 
-      }
-    }
+  });
 
-    if (ritualIcon || ritualOverlay) {
-      const card = (ritualIcon || ritualOverlay).closest('.card');
-      if (card) {
-         card.classList.remove('show-info-overlay', 'show-equip-overlay'); 
-         card.classList.add('show-ritual-overlay'); 
-      }
+  /* Segue o cursor limitando bordas */
+  document.addEventListener('mousemove', e => {
+    if (globalPreview.classList.contains('show')) {
+      let leftPos = e.clientX + 15;
+      let topPos = e.clientY + 15;
+      if (leftPos + 130 > window.innerWidth) leftPos = e.clientX - 145;
+      if (topPos + 185 > window.innerHeight) topPos = e.clientY - 200;
+      globalPreview.style.left = leftPos + 'px';
+      globalPreview.style.top = topPos + 'px';
+    }
+  });
+
+  document.addEventListener('mouseout', e => {
+    const link = e.target.closest('.fusion-text-link');
+    if (link) globalPreview.classList.remove('show');
+  });
+
+  /* 🔥 GESTÃO BLINDADA DE ABAS NO CARD 🔥 */
+  document.addEventListener('mouseover', e => {
+    const icon = e.target.closest('.tab-icon');
+    if (icon) {
+      const card = icon.closest('.card');
+      const tabName = icon.dataset.tab;
+      card.setAttribute('data-active-tab', tabName);
     }
   });
 
@@ -324,17 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const card = e.target.closest('.card');
     if (card) {
       const rel = e.relatedTarget;
-      if (!rel || (!rel.closest('.info-icon') && !rel.closest('.card-overlay-info'))) {
-        card.classList.remove('show-info-overlay');
-      }
-      if (!rel || (!rel.closest('.equip-icon') && !rel.closest('.card-overlay-equip'))) {
-        card.classList.remove('show-equip-overlay');
-      }
-      if (!rel || (!rel.closest('.ritual-icon') && !rel.closest('.card-overlay-ritual'))) {
-        card.classList.remove('show-ritual-overlay');
+      if (!rel || (!card.contains(rel))) {
+         card.setAttribute('data-active-tab', 'none');
       }
     }
   });
+
+  let currentFilter = 'name';
+  let allCards = [];
 
   function getCardType(id) {
     const n = parseInt(id, 10);
@@ -394,7 +283,10 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function init() {
-    if (typeof cardsData === 'undefined') return;
+    if (typeof cardsData === 'undefined') {
+        console.error("ERRO QA: cardsData indefinido.");
+        return;
+    }
     allCards = cardsData.map(c => {
       const ct = getCardType(c.id);
       const isNonMonster = ['Equip','Magic','Field','Trap','Ritual'].includes(ct);
@@ -408,26 +300,18 @@ document.addEventListener('DOMContentLoaded', () => {
     
     cardsGrid.innerHTML = allCards.map((c, index) => {
       const m = c.cardType === 'Monster';
+      const lazyAttr = index < 12 ? '' : 'loading="lazy"';
       
-      let infoIconHTML = '';
-      let equipIconHTML = '';
-      let ritualIconHTML = '';
-      
-      let infoOverlayHTML = '';
-      let equipOverlayHTML = '';
-      let ritualOverlayHTML = '';
+      let infoIconHTML = ''; let fusionIconHTML = ''; let equipIconHTML = ''; let ritualIconHTML = '';
+      let infoOverlayHTML = ''; let fusionOverlayHTML = ''; let equipOverlayHTML = ''; let ritualOverlayHTML = '';
       let gStars = [];
-
-      const isAboveTheFold = index < 12;
-      const lazyAttr = isAboveTheFold ? '' : 'loading="lazy"';
-      const fetchPrio = isAboveTheFold ? 'fetchpriority="high"' : '';
 
       const isNonDroppable = (c.cost === 0 || c.cost === "0");
       let ribbonHTML = '';
       let imgWrapperClass = 'card-img-wrapper';
 
       if (isNonDroppable) {
-        ribbonHTML = `<div class="non-droppable-ribbon" title="Item Único: Não obtido via Drop">NÃO DROPÁVEL</div>`;
+        ribbonHTML = `<div class="non-droppable-ribbon">NÃO DROPÁVEL</div>`;
         imgWrapperClass += ' non-droppable-niche';
       }
 
@@ -435,83 +319,138 @@ document.addEventListener('DOMContentLoaded', () => {
         const x = extraCardData[c.id];
         if (x.guardianStars) gStars = x.guardianStars;
 
-        const sortData = (arr) => [...arr].sort((a, b) => parseFloat(b.rate) - parseFloat(a.rate));
-        const sortedDrops = sortData(x.drops || []);
-        const sortedUses = sortData(x.uses || []);
+        /* PAINEL INTERNO: DROPS E USES */
+        if (x.drops && x.drops.length > 0 || x.uses && x.uses.length > 0) {
+          const sortData = (arr) => [...arr].sort((a, b) => parseFloat(b.rate) - parseFloat(a.rate));
+          const sortedDrops = sortData(x.drops || []);
+          const sortedUses = sortData(x.uses || []);
 
-        if (sortedDrops.length > 0 || sortedUses.length > 0) {
-          infoIconHTML = `<img class="info-icon" src="images/others-icon/info-icon_2.png" alt="Info" title="Ver Drops e Usos">`;
-          infoOverlayHTML = `
-          <div class="card-overlay card-overlay-info">
-            <div class="overlay-header">
-              <span class="overlay-header-id">ID: ${c.id}</span>
-              <span class="overlay-header-name">${c.name}</span>
-            </div>
-            <div class="overlay-content">`;
+          infoIconHTML = `<img class="tab-icon icon-info" src="images/others-icon/info-icon_2.png" data-tab="info" title="Info/Drops">`;
+          infoOverlayHTML = `<div class="card-overlay overlay-info"><div class="overlay-content">`;
 
           if (sortedDrops.length > 0) {
-             infoOverlayHTML += `<h4 class="overlay-title"><span class="icon">💎</span> QUEM DROPA</h4><div class="overlay-list">`;
-             sortedDrops.forEach(d => infoOverlayHTML += `<div class="overlay-item"><img class="char-img" src="images/icons/${d.icon}" ${lazyAttr}><div class="overlay-text"><div class="overlay-row"><strong class="char-name">${d.name}</strong><span class="badge-rank">${d.rank}</span></div><div class="overlay-row rate-row"><span class="rate-pct">${d.rate}%</span> <span class="frac">(${d.fraction})</span></div></div></div>`);
+             infoOverlayHTML += `<h4 class="overlay-title">💎 QUEM DROPA</h4><div class="overlay-list">`;
+             sortedDrops.forEach(d => {
+                 infoOverlayHTML += `<div class="overlay-item">
+                     <img class="char-img" src="images/icons/${d.icon}" ${lazyAttr}>
+                     <div class="overlay-text">
+                         <div class="overlay-row"><strong class="char-name">${d.name}</strong><span class="badge-rank">${d.rank}</span></div>
+                         <div class="overlay-row rate-row"><span class="rate-pct">${d.rate}%</span> <span class="frac">(${d.fraction})</span></div>
+                     </div>
+                 </div>`;
+             });
              infoOverlayHTML += `</div>`;
           }
-
           if (sortedUses.length > 0) {
-             infoOverlayHTML += `<h4 class="overlay-title"><span class="icon">⚔️</span> CHANCE DE USAR</h4><div class="overlay-list grid-2">`;
-             sortedUses.forEach(u => infoOverlayHTML += `<div class="overlay-item item-small"><img class="char-img-small" src="images/icons/${u.icon}" ${lazyAttr}><div class="overlay-text"><strong class="char-name">${u.name}</strong><div class="rate-row"><span class="rate-pct">${u.rate}%</span></div></div></div>`);
+             infoOverlayHTML += `<h4 class="overlay-title">⚔️ CHANCE DE USAR</h4><div class="overlay-list grid-2">`;
+             sortedUses.forEach(u => {
+                 infoOverlayHTML += `<div class="overlay-item item-small">
+                     <img class="char-img-small" src="images/icons/${u.icon}" ${lazyAttr}>
+                     <div class="overlay-text">
+                         <strong class="char-name">${u.name}</strong>
+                         <div class="rate-row"><span class="rate-pct">${u.rate}%</span></div>
+                     </div>
+                 </div>`;
+             });
              infoOverlayHTML += `</div>`;
           }
           infoOverlayHTML += `</div></div>`;
         }
 
+        /* PAINEL INTERNO: FUSÕES */
+        if (x.fusions && x.fusions.length > 0) {
+          fusionIconHTML = `<img class="tab-icon icon-fusion" src="images/others-icon/f-icon.png" data-tab="fusion" title="Fusões">`;
+          fusionOverlayHTML = `<div class="card-overlay overlay-fusion"><div class="overlay-content">`;
+          fusionOverlayHTML += `<h4 class="overlay-title">⚡ FUSÕES</h4><div class="fusion-matrix">`;
+
+          x.fusions.forEach(f => {
+            let ruleHTML = '';
+            if (f.rule) {
+              ruleHTML = `
+                <div class="fusion-rule-banner">
+                  <div class="fusion-type-block"><img class="fusion-type-icon" src="images/card_type_icons/${f.rule[0].icon}"><span class="fusion-type-title">${f.rule[0].label}</span></div>
+                  <div class="fusion-operator">+</div>
+                  <div class="fusion-type-block"><img class="fusion-type-icon" src="images/card_type_icons/${f.rule[1].icon}"><span class="fusion-type-title">${f.rule[1].label}</span></div>
+                </div>`;
+            }
+
+            const buildTextLink = (card) => `
+              <a href="#card-${card.id}" class="fusion-text-link" data-preview="images/cards/${card.id}.png">
+                <span class="ft-id">#${card.id}</span><span class="ft-name">${card.name}</span>
+              </a>`;
+
+            let mat1HTML = '';
+            if (c.id === '002' && f.material1) {
+                mat1HTML = `<div class="ft-or-group-QA">${f.material1.map(buildTextLink).join('')}</div>`;
+            } else if (f.material1) {
+                mat1HTML = f.material1.map(buildTextLink).join('');
+            }
+
+            const mat2HTML = f.material2 ? f.material2.map(buildTextLink).join('') : '';
+            const resHTML = f.result ? buildTextLink(f.result) : '';
+
+            fusionOverlayHTML += `
+              <div class="fusion-group">
+                ${ruleHTML}
+                <div class="fusion-tree-layout-QA">
+                  <div class="fusion-col-QA mat1-col-QA">${mat1HTML}</div>
+                  <div class="fusion-operator">+</div>
+                  <div class="fusion-col-QA mat2-col-QA"><div class="fusion-scroll-grid-QA">${mat2HTML}</div></div>
+                  <div class="fusion-operator">=</div>
+                  <div class="fusion-col-QA res-col-QA">${resHTML}</div>
+                </div>
+              </div>`;
+          });
+          fusionOverlayHTML += `</div></div></div>`;
+        }
+
+        /* PAINEL INTERNO: EQUIPAMENTOS */
         if (x.equips && x.equips.length > 0) {
-          equipIconHTML = `<img class="equip-icon" src="images/others-icon/e-icon.png" alt="Equips" title="Ver Cartas de Equipamento">`;
+          equipIconHTML = `<img class="tab-icon icon-equip" src="images/others-icon/e-icon.png" data-tab="equip" title="Equipamentos">`;
           equipOverlayHTML = `
-          <div class="card-overlay card-overlay-equip equip-theme">
-            <div class="overlay-header">
-              <span class="overlay-header-id">ID: ${c.id}</span>
-              <span class="overlay-header-name">${c.name}</span>
-            </div>
+          <div class="card-overlay overlay-equip">
             <div class="overlay-content">
-              <h4 class="overlay-title"><span class="icon">🛡️</span> SE EQUIPA COM:</h4>
-              <div class="overlay-list">`;
-          
-          x.equips.forEach(eq => equipOverlayHTML += `<div class="overlay-item equip-item"><img class="equip-img" src="images/cards/${eq.img}" onerror="this.src='images/cards/placeholder.png'" ${lazyAttr}><div class="overlay-text"><strong class="equip-name">${eq.id} ${eq.name}</strong></div></div>`);
+              <h4 class="overlay-title">🛡️ SE EQUIPA COM:</h4>
+              <div class="overlay-list equip-grid">`;
+          x.equips.forEach(eq => {
+              equipOverlayHTML += `<div class="overlay-item equip-item">
+                  <img class="equip-img" src="images/cards/${eq.img}" onerror="this.src='images/cards/placeholder.png'" ${lazyAttr}>
+                  <div class="overlay-text"><strong class="equip-name">${eq.id} ${eq.name}</strong></div>
+              </div>`;
+          });
           equipOverlayHTML += `</div></div></div>`;
         }
 
-        /* 🔥 MOTOR DO NOVO PAINEL DE RITUAL 🔥 */
+        /* PAINEL INTERNO: RITUAIS */
         if (x.rituals && x.rituals.length > 0) {
-          ritualIconHTML = `<img class="ritual-icon" src="images/others-icon/r-icon.png" alt="Ritual" title="Ver Síntese de Ritual">`;
+          ritualIconHTML = `<img class="tab-icon icon-ritual" src="images/others-icon/r-icon.png" data-tab="ritual" title="Rituais">`;
           ritualOverlayHTML = `
-          <div class="card-overlay card-overlay-ritual ritual-theme">
-            <div class="overlay-header">
-              <span class="overlay-header-id">ID: ${c.id}</span>
-              <span class="overlay-header-name">${c.name}</span>
-            </div>
+          <div class="card-overlay overlay-ritual">
             <div class="overlay-content">
-              <h4 class="overlay-title"><span class="icon">🔥</span> SÍNTESE DE RITUAL</h4>
+              <h4 class="overlay-title">🔥 SÍNTESE DE RITUAL</h4>
               <div class="ritual-list">`;
-          
           x.rituals.forEach(r => {
              ritualOverlayHTML += `
                <div class="ritual-container">
                  <div class="ritual-equation">
-                   <div class="ritual-part material-part">
-                     <span class="ritual-qty">${r.materials[0].count}x</span>
-                     <img class="ritual-card-img" src="images/cards/${r.materials[0].id}.png" alt="${r.materials[0].name}" loading="lazy">
+                   <div class="ritual-part material-part focos">
+                     <span class="ritual-qty focos-badge">${r.materials[0].count}x</span>
+                     <img class="ritual-card-img focos-img" src="images/cards/${r.materials[0].id}.png" loading="lazy">
+                     <span class="focos-id focos-badge">#${r.materials[0].id}</span>
                    </div>
                    <div class="ritual-math">+</div>
-                   <div class="ritual-part ritual-spell">
-                     <img class="ritual-card-img" src="images/cards/${r.ritualCard.id}.png" alt="${r.ritualCard.name}" loading="lazy">
+                   <div class="ritual-part ritual-spell focos">
+                     <img class="ritual-card-img focos-img" src="images/cards/${r.ritualCard.id}.png" loading="lazy">
+                     <span class="focos-id focos-badge spell-badge">#${r.ritualCard.id}</span>
                    </div>
                    <div class="ritual-math">=</div>
-                   <div class="ritual-part result-part">
-                     <img class="ritual-card-img result-img" src="images/cards/${r.result.id}.png" alt="${r.result.name}" loading="lazy">
+                   <div class="ritual-part result-part focos result-focos">
+                     <img class="ritual-card-img result-img result-img-focos" src="images/cards/${r.result.id}.png" loading="lazy">
+                     <span class="focos-id focos-badge result-badge">#${r.result.id}</span>
                    </div>
                  </div>
                  <p class="ritual-desc">${r.description}</p>
-               </div>
-             `;
+               </div>`;
           });
           ritualOverlayHTML += `</div></div></div>`;
         }
@@ -524,49 +463,55 @@ document.addEventListener('DOMContentLoaded', () => {
         : displayType;
 
       const guardianStarRow = m 
-        ? `<div class="stat-row full-width-desk stat-gstar"><span class="stat-label">Guardian Star</span><span class="stat-val guardian-stars-container">${getGuardianStarHTML(gStars)}</span></div>` 
+        ? `<div class="stat-row full-width-desk stat-gstar"><span class="stat-label">GUARDIAN STAR</span><span class="stat-val guardian-stars-container">${getGuardianStarHTML(gStars)}</span></div>` 
         : '';
 
       return `
-      <article class="card" data-type="${c.cardType}" id="card-${c.id}">
-        ${infoOverlayHTML}
-        ${equipOverlayHTML}
-        ${ritualOverlayHTML} <!-- O Novo Overlay de Ritual -->
-
+      <article class="card" data-type="${c.cardType}" id="card-${c.id}" data-active-tab="none">
         <div class="card-header">
           <div class="card-id-wrapper">
             <span class="card-id">ID: ${c.id}</span>
             <div class="icon-group">
                ${infoIconHTML}
+               ${fusionIconHTML}
                ${equipIconHTML}
-               ${ritualIconHTML} <!-- O R-Icon posicionado automaticamente -->
+               ${ritualIconHTML}
             </div>
           </div>
           <span class="card-badge">${c.cardType}</span>
         </div>
         
-        <div class="${imgWrapperClass}" title="Ver descrição da carta">
-          <img class="card-img-front" src="images/cards/${c.id}.png" alt="${c.name}" ${lazyAttr} ${fetchPrio} onerror="this.style.display='none'">
-          <img class="card-img-back" src="images/card_descriptions/${c.id}.png" alt="Descrição ${c.name}" loading="lazy" onerror="this.parentElement.classList.add('no-desc'); this.remove();">
-          ${ribbonHTML}
-        </div>
-        
-        <div class="card-body">
-          <div class="card-title">${c.name}</div>
-          <div class="card-stats">
-            <div class="stat-row stat-atk"><span class="stat-label">ATK</span><span class="stat-val">${m ? `${c.atk} <img class="atk-def-icon" src="images/card_icon_atk_def/attack-icon.png" alt="ATK">` : '-'}</span></div>
-            <div class="stat-row stat-def"><span class="stat-label">DEF</span><span class="stat-val">${m ? `${c.def} <img class="atk-def-icon" src="images/card_icon_atk_def/defense-icon.png" alt="DEF">` : '-'}</span></div>
-            ${guardianStarRow}
-            <div class="stat-row stat-type"><span class="stat-label">Type</span><span class="stat-val type-with-icon">${typeHtml}</span></div>
-            <div class="stat-row stat-level">
-              <span class="stat-label">
-                <span class="text-desktop">Lv</span><span class="text-mobile">LEVEL</span>
-              </span>
-              <span class="stat-val">${m && c.level > 0 ? `${c.level} <span class="star-icon">★</span>` : '-'}</span>
+        <div class="card-content-wrapper">
+            <div class="card-default-view">
+                <div class="${imgWrapperClass}">
+                  <div class="glass-showcase">
+                    <img class="card-img-front" src="images/cards/${c.id}.png" alt="${c.name}" ${lazyAttr} onerror="this.style.display='none'">
+                    <img class="card-img-back" src="images/card_descriptions/${c.id}.png" alt="Descrição" loading="lazy" onerror="this.parentElement.classList.add('no-desc'); this.remove();">
+                  </div>
+                  ${ribbonHTML}
+                </div>
+                
+                <div class="card-body">
+                  <div class="card-title">${c.name}</div>
+                  <div class="card-stats">
+                    <div class="stat-row stat-atk"><span class="stat-label">ATK</span><span class="stat-val">${m ? `${c.atk} <img class="atk-def-icon" src="images/card_icon_atk_def/attack-icon.png">` : '-'}</span></div>
+                    <div class="stat-row stat-def"><span class="stat-label">DEF</span><span class="stat-val">${m ? `${c.def} <img class="atk-def-icon" src="images/card_icon_atk_def/defense-icon.png">` : '-'}</span></div>
+                    ${guardianStarRow}
+                    <div class="stat-row stat-type"><span class="stat-label">TYPE</span><span class="stat-val type-with-icon">${typeHtml}</span></div>
+                    <div class="stat-row stat-level">
+                      <span class="stat-label">LEVEL</span>
+                      <span class="stat-val">${m && c.level > 0 ? `${c.level} <span class="star-icon">★</span>` : '-'}</span>
+                    </div>
+                    <div class="stat-row stat-pass full-width-desk"><span class="stat-label">PASSWORD</span><span class="stat-val">${c.password || '-'}</span></div>
+                    <div class="stat-row stat-cost full-width-desk"><span class="stat-label">COST</span><span class="stat-val">${c.cost !== null && c.cost !== undefined && c.cost !== '' ? `${c.cost} <span class="star-icon">★</span>` : '-'}</span></div>
+                  </div>
+                </div>
             </div>
-            <div class="stat-row stat-pass full-width-desk"><span class="stat-label">Password</span><span class="stat-val">${c.password || '-'}</span></div>
-            <div class="stat-row stat-cost full-width-desk"><span class="stat-label">Cost</span><span class="stat-val">${c.cost !== null && c.cost !== undefined && c.cost !== '' ? `${c.cost} <span class="star-icon">★</span>` : '-'}</span></div>
-          </div>
+
+            ${infoOverlayHTML}
+            ${fusionOverlayHTML}
+            ${equipOverlayHTML}
+            ${ritualOverlayHTML}
         </div>
       </article>`;
     }).join('');
@@ -587,51 +532,29 @@ document.addEventListener('DOMContentLoaded', () => {
           }, 100);
         }
         break;
-      case 'atk':
-        out = allCards.filter(c => c.cardType === 'Monster' && String(c.atk).startsWith(q));
-        break;
-      case 'def':
-        out = allCards.filter(c => c.cardType === 'Monster' && String(c.def).startsWith(q));
-        break;
+      case 'atk': out = allCards.filter(c => c.cardType === 'Monster' && String(c.atk).startsWith(q)); break;
+      case 'def': out = allCards.filter(c => c.cardType === 'Monster' && String(c.def).startsWith(q)); break;
       case 'cost':
         if (/^\d+$/.test(q)) {
           const exactMatches = allCards.filter(c => c.cost !== null && c.cost !== undefined && String(c.cost) === q);
-          if (exactMatches.length > 0) { out = exactMatches; } 
-          else { out = allCards.filter(c => c.cost !== null && c.cost !== undefined && String(c.cost).startsWith(q)); }
+          out = exactMatches.length > 0 ? exactMatches : allCards.filter(c => c.cost !== null && c.cost !== undefined && String(c.cost).startsWith(q));
         } else { out = allCards; }
         break;
-      case 'card-type':
-        out = allCards.filter(c => c.cardType.toLowerCase().startsWith(q));
-        break;
-      case 'type':
-        out = allCards.filter(c => c.finalType.toLowerCase().startsWith(q));
-        break;
-      case 'level':
-        if (/^\d+$/.test(q)) {
-          out = allCards.filter(c => c.cardType === 'Monster' && String(c.level) === q);
-        } else { out = allCards; }
-        break;
+      case 'card-type': out = allCards.filter(c => c.cardType.toLowerCase().startsWith(q)); break;
+      case 'type': out = allCards.filter(c => c.finalType.toLowerCase().startsWith(q)); break;
+      case 'level': out = /^\d+$/.test(q) ? allCards.filter(c => c.cardType === 'Monster' && String(c.level) === q) : allCards; break;
     }
 
     const matchedIds = new Set(out.map(c => c.id));
-    const allCardNodes = document.querySelectorAll('.card');
-    allCardNodes.forEach(node => {
+    document.querySelectorAll('.card').forEach(node => {
       const id = node.id.replace('card-', '');
-      if (matchedIds.has(id)) {
-        node.style.display = 'flex';
-      } else {
-        node.style.display = 'none';
-      }
+      node.style.display = matchedIds.has(id) ? 'flex' : 'none';
     });
 
     let noResultMsg = document.getElementById('no-results-msg');
     if (out.length === 0) {
-      if (!noResultMsg) {
-        cardsGrid.insertAdjacentHTML('beforeend', `<div id="no-results-msg" style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-family: 'Orbitron'; padding: 50px;"><div style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5;">🔍</div><div style="font-size: 0.9rem; letter-spacing: 2px;">NENHUMA CARTA ENCONTRADA</div></div>`);
-      }
-    } else {
-      if (noResultMsg) noResultMsg.remove();
-    }
+      if (!noResultMsg) cardsGrid.insertAdjacentHTML('beforeend', `<div id="no-results-msg" style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-family: 'Orbitron'; padding: 50px;"><div style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5;">🔍</div><div style="font-size: 0.9rem; letter-spacing: 2px;">NENHUMA CARTA ENCONTRADA</div></div>`);
+    } else if (noResultMsg) noResultMsg.remove();
   }
 
   function setFilter(name) {
@@ -653,21 +576,5 @@ document.addEventListener('DOMContentLoaded', () => {
     b.addEventListener('click', () => setFilter(currentFilter === b.dataset.filter ? 'name' : b.dataset.filter));
   });
 
-  window.addEventListener('scroll', () => { 
-    scrollTopBtn.classList.toggle('show', window.scrollY > 400); 
-  });
-  
-  scrollTopBtn.addEventListener('click', () => { 
-    window.scrollTo({ top: 0, behavior: 'smooth' }); 
-  });
-
   init();
-
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('./sw.js')
-        .then(reg => console.log('🚀 [PWA] Orquestrador Ativo!', reg.scope))
-        .catch(err => console.error('⚠️ [PWA] Erro:', err));
-    });
-  }
 });
