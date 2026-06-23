@@ -1,0 +1,20 @@
+{
+  "name": "Yu-Gi-Oh! Forbidden Memories - Card Database",
+  "short_name": "YGO FM DB",
+  "description": "Enciclopédia digital completa com todas as 722 cartas do clássico Yu-Gi-Oh! Forbidden Memories de PS1.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#02040a",
+  "theme_color": "#00f5ff",
+  "orientation": "any",
+  "categories": ["games", "entertainment"],
+  "icons": [
+    {
+      "src": "images/others-icon/info-icon_2.png",
+      "sizes": "any",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

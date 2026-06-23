@@ -1,4 +1,4 @@
-const CACHE_NAME = 'ygo-fm-cache-v1';
+const CACHE_NAME = 'ygo-fm-cache-v2';
 
 // App Shell: O esqueleto do site que deve carregar instantaneamente
 const STATIC_ASSETS = [
@@ -6,14 +6,15 @@ const STATIC_ASSETS = [
   './index.html',
   './styles.css',
   './app.js',
-  './cards-data.js'
+  './cards-data.js',
+  './manifest.json'
 ];
 
 // Instalação do Service Worker
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Cacheando App Shell');
+      console.log('[Service Worker] Cacheando App Shell v2');
       return cache.addAll(STATIC_ASSETS);
     })
   );
@@ -39,16 +40,21 @@ self.addEventListener('activate', (event) => {
 
 // Estratégia Híbrida de Interceptação (Cache First para Imagens, Network Fallback)
 self.addEventListener('fetch', (event) => {
-  const isImage = event.request.destination === 'image' || event.request.url.match(/\.(png|jpg|jpeg|gif|avif|webp)$/i);
+  const url = new URL(event.request.url);
+  const isImage = event.request.destination === 'image' || url.pathname.match(/\.(png|jpg|jpeg|gif|avif|webp)$/i);
+  const isAudio = event.request.destination === 'audio' || url.pathname.match(/\.(mp3|ogg|wav)$/i);
+
+  if (isAudio) {
+    // ── ESTRATÉGIA PARA ÁUDIO: NETWORK ONLY (não cachear músicas pesadas) ──
+    event.respondWith(fetch(event.request));
+    return;
+  }
 
   if (isImage) {
     // ── ESTRATÉGIA PARA AS 722 CARTAS: CACHE FIRST ──
     event.respondWith(
       caches.match(event.request).then((cachedResponse) => {
-        // Se a imagem já estiver no disco do usuário, devolve em 1 milissegundo!
         if (cachedResponse) return cachedResponse;
-
-        // Se não estiver, baixa da rede e guarda no cache secretamente
         return fetch(event.request).then((networkResponse) => {
           if (!networkResponse || networkResponse.status !== 200 || networkResponse.type !== 'basic') {
             return networkResponse;
@@ -64,7 +70,17 @@ self.addEventListener('fetch', (event) => {
   } else {
     // ── ESTRATÉGIA PARA HTML/CSS/JS: NETWORK FIRST, CACHE FALLBACK ──
     event.respondWith(
-      fetch(event.request).catch(() => caches.match(event.request))
+      fetch(event.request)
+        .then((networkResponse) => {
+          if (networkResponse && networkResponse.status === 200 && networkResponse.type === 'basic') {
+            const responseToCache = networkResponse.clone();
+            caches.open(CACHE_NAME).then((cache) => {
+              cache.put(event.request, responseToCache);
+            });
+          }
+          return networkResponse;
+        })
+        .catch(() => caches.match(event.request))
     );
   }
 });

@@ -1,172 +1,97 @@
 /* ============================================================
-   Yu-Gi-Oh! Forbidden Memories — Application Logic & QA Master
+   Yu-Gi-Oh! Forbidden Memories - Application Logic & QA Master
+   extraCardData carregado via extra-card-data.js
    ============================================================ */
-
-const extraCardData = {
-  '001': {
-    guardianStars: ['Sun', 'Mars'],
-    drops: [
-      { name: 'Seto 3rd', rank: 'POW: S/A', rate: '1.27', fraction: '26 de 2048º', icon: 'seto-kaiba-third-icon.png' }
-    ],
-    uses: [
-      { name: 'Seto 3rd', rate: '5.86', fraction: '120 de 2048º', icon: 'seto-kaiba-third-icon.png' },
-      { name: 'Seto 2nd', rate: '2.34', fraction: '48 de 2048º', icon: 'seto-kaiba-second-icon.png' },
-      { name: 'Kaiba', rate: '2.20', fraction: '45 de 2048º', icon: 'kaiba-icon.png' },
-      { name: 'DarkNite', rate: '1.56', fraction: '32 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'Heishin 2nd', rate: '1.56', fraction: '32 de 2048º', icon: 'heishin-second-icon.png' },
-      { name: 'Nitemare', rate: '1.56', fraction: '32 de 2048º', icon: 'nightmare-icon.png' }
-    ],
-    equips: [
-      { id: '315', name: 'Dragon Treasure', img: '315.png' },
-      { id: '657', name: 'Megamorph', img: '657.png' },
-      { id: '668', name: 'Bright Castle', img: '668.png' }
-    ],
-    rituals: [
-      {
-        materials: [{ id: '001', name: 'Blue-Eyes White Dragon', count: 3 }],
-        ritualCard: { id: '675', name: 'Ultimate Dragon' },
-        result: { id: '380', name: 'Blue-Eyes Ultimate Dragon' },
-        description: 'É necessário ter 3 "Blue-Eyes White Dragon" em campo. Ative a carta mágica de ritual "Ultimate Dragon".'
-      }
-    ]
-  },
-  '002': {
-    guardianStars: ['Sun', 'Moon'],
-    drops: [
-      { name: 'Bandit Keith', rank: 'POW: S/A', rate: '1.46', fraction: '30 de 2048º', icon: 'bandit-keith-icon.png' },
-      { name: 'High Mage Atenza', rank: 'POW/TEC: B/C/D', rate: '1.46', fraction: '30 de 2048º', icon: 'high-mage-atenza-icon.png' },
-      { name: 'High Mage Atenza', rank: 'TEC: S/A', rate: '1.37', fraction: '28 de 2048º', icon: 'high-mage-atenza-icon.png' },
-      { name: 'Meadow Mage', rank: 'POW: S/A', rate: '2.15', fraction: '44 de 2048º', icon: 'meadow-mage-icon.png' },
-      { name: 'Meadow Mage', rank: 'POW/TEC: B/C/D', rate: '2.44', fraction: '50 de 2048º', icon: 'meadow-mage-icon.png' },
-      { name: 'Meadow Mage', rank: 'TEC: S/A', rate: '2.25', fraction: '46 de 2048º', icon: 'meadow-mage-icon.png' },
-      { name: 'High Mage Secmeton', rank: 'TEC: S/A', rate: '2.05', fraction: '42 de 2048º', icon: 'high-mage-secmeton-icon.png' },
-      { name: 'High Mage Secmeton', rank: 'POW/TEC: B/C/D', rate: '1.61', fraction: '33 de 2048º', icon: 'high-mage-secmeton-icon.png' },
-      { name: 'Seto 2nd', rank: 'POW/TEC: B/C/D', rate: '1.95', fraction: '40 de 2048º', icon: 'seto-kaiba-second-icon.png' },
-      { name: 'Yami Bakura', rank: 'POW: S/A', rate: '2.44', fraction: '50 de 2048º', icon: 'yami-bakura-icon.png' }
-    ],
-    uses: [
-      { name: 'Yami Bakura', rate: '1.56', fraction: '32 de 2048º', icon: 'yami-bakura-icon.png' },
-      { name: 'Bandit Keith', rate: '1.22', fraction: '25 de 2048º', icon: 'bandit-keith-icon.png' },
-      { name: 'High Mage Secmeton', rate: '0.39', fraction: '8 de 2048º', icon: 'high-mage-secmeton-icon.png' },
-      { name: 'Mai Valentine', rate: '0.39', fraction: '8 de 2048º', icon: 'mai-valentine-icon.png' },
-      { name: 'Neku', rate: '0.39', fraction: '8 de 2048º', icon: 'neku-icon.png' },
-      { name: 'Sebek', rate: '0.20', fraction: '4 de 2048º', icon: 'sebek-icon.png' },
-      { name: 'High Mage Martis', rate: '0.10', fraction: '2 de 2048º', icon: 'high-mage-martis-icon.png' },
-      { name: 'Seto 2nd', rate: '0.10', fraction: '2 de 2048º', icon: 'seto-kaiba-second-icon.png' },
-      { name: 'High Mage Atenza', rate: '0.05', fraction: '1 de 2048º', icon: 'high-mage-atenza-icon.png' }
-    ],
-    equips: [
-      { id: '307', name: "Elf's Light", img: '307.png' },
-      { id: '312', name: 'Silver Bow and Arrow', img: '312.png' },
-      { id: '316', name: 'Electro-whip', img: '316.png' },
-      { id: '317', name: 'Cyber Shield', img: '317.png' },
-      { id: '321', name: 'Malevolent Nuzzler', img: '321.png' },
-      { id: '323', name: 'Book of Secret Arts', img: '323.png' },
-      { id: '657', name: 'Megamorph', img: '657.png' },
-      { id: '668', name: 'Bright Castle', img: '668.png' }
-    ],
-    fusions: [
-      {
-        rule: [
-          { label: 'ELF', icon: 'spellcaster-icon.png' },
-          { label: 'FAIRY', icon: 'fairy-icon.png' }
-        ],
-        material1: [
-          { id: '264', name: 'Wing Egg Elf' },
-          { id: '395', name: 'Dancing Elf' }
-        ],
-        material2: [
-          { id: '130', name: 'Weather Control' },
-          { id: '134', name: 'Mystical Capture Chain' },
-          { id: '183', name: 'Lucky Trinket' },
-          { id: '192', name: 'Key Mace' },
-          { id: '208', name: 'Petit Angel' },
-          { id: '229', name: 'Hourglass of Life' },
-          { id: '260', name: 'Lunar Queen Elzaim' },
-          { id: '264', name: 'Wing Egg Elf' },
-          { id: '428', name: 'Magician of Faith' },
-          { id: '486', name: 'Boo Koo' },
-          { id: '492', name: 'Hoshiningen' },
-          { id: '601', name: 'Tenderness' }
-        ],
-        result: { id: '002', name: 'Mystical Elf' }
-      }
-    ]
-  },
-  '003': { 
-    guardianStars: ['Moon', 'Mars'],
-    drops: [
-      { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'DarkNite', rank: 'POW: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'DarkNite', rank: 'POW/TEC: B/C/D', rate: '1.27', fraction: '26 de 2048º', icon: 'darknite-icon.png' },
-      { name: 'High Mage Anubisius', rank: 'POW/TEC: B/C/D', rate: '1.17', fraction: '24 de 2048º', icon: 'high-mage-anubisius-icon.png' },
-      { name: 'High Mage Anubisius', rank: 'TEC: S/A', rate: '1.03', fraction: '21 de 2048º', icon: 'high-mage-anubisius-icon.png' }
-    ],
-    uses: [
-      { name: 'Forest Mage', rate: '0.78', fraction: '16 de 2048º', icon: 'forest-mage-icon.png' }
-    ],
-    equips: [
-      { id: '303', name: 'Dark Energy', img: '303.png' },
-      { id: '304', name: 'Axe of Despair', img: '304.png' }
-    ]
-  },
-  '004': { 
-    guardianStars: ['Moon', 'Mars'],
-    drops: [
-      { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' }
-    ],
-    uses: [
-      { name: 'Isis', rate: '0.49', fraction: '10 de 2048º', icon: 'isis-icon.png' }
-    ],
-    equips: [
-      { id: '305', name: 'Laser Cannon Armor', img: '305.png' }
-    ]
-  },
-  '005': {
-    guardianStars: ['Saturn', 'Sun'],
-    drops: [
-      { name: 'DarkNite', rank: 'TEC: S/A', rate: '1.07', fraction: '22 de 2048º', icon: 'darknite-icon.png' }
-    ],
-    uses: [
-      { name: 'Forest Mage', rate: '0.78', fraction: '16 de 2048º', icon: 'forest-mage-icon.png' }
-    ],
-    equips: [
-      { id: '303', name: 'Dark Energy', img: '303.png' }
-    ]
-  },
-  '006': { 
-    guardianStars: ['Moon', 'Jupiter'],
-    drops: [
-      { name: 'High Mage Atenza', rank: 'TEC: S/A', rate: '1.37', fraction: '28 de 2048º', icon: 'high-mage-atenza-icon.png' }
-    ],
-    uses: [
-      { name: 'Bandit Keith', rate: '0.98', fraction: '20 de 2048º', icon: 'bandit-keith-icon.png' }
-    ],
-    equips: [
-      { id: '303', name: 'Dark Energy', img: '303.png' }
-    ]
-  },
-  '007': { guardianStars: ['Saturn', 'Moon'] },
-  '008': { guardianStars: ['Jupiter', 'Sun'] },
-  '009': { guardianStars: ['Moon', 'Pluto'] },
-  '010': { guardianStars: ['Moon', 'Pluto'] }
-};
+/* ============================================================
+   🎵 TRILHA SONORA — DADOS DAS MÚSICAS DO JOGO
+   ============================================================ */
+const MUSIC_BASE_PATH = '../music-themes/';
+const musicTracks = [
+  { name: 'Title', file: '01. Title.mp3' },
+  { name: 'Input Name', file: '02. Input Name.mp3' },
+  { name: 'Tournament Announcement', file: '03. Tournament Announcement.mp3' },
+  { name: 'Modern Times', file: '04. Modern Times.mp3' },
+  { name: "Shadi's Message", file: "05. Shadi's Message.mp3" },
+  { name: 'Inside the Puzzle', file: '06. Inside the Puzzle.mp3' },
+  { name: 'Preliminary Face-Off', file: '07. Preliminary Face-Off.mp3' },
+  { name: 'Finals Face-Off', file: '08. Finals Face-Off.mp3' },
+  { name: 'Seto Kaiba Face-Off', file: '09. Seto Kaiba Face-Off.mp3' },
+  { name: 'Card Shop', file: '10. Card Shop.mp3' },
+  { name: 'Metropolis', file: '11. Metropolis.mp3' },
+  { name: 'Metropolis 2', file: '12. Metropolis 2.mp3' },
+  { name: "Pharaoh's Palace", file: "13. Pharaoh's Palace.mp3" },
+  { name: 'Egypt in Ruins', file: '14. Egypt in Ruins.mp3' },
+  { name: 'Deck Setup', file: '15. Deck Setup.mp3' },
+  { name: 'Duel Ground', file: '16. Duel Ground.mp3' },
+  { name: "King's Valley", file: "17. King's Valley.mp3" },
+  { name: 'Sea Shrine', file: '18. Sea Shrine.mp3' },
+  { name: 'Forest Shrine', file: '19. Forest Shrine.mp3' },
+  { name: 'Desert Shrine', file: '20. Desert Shrine.mp3' },
+  { name: 'Meadow Shrine', file: '21. Meadow Shrine.mp3' },
+  { name: 'Mountain Shrine', file: '22. Mountain Shrine.mp3' },
+  { name: 'Vast Shrine', file: '23. Vast Shrine.mp3' },
+  { name: 'Dark Shrine', file: '24. Dark Shrine.mp3' },
+  { name: "Seto's Betrayal", file: "25. Seto's Betrayal.mp3" },
+  { name: 'Forbidden Ruins', file: '26. Forbidden Ruins.mp3' },
+  { name: "Heishin's Millennium Puzzle", file: "27. Heishin's Millennium Puzzle Confrontation.mp3" },
+  { name: "Heishin's Invasion", file: "28. Heishin's Invasion.mp3" },
+  { name: "Darknite's Arrival", file: "29. Darknite's Arrival.mp3" },
+  { name: 'Preliminaries', file: '30. Preliminaries.mp3' },
+  { name: 'Finals', file: '31. Finals.mp3' },
+  { name: 'Seto Kaiba (Tournament Final)', file: '32. Seto Kaiba (Tournament Final).mp3' },
+  { name: 'Egyptian Duel', file: '33. Egyptian Duel.mp3' },
+  { name: 'Mages Duel', file: '34. Mages Duel.mp3' },
+  { name: 'High Mages', file: '35. High Mages.mp3' },
+  { name: 'Heishin', file: '36. Heishin.mp3' },
+  { name: 'Seto', file: '37. Seto.mp3' },
+  { name: 'Darknite - Nitemare', file: '38. Darknite - Nitemare.mp3' },
+  { name: 'Free Duel', file: '39. Free Duel.mp3' },
+  { name: 'Free Duel (3D)', file: '40. Free Duel (3D).mp3' },
+  { name: 'Seto Kaiba Duel (3D)', file: '41. Seto Kaiba Duel (3D Tournament Final).mp3' },
+  { name: 'Egyptian Duel (3D)', file: '42. Egyptian Duel (3D).mp3' },
+  { name: 'Darknite - Nitemare (3D)', file: '43. Darknite - Nitemare (3D).mp3' },
+  { name: 'Free Duel Menu', file: '44. Free Duel Menu.mp3' },
+  { name: 'Library', file: '45. Library.mp3' },
+  { name: 'Victory', file: '46. Victory.mp3' },
+  { name: 'Defeat', file: '47. Defeat.mp3' },
+  { name: 'Results of Duel', file: '48. Results of Duel.mp3' },
+  { name: 'Game Over', file: '49. Game Over.mp3' },
+  { name: 'Exodia', file: '50. Exodia.mp3' },
+  { name: 'Epilogue', file: '51. Epilogue.mp3' },
+  { name: 'Credits', file: '52. Credits.mp3' },
+  { name: 'Town Plaza', file: '53. Town Plaza.mp3' },
+  { name: 'Password', file: '54. Password.mp3' },
+  { name: 'Millennium Item Found', file: '55. Millennium Item Found.mp3' }
+];
 
 document.addEventListener('DOMContentLoaded', () => {
+  /* =========================================
+     REFERÊNCIAS DO DOM
+     ========================================= */
   const cardsGrid = document.getElementById('cardsGrid');
   const searchInput = document.getElementById('searchInput');
   const filterBtns = document.querySelectorAll('.filter-btn');
-  
-  if (!document.getElementById('scrollTopBtn')) {
-    const btn = document.createElement('button');
-    btn.id = 'scrollTopBtn';
-    btn.className = 'scroll-top-btn';
-    btn.innerHTML = '&#8679;'; 
-    btn.title = 'Voltar ao topo';
-    document.body.appendChild(btn);
-  }
   const scrollTopBtn = document.getElementById('scrollTopBtn');
-  
+  const clearSearchBtn = document.getElementById('clearSearchBtn');
+  const resultNumber = document.getElementById('resultNumber');
+  const resultCount = document.getElementById('resultCount');
+  const progressBar = document.getElementById('scrollProgressBar');
+  const toastEl = document.getElementById('toastNotification');
+
+  /* =========================================
+     UTILITÁRIOS
+     ========================================= */
+  function debounce(fn, delay) {
+    let timer;
+    return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), delay); };
+  }
+
+  function showToast(msg, duration = 2000) {
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    setTimeout(() => toastEl.classList.remove('show'), duration);
+  }
+
   /* 🔥 UX SÊNIOR: INJEÇÃO DO PREVIEW FLUTUANTE GLOBAL 🔥 */
   let globalPreview = document.getElementById('globalCardPreview');
   if (!globalPreview) {
@@ -176,9 +101,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(globalPreview);
   }
 
-  /* Exibe Tooltip nas Pílulas Textuais */
+  /* Exibe Tooltip nas Pílulas Textuais, Equips e Rituais */
   document.addEventListener('mouseover', e => {
-    const link = e.target.closest('.fusion-text-link');
+    const link = e.target.closest('[data-preview]');
     if (link) {
       globalPreview.src = link.dataset.preview;
       globalPreview.classList.add('show');
@@ -198,29 +123,92 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   document.addEventListener('mouseout', e => {
-    const link = e.target.closest('.fusion-text-link');
+    const link = e.target.closest('[data-preview]');
     if (link) globalPreview.classList.remove('show');
   });
 
-  /* 🔥 GESTÃO BLINDADA DE ABAS NO CARD 🔥 */
-  document.addEventListener('mouseover', e => {
-    const icon = e.target.closest('.tab-icon');
-    if (icon) {
-      const card = icon.closest('.card');
-      const tabName = icon.dataset.tab;
-      card.setAttribute('data-active-tab', tabName);
+  /* 📱 MOBILE TOUCH: pressionar para preview flutuante */
+  let touchPreviewTimer = null;
+  document.addEventListener('touchstart', e => {
+    const link = e.target.closest('[data-preview]');
+    if (link) {
+      touchPreviewTimer = setTimeout(() => {
+        globalPreview.src = link.dataset.preview;
+        const touch = e.touches[0];
+        let leftPos = touch.clientX - 65;
+        let topPos = touch.clientY - 200;
+        if (leftPos < 5) leftPos = 5;
+        if (topPos < 5) topPos = touch.clientY + 30;
+        globalPreview.style.left = leftPos + 'px';
+        globalPreview.style.top = topPos + 'px';
+        globalPreview.classList.add('show');
+      }, 200);
     }
-  });
+  }, { passive: true });
 
-  document.addEventListener('mouseout', e => {
-    const card = e.target.closest('.card');
-    if (card) {
-      const rel = e.relatedTarget;
-      if (!rel || (!card.contains(rel))) {
-         card.setAttribute('data-active-tab', 'none');
+  document.addEventListener('touchend', () => {
+    clearTimeout(touchPreviewTimer);
+    globalPreview.classList.remove('show');
+  }, { passive: true });
+
+  document.addEventListener('touchcancel', () => {
+    clearTimeout(touchPreviewTimer);
+    globalPreview.classList.remove('show');
+  }, { passive: true });
+
+  /* =========================================
+     🔥 GESTÃO DE ABAS (DESKTOP + MOBILE TOUCH) 🔥
+     ========================================= */
+  const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+
+  if (isTouchDevice) {
+    /* Mobile: Toggle por toque nos ícones */
+    document.addEventListener('click', e => {
+      const icon = e.target.closest('.tab-icon');
+      if (icon) {
+        e.preventDefault();
+        e.stopPropagation();
+        const card = icon.closest('.card');
+        const tabName = icon.dataset.tab;
+        const currentTab = card.getAttribute('data-active-tab');
+        /* Fecha todos os outros cards abertos */
+        document.querySelectorAll('.card[data-active-tab]:not([data-active-tab="none"])').forEach(c => {
+          if (c !== card) c.setAttribute('data-active-tab', 'none');
+        });
+        /* Toggle: se já está aberto nesta aba, fecha; senão, abre */
+        card.setAttribute('data-active-tab', currentTab === tabName ? 'none' : tabName);
       }
-    }
-  });
+    });
+
+    /* Fechar overlay ao tocar fora do card */
+    document.addEventListener('click', e => {
+      if (!e.target.closest('.card')) {
+        document.querySelectorAll('.card[data-active-tab]:not([data-active-tab="none"])').forEach(c => {
+          c.setAttribute('data-active-tab', 'none');
+        });
+      }
+    });
+  } else {
+    /* Desktop: Hover nos ícones */
+    document.addEventListener('mouseover', e => {
+      const icon = e.target.closest('.tab-icon');
+      if (icon) {
+        const card = icon.closest('.card');
+        const tabName = icon.dataset.tab;
+        card.setAttribute('data-active-tab', tabName);
+      }
+    });
+
+    document.addEventListener('mouseout', e => {
+      const card = e.target.closest('.card');
+      if (card) {
+        const rel = e.relatedTarget;
+        if (!rel || (!card.contains(rel))) {
+           card.setAttribute('data-active-tab', 'none');
+        }
+      }
+    });
+  }
 
   let currentFilter = 'name';
   let allCards = [];
@@ -293,6 +281,8 @@ document.addEventListener('DOMContentLoaded', () => {
       return { ...c, cardType: ct, finalType: isNonMonster ? '' : (c.type || '') };
     });
     renderAllCardsOnce();
+    setupIntersectionObserver();
+    handleDeepLink();
   }
 
   function renderAllCardsOnce() {
@@ -332,7 +322,7 @@ document.addEventListener('DOMContentLoaded', () => {
              infoOverlayHTML += `<h4 class="overlay-title">💎 QUEM DROPA</h4><div class="overlay-list">`;
              sortedDrops.forEach(d => {
                  infoOverlayHTML += `<div class="overlay-item">
-                     <img class="char-img" src="images/icons/${d.icon}" ${lazyAttr}>
+                     <img class="char-img" src="images/characters_icons/${d.icon}" ${lazyAttr} onerror="this.style.display='none'">
                      <div class="overlay-text">
                          <div class="overlay-row"><strong class="char-name">${d.name}</strong><span class="badge-rank">${d.rank}</span></div>
                          <div class="overlay-row rate-row"><span class="rate-pct">${d.rate}%</span> <span class="frac">(${d.fraction})</span></div>
@@ -345,7 +335,7 @@ document.addEventListener('DOMContentLoaded', () => {
              infoOverlayHTML += `<h4 class="overlay-title">⚔️ CHANCE DE USAR</h4><div class="overlay-list grid-2">`;
              sortedUses.forEach(u => {
                  infoOverlayHTML += `<div class="overlay-item item-small">
-                     <img class="char-img-small" src="images/icons/${u.icon}" ${lazyAttr}>
+                     <img class="char-img-small" src="images/characters_icons/${u.icon}" ${lazyAttr} onerror="this.style.display='none'">
                      <div class="overlay-text">
                          <strong class="char-name">${u.name}</strong>
                          <div class="rate-row"><span class="rate-pct">${u.rate}%</span></div>
@@ -357,51 +347,96 @@ document.addEventListener('DOMContentLoaded', () => {
           infoOverlayHTML += `</div></div>`;
         }
 
-        /* PAINEL INTERNO: FUSÕES */
-        if (x.fusions && x.fusions.length > 0) {
+        /* PAINEL INTERNO: FUSÕES (principal + otherFusions) */
+        const hasFusions = x.fusions && x.fusions.length > 0;
+        const hasOtherFusions = x.otherFusions && x.otherFusions.list && x.otherFusions.list.length > 0;
+
+        if (hasFusions || hasOtherFusions) {
           fusionIconHTML = `<img class="tab-icon icon-fusion" src="images/others-icon/f-icon.png" data-tab="fusion" title="Fusões">`;
           fusionOverlayHTML = `<div class="card-overlay overlay-fusion"><div class="overlay-content">`;
-          fusionOverlayHTML += `<h4 class="overlay-title">⚡ FUSÕES</h4><div class="fusion-matrix">`;
+          fusionOverlayHTML += `<h4 class="overlay-title">⚡ FUSÕES</h4>`;
 
-          x.fusions.forEach(f => {
-            let ruleHTML = '';
-            if (f.rule) {
-              ruleHTML = `
-                <div class="fusion-rule-banner">
-                  <div class="fusion-type-block"><img class="fusion-type-icon" src="images/card_type_icons/${f.rule[0].icon}"><span class="fusion-type-title">${f.rule[0].label}</span></div>
-                  <div class="fusion-operator">+</div>
-                  <div class="fusion-type-block"><img class="fusion-type-icon" src="images/card_type_icons/${f.rule[1].icon}"><span class="fusion-type-title">${f.rule[1].label}</span></div>
+          const buildTextLink = (card, isResult = false) => `
+            <a href="#card-${card.id}" class="fusion-text-link ${isResult ? 'fusion-result-gold' : ''}" data-preview="images/cards/${card.id}.png">
+              <span class="ft-id">#${card.id}</span><span class="ft-name">${card.name}</span>
+            </a>`;
+
+          /* Nota de fusão (ex: "Nenhuma carta origina...") */
+          if (x.fusionNote) {
+            fusionOverlayHTML += `<p class="fusion-note-text">${x.fusionNote}</p>`;
+          }
+
+          /* Fusões principais (que produzem esta carta) */
+          if (hasFusions) {
+            fusionOverlayHTML += `<div class="fusion-matrix">`;
+            x.fusions.forEach(f => {
+              let ruleHTML = '';
+              if (f.rule) {
+                ruleHTML = `
+                  <div class="fusion-rule-banner">
+                    <div class="fusion-type-block"><img class="fusion-type-icon" src="images/card_type_icons/${f.rule[0].icon}"><span class="fusion-type-title">${f.rule[0].label}</span></div>
+                    <div class="fusion-operator">+</div>
+                    <div class="fusion-type-block"><img class="fusion-type-icon" src="images/card_type_icons/${f.rule[1].icon}"><span class="fusion-type-title">${f.rule[1].label}</span></div>
+                  </div>`;
+              }
+
+              const mat1HTML = f.material1 ? f.material1.map(c => buildTextLink(c, false)).join('') : '';
+              const mat2HTML = f.material2 ? f.material2.map(c => buildTextLink(c, false)).join('') : '';
+              const resHTML = f.result ? buildTextLink(f.result, true) : '';
+
+              fusionOverlayHTML += `
+                <div class="fusion-group">
+                  ${ruleHTML}
+                  <div class="fusion-tree-layout-QA">
+                    <div class="fusion-mat-section">
+                      <div class="fusion-scroll-grid-QA">${mat1HTML}</div>
+                    </div>
+                    <div class="fusion-divider-row"><span class="fusion-divider-icon">+</span></div>
+                    <div class="fusion-mat-section">
+                      <div class="fusion-scroll-grid-QA">${mat2HTML}</div>
+                    </div>
+                    <div class="fusion-divider-row"><span class="fusion-divider-icon">=</span></div>
+                    <div class="fusion-result-section">${resHTML}</div>
+                  </div>
                 </div>`;
+            });
+            fusionOverlayHTML += `</div>`;
+          }
+
+          /* OUTRAS FUSÕES (onde esta carta é material para gerar outras) */
+          if (hasOtherFusions) {
+            fusionOverlayHTML += `<div class="fusion-other-section">`;
+            fusionOverlayHTML += `<h4 class="overlay-title fusion-other-title">🔄 OUTRAS FUSÕES</h4>`;
+            if (x.otherFusions.description) {
+              fusionOverlayHTML += `<p class="fusion-other-desc">${x.otherFusions.description}</p>`;
             }
 
-            const buildTextLink = (card) => `
-              <a href="#card-${card.id}" class="fusion-text-link" data-preview="images/cards/${card.id}.png">
-                <span class="ft-id">#${card.id}</span><span class="ft-name">${card.name}</span>
-              </a>`;
+            x.otherFusions.list.forEach(of => {
+              const ruleTag = of.ruleText ? ` <span class="fusion-rule-tag">(${of.ruleText})</span>` : '';
+              const noteHTML = of.note ? `<span class="fusion-mat-note">${of.note}</span>` : '';
+              const mat2HTML = of.material2.map(c => buildTextLink(c, false)).join('');
 
-            let mat1HTML = '';
-            if (c.id === '002' && f.material1) {
-                mat1HTML = `<div class="ft-or-group-QA">${f.material1.map(buildTextLink).join('')}</div>`;
-            } else if (f.material1) {
-                mat1HTML = f.material1.map(buildTextLink).join('');
-            }
+              fusionOverlayHTML += `
+                <div class="other-fusion-group">
+                  <div class="other-fusion-header">Forma a ${buildTextLink(of.result, true)}${ruleTag}</div>
+                  <div class="fusion-tree-layout-QA">
+                    <div class="fusion-mat-section fusion-mat-self">
+                      ${buildTextLink({id: c.id, name: c.name}, false)}${noteHTML}
+                    </div>
+                    <div class="fusion-divider-row"><span class="fusion-divider-icon">+</span></div>
+                    <div class="fusion-mat-section">
+                      <div class="fusion-scroll-grid-QA">${mat2HTML}</div>
+                    </div>
+                    <div class="fusion-divider-row"><span class="fusion-divider-icon">=</span></div>
+                    <div class="fusion-result-section">${buildTextLink(of.result, true)}</div>
+                  </div>
+                </div>`;
+            });
 
-            const mat2HTML = f.material2 ? f.material2.map(buildTextLink).join('') : '';
-            const resHTML = f.result ? buildTextLink(f.result) : '';
+            fusionOverlayHTML += `</div>`;
+          }
 
-            fusionOverlayHTML += `
-              <div class="fusion-group">
-                ${ruleHTML}
-                <div class="fusion-tree-layout-QA">
-                  <div class="fusion-col-QA mat1-col-QA">${mat1HTML}</div>
-                  <div class="fusion-operator">+</div>
-                  <div class="fusion-col-QA mat2-col-QA"><div class="fusion-scroll-grid-QA">${mat2HTML}</div></div>
-                  <div class="fusion-operator">=</div>
-                  <div class="fusion-col-QA res-col-QA">${resHTML}</div>
-                </div>
-              </div>`;
-          });
-          fusionOverlayHTML += `</div></div></div>`;
+          fusionOverlayHTML += `</div></div>`;
         }
 
         /* PAINEL INTERNO: EQUIPAMENTOS */
@@ -414,8 +449,10 @@ document.addEventListener('DOMContentLoaded', () => {
               <div class="overlay-list equip-grid">`;
           x.equips.forEach(eq => {
               equipOverlayHTML += `<div class="overlay-item equip-item">
-                  <img class="equip-img" src="images/cards/${eq.img}" onerror="this.src='images/cards/placeholder.png'" ${lazyAttr}>
-                  <div class="overlay-text"><strong class="equip-name">${eq.id} ${eq.name}</strong></div>
+                  <a href="#card-${eq.id}" class="equip-link-wrapper" data-preview="images/cards/${eq.img}">
+                    <img class="equip-img" src="images/cards/${eq.img}" onerror="this.src='images/cards/placeholder.png'" ${lazyAttr}>
+                    <div class="overlay-text"><strong class="equip-name">${eq.id} ${eq.name}</strong></div>
+                  </a>
               </div>`;
           });
           equipOverlayHTML += `</div></div></div>`;
@@ -430,23 +467,33 @@ document.addEventListener('DOMContentLoaded', () => {
               <h4 class="overlay-title">🔥 SÍNTESE DE RITUAL</h4>
               <div class="ritual-list">`;
           x.rituals.forEach(r => {
+             const matPreview = `data-preview="images/cards/${r.materials[0].id}.png"`;
+             const spellPreview = `data-preview="images/cards/${r.ritualCard.id}.png"`;
+             const resPreview = `data-preview="images/cards/${r.result.id}.png"`;
+             
              ritualOverlayHTML += `
                <div class="ritual-container">
                  <div class="ritual-equation">
                    <div class="ritual-part material-part focos">
                      <span class="ritual-qty focos-badge">${r.materials[0].count}x</span>
-                     <img class="ritual-card-img focos-img" src="images/cards/${r.materials[0].id}.png" loading="lazy">
-                     <span class="focos-id focos-badge">#${r.materials[0].id}</span>
+                     <a href="#card-${r.materials[0].id}" class="ritual-link-wrapper" ${matPreview}>
+                       <img class="ritual-card-img focos-img" src="images/cards/${r.materials[0].id}.png" loading="lazy">
+                       <span class="focos-id focos-badge">#${r.materials[0].id}</span>
+                     </a>
                    </div>
                    <div class="ritual-math">+</div>
                    <div class="ritual-part ritual-spell focos">
-                     <img class="ritual-card-img focos-img" src="images/cards/${r.ritualCard.id}.png" loading="lazy">
-                     <span class="focos-id focos-badge spell-badge">#${r.ritualCard.id}</span>
+                     <a href="#card-${r.ritualCard.id}" class="ritual-link-wrapper" ${spellPreview}>
+                       <img class="ritual-card-img focos-img" src="images/cards/${r.ritualCard.id}.png" loading="lazy">
+                       <span class="focos-id focos-badge spell-badge">#${r.ritualCard.id}</span>
+                     </a>
                    </div>
                    <div class="ritual-math">=</div>
                    <div class="ritual-part result-part focos result-focos">
-                     <img class="ritual-card-img result-img result-img-focos" src="images/cards/${r.result.id}.png" loading="lazy">
-                     <span class="focos-id focos-badge result-badge">#${r.result.id}</span>
+                     <a href="#card-${r.result.id}" class="ritual-link-wrapper" ${resPreview}>
+                       <img class="ritual-card-img result-img result-img-focos fusion-result-gold" src="images/cards/${r.result.id}.png" loading="lazy">
+                       <span class="focos-id focos-badge result-badge">#${r.result.id}</span>
+                     </a>
                    </div>
                  </div>
                  <p class="ritual-desc">${r.description}</p>
@@ -502,7 +549,7 @@ document.addEventListener('DOMContentLoaded', () => {
                       <span class="stat-label">LEVEL</span>
                       <span class="stat-val">${m && c.level > 0 ? `${c.level} <span class="star-icon">★</span>` : '-'}</span>
                     </div>
-                    <div class="stat-row stat-pass full-width-desk"><span class="stat-label">PASSWORD</span><span class="stat-val">${c.password || '-'}</span></div>
+                    <div class="stat-row stat-pass full-width-desk"><span class="stat-label">PASSWORD</span><span class="stat-val" data-password="${c.password || ''}" title="Clique para copiar">${c.password || '-'}</span></div>
                     <div class="stat-row stat-cost full-width-desk"><span class="stat-label">COST</span><span class="stat-val">${c.cost !== null && c.cost !== undefined && c.cost !== '' ? `${c.cost} <span class="star-icon">★</span>` : '-'}</span></div>
                   </div>
                 </div>
@@ -517,6 +564,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }).join('');
   }
 
+  /* =========================================
+     🔍 PESQUISA COM DEBOUNCE & CONTAGEM
+     ========================================= */
   function performSearch() {
     const q = searchInput.value.trim().toLowerCase();
     let out = [];
@@ -551,11 +601,24 @@ document.addEventListener('DOMContentLoaded', () => {
       node.style.display = matchedIds.has(id) ? 'flex' : 'none';
     });
 
+    /* Atualizar contagem de resultados */
+    if (resultNumber) {
+      resultNumber.textContent = out.length;
+      resultCount.classList.toggle('filtered', q.length > 0);
+    }
+
+    /* Botão clear search */
+    if (clearSearchBtn) {
+      clearSearchBtn.style.display = q.length > 0 ? 'flex' : 'none';
+    }
+
     let noResultMsg = document.getElementById('no-results-msg');
     if (out.length === 0) {
       if (!noResultMsg) cardsGrid.insertAdjacentHTML('beforeend', `<div id="no-results-msg" style="grid-column: 1/-1; text-align: center; color: var(--text-muted); font-family: 'Orbitron'; padding: 50px;"><div style="font-size: 2.5rem; margin-bottom: 12px; opacity: 0.5;">🔍</div><div style="font-size: 0.9rem; letter-spacing: 2px;">NENHUMA CARTA ENCONTRADA</div></div>`);
     } else if (noResultMsg) noResultMsg.remove();
   }
+
+  const debouncedSearch = debounce(performSearch, 150);
 
   function setFilter(name) {
     currentFilter = name;
@@ -567,14 +630,276 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     searchInput.placeholder = ph[currentFilter];
     searchInput.value = '';
+    if (clearSearchBtn) clearSearchBtn.style.display = 'none';
     searchInput.focus();
     performSearch(); 
   }
 
-  searchInput.addEventListener('input', performSearch);
+  /* =========================================
+     📋 COPY PASSWORD AO CLICAR
+     ========================================= */
+  document.addEventListener('click', e => {
+    const passVal = e.target.closest('.stat-pass .stat-val');
+    if (passVal) {
+      const pw = passVal.dataset.password;
+      if (pw && pw !== '') {
+        navigator.clipboard.writeText(pw).then(() => {
+          showToast(`📋 Senha copiada: ${pw}`);
+        }).catch(() => {
+          /* Fallback para navegadores sem clipboard API */
+          const textArea = document.createElement('textarea');
+          textArea.value = pw;
+          textArea.style.cssText = 'position:fixed;left:-9999px;';
+          document.body.appendChild(textArea);
+          textArea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textArea);
+          showToast(`📋 Senha copiada: ${pw}`);
+        });
+      }
+    }
+  });
+
+  /* =========================================
+     ⬆️ SCROLL TO TOP + PROGRESS BAR
+     ========================================= */
+  function onScroll() {
+    const scrollY = window.scrollY;
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    
+    /* Botão scroll-to-top */
+    if (scrollTopBtn) {
+      scrollTopBtn.classList.toggle('show', scrollY > 400);
+    }
+
+    /* Barra de progresso */
+    if (progressBar && docHeight > 0) {
+      const progress = (scrollY / docHeight) * 100;
+      progressBar.style.width = Math.min(progress, 100) + '%';
+    }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  if (scrollTopBtn) {
+    scrollTopBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+  /* =========================================
+     🔗 DEEP LINKING (#card-XXX)
+     ========================================= */
+  function handleDeepLink() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#card-')) {
+      setTimeout(() => {
+        const el = document.getElementById(hash.substring(1));
+        if (el) {
+          el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          el.style.transition = 'box-shadow 0.3s ease';
+          el.style.boxShadow = '0 0 40px rgba(0, 245, 255, 0.6), 0 20px 40px rgba(0,0,0,0.85)';
+          setTimeout(() => { el.style.boxShadow = ''; }, 2000);
+        }
+      }, 300);
+    }
+  }
+
+  window.addEventListener('hashchange', handleDeepLink);
+
+  /* =========================================
+     ⌨️ KEYBOARD SHORTCUTS
+     ========================================= */
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') {
+      searchInput.value = '';
+      if (clearSearchBtn) clearSearchBtn.style.display = 'none';
+      performSearch();
+      searchInput.blur();
+    }
+    /* Ctrl+K ou / para focar na busca */
+    if ((e.ctrlKey && e.key === 'k') || (e.key === '/' && document.activeElement !== searchInput)) {
+      e.preventDefault();
+      searchInput.focus();
+    }
+  });
+
+  /* =========================================
+     👁️ INTERSECTION OBSERVER (ENTRADA ANIMADA)
+     ========================================= */
+  function setupIntersectionObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { rootMargin: '0px 0px -50px 0px', threshold: 0.05 });
+
+    document.querySelectorAll('.card').forEach(card => observer.observe(card));
+  }
+
+  /* =========================================
+     🎵 MUSIC PLAYER
+     ========================================= */
+  const musicToggleBtn = document.getElementById('musicToggleBtn');
+  const musicPanel = document.getElementById('musicPanel');
+  const musicPanelClose = document.getElementById('musicPanelClose');
+  const musicPlayPauseBtn = document.getElementById('musicPlayPauseBtn');
+  const musicStopBtn = document.getElementById('musicStopBtn');
+  const musicVolumeSlider = document.getElementById('musicVolumeSlider');
+  const musicTrackList = document.getElementById('musicTrackList');
+  const musicAudio = document.getElementById('musicAudio');
+  const musicNowPlaying = document.getElementById('musicNowPlaying');
+
+  let currentTrackIndex = -1;
+  let isPlaying = false;
+
+  /* Renderizar lista de tracks */
+  if (musicTrackList) {
+    musicTrackList.innerHTML = musicTracks.map((t, i) => `
+      <div class="music-track" data-index="${i}">
+        <span class="music-track-number">${String(i + 1).padStart(2, '0')}</span>
+        <span class="music-track-name">${t.name}</span>
+        <span class="music-track-playing-icon">🔊</span>
+      </div>
+    `).join('');
+  }
+
+  /* Toggle do painel */
+  if (musicToggleBtn) {
+    musicToggleBtn.addEventListener('click', () => {
+      musicPanel.classList.toggle('open');
+    });
+  }
+
+  if (musicPanelClose) {
+    musicPanelClose.addEventListener('click', () => {
+      musicPanel.classList.remove('open');
+    });
+  }
+
+  /* Selecionar e tocar track */
+  if (musicTrackList) {
+    musicTrackList.addEventListener('click', e => {
+      const track = e.target.closest('.music-track');
+      if (!track) return;
+      const index = parseInt(track.dataset.index, 10);
+      playTrack(index);
+    });
+  }
+
+  function playTrack(index) {
+    if (index < 0 || index >= musicTracks.length) return;
+    
+    currentTrackIndex = index;
+    const track = musicTracks[index];
+    
+    musicAudio.src = MUSIC_BASE_PATH + encodeURIComponent(track.file);
+    musicAudio.volume = musicVolumeSlider.value / 100;
+    musicAudio.play().catch(err => {
+      console.warn('Erro ao tocar música:', err);
+      showToast('⚠️ Não foi possível carregar a música');
+    });
+    
+    isPlaying = true;
+    musicPlayPauseBtn.textContent = '⏸';
+    musicPlayPauseBtn.disabled = false;
+    musicStopBtn.disabled = false;
+    musicToggleBtn.classList.add('playing');
+    
+    /* Atualizar UI */
+    musicNowPlaying.innerHTML = `<span class="now-playing-label active">🎵 ${track.name}</span>`;
+    document.querySelectorAll('.music-track').forEach(t => t.classList.remove('active'));
+    document.querySelector(`.music-track[data-index="${index}"]`)?.classList.add('active');
+  }
+
+  /* Play/Pause */
+  if (musicPlayPauseBtn) {
+    musicPlayPauseBtn.addEventListener('click', () => {
+      if (!musicAudio.src) return;
+      if (isPlaying) {
+        musicAudio.pause();
+        musicPlayPauseBtn.textContent = '▶️';
+        musicToggleBtn.classList.remove('playing');
+      } else {
+        musicAudio.play();
+        musicPlayPauseBtn.textContent = '⏸';
+        musicToggleBtn.classList.add('playing');
+      }
+      isPlaying = !isPlaying;
+    });
+  }
+
+  /* Stop */
+  if (musicStopBtn) {
+    musicStopBtn.addEventListener('click', () => {
+      musicAudio.pause();
+      musicAudio.currentTime = 0;
+      isPlaying = false;
+      musicPlayPauseBtn.textContent = '▶️';
+      musicToggleBtn.classList.remove('playing');
+      musicNowPlaying.innerHTML = `<span class="now-playing-label">Nenhuma música tocando</span>`;
+      document.querySelectorAll('.music-track').forEach(t => t.classList.remove('active'));
+    });
+  }
+
+  /* Volume */
+  if (musicVolumeSlider) {
+    musicVolumeSlider.addEventListener('input', () => {
+      musicAudio.volume = musicVolumeSlider.value / 100;
+    });
+  }
+
+  /* Quando a música termina, toca a próxima */
+  if (musicAudio) {
+    musicAudio.addEventListener('ended', () => {
+      if (currentTrackIndex < musicTracks.length - 1) {
+        playTrack(currentTrackIndex + 1);
+      } else {
+        /* Fim da playlist */
+        isPlaying = false;
+        musicPlayPauseBtn.textContent = '▶️';
+        musicToggleBtn.classList.remove('playing');
+        musicNowPlaying.innerHTML = `<span class="now-playing-label">Playlist finalizada</span>`;
+        document.querySelectorAll('.music-track').forEach(t => t.classList.remove('active'));
+      }
+    });
+  }
+
+  /* =========================================
+     🔌 EVENT LISTENERS
+     ========================================= */
+  searchInput.addEventListener('input', debouncedSearch);
+  
   filterBtns.forEach(b => {
     b.addEventListener('click', () => setFilter(currentFilter === b.dataset.filter ? 'name' : b.dataset.filter));
   });
 
+  /* Clear Search Button */
+  if (clearSearchBtn) {
+    clearSearchBtn.addEventListener('click', () => {
+      searchInput.value = '';
+      clearSearchBtn.style.display = 'none';
+      performSearch();
+      searchInput.focus();
+    });
+  }
+
+  /* =========================================
+     🔌 SERVICE WORKER REGISTRATION
+     ========================================= */
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./sw.js').then(reg => {
+      console.log('[App] Service Worker registrado:', reg.scope);
+    }).catch(err => {
+      console.warn('[App] Service Worker falhou:', err);
+    });
+  }
+
+  /* =========================================
+     🚀 INICIALIZAÇÃO
+     ========================================= */
   init();
 });

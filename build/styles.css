@@ -271,25 +271,91 @@ body {
 .fusion-type-title { font-family: 'Orbitron'; font-size: 0.6rem; font-weight: 700; color: #fff; }
 .fusion-type-icon { width: 14px; height: 14px; object-fit: contain; }
 
-.fusion-tree-layout-QA { display: flex; flex-direction: column; align-items: center; gap: 6px; width: 100%; margin-top: 5px; }
-.fusion-col-QA { display: flex; flex-direction: column; gap: 4px; width: 100%; align-items: center; }
+.fusion-tree-layout-QA { display: flex; flex-direction: column; align-items: center; gap: 0; width: 100%; margin-top: 5px; }
 
-/* Micro-Grid Tático para Materiais Extensos (Zero Scroll Horizontal) */
-.fusion-scroll-grid-QA { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; width: 100%; }
+/* ══ MATERIAL SECTION BLOCKS ══ */
+.fusion-mat-section {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  border-radius: 8px;
+  padding: 6px;
+  position: relative;
+}
+.fusion-mat-self {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+
+/* Grid for material pills */
+.fusion-scroll-grid-QA {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+  width: 100%;
+}
+
+/* ══ DIVIDER ROW (replaces old operator) ══ */
+.fusion-divider-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 2px 0;
+  position: relative;
+}
+.fusion-divider-row::before,
+.fusion-divider-row::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 0, 127, 0.25), transparent);
+}
+.fusion-divider-icon {
+  font-family: 'Orbitron';
+  font-size: 0.75rem;
+  font-weight: 900;
+  color: var(--neon-pink);
+  text-shadow: 0 0 6px var(--neon-pink);
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+
+/* ══ RESULT SECTION ══ */
+.fusion-result-section {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 4px 0 2px;
+}
 
 /* Pílulas de Texto */
 .fusion-text-link {
-  display: inline-flex; align-items: center; justify-content: center; gap: 4px; padding: 4px 6px;
+  display: inline-flex; align-items: center; justify-content: center; gap: 3px; padding: 4px 5px;
   background: rgba(255, 255, 255, 0.03); border: 1px solid rgba(255, 0, 127, 0.25); border-radius: 4px; text-decoration: none; transition: all 0.2s ease;
-  flex: 1 1 auto; max-width: 130px; min-width: 90px;
+  min-width: 0; width: 100%;
 }
 .fusion-text-link:hover { background: rgba(255, 0, 127, 0.12); border-color: var(--neon-pink); }
 
-.ft-id { font-family: 'Orbitron'; color: var(--neon-cyan); font-size: 0.6rem; font-weight: 700; }
-.ft-name { font-family: 'Rajdhani'; color: #fff; font-size: 0.7rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 70px; }
+.ft-id { font-family: 'Orbitron'; color: var(--neon-cyan); font-size: 0.55rem; font-weight: 700; flex-shrink: 0; }
+.ft-name { font-family: 'Rajdhani'; color: #fff; font-size: 0.65rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; min-width: 0; }
 
 /* Customização do Link de Resultado */
-.res-col-QA { align-items: center; margin-top: 2px;}
+.fusion-result-section .fusion-text-link {
+  border-color: var(--neon-gold);
+  background: rgba(255, 183, 3, 0.06);
+  width: auto;
+  max-width: 200px;
+  padding: 6px 12px;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.15);
+}
+.fusion-result-section .fusion-text-link:hover { border-color: #fff; box-shadow: 0 0 14px var(--neon-gold); }
+.fusion-result-section .ft-id { color: var(--neon-gold); font-size: 0.65rem; }
+.fusion-result-section .ft-name { font-size: 0.75rem; font-weight: bold; }
+
+/* Legacy support */
 .res-col-QA .fusion-text-link { border-color: var(--neon-gold); background: rgba(255, 183, 3, 0.05); max-width: 180px; padding: 6px 10px;}
 .res-col-QA .fusion-text-link:hover { border-color: #fff; box-shadow: 0 0 10px var(--neon-gold); }
 .res-col-QA .ft-id { color: var(--neon-gold); font-size: 0.7rem; }
@@ -339,10 +405,11 @@ body {
   /* Ajuste da Guardian Star Mobile */
   .g-star-icon { width: 18px; height: 18px; }
 
-  .fusion-text-link { flex: 1 1 45%; max-width: none;}
-  .ft-name { max-width: none; white-space: normal; text-align: left; }
-  .fusion-operator { font-size: 0.85rem; margin: 2px 0; }
+  .fusion-text-link { width: 100%; }
+  .ft-name { white-space: normal; text-align: left; }
+  .fusion-divider-icon { font-size: 0.65rem; }
   .global-card-preview { width: 100px; }
+  .fusion-scroll-grid-QA { grid-template-columns: repeat(2, 1fr); gap: 2px; }
   
   .equip-grid { grid-template-columns: 1fr; }
 
@@ -350,4 +417,391 @@ body {
   .filter-btn::after { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px); width: 90vw; max-width: none; z-index: 3000; font-size: 0.7rem; padding: 12px; }
   .filter-btn:hover::after, .filter-btn:active::after { transform: translateX(-50%) translateY(0); }
   .filter-btn::before { display: none; }
+}
+
+/* ============================================================
+   🎬 ANIMAÇÕES DE ENTRADA (INTERSECTION OBSERVER)
+   ============================================================ */
+.card {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease, box-shadow 0.4s ease;
+}
+.card.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.card:hover {
+  transform: translateY(-8px);
+}
+
+/* ============================================================
+   🏷️ BADGES COLORIDOS POR TIPO DE CARTA
+   ============================================================ */
+.card[data-type="Monster"] .card-badge { background: rgba(217, 119, 6, 0.3); color: var(--c-monster); border: 1px solid rgba(217, 119, 6, 0.4); }
+.card[data-type="Equip"] .card-badge   { background: rgba(5, 150, 105, 0.3); color: var(--c-equip); border: 1px solid rgba(5, 150, 105, 0.4); }
+.card[data-type="Magic"] .card-badge   { background: rgba(13, 148, 136, 0.3); color: var(--c-magic); border: 1px solid rgba(13, 148, 136, 0.4); }
+.card[data-type="Field"] .card-badge   { background: rgba(4, 120, 87, 0.3); color: var(--c-field); border: 1px solid rgba(4, 120, 87, 0.4); }
+.card[data-type="Trap"] .card-badge    { background: rgba(190, 18, 60, 0.3); color: var(--c-trap); border: 1px solid rgba(190, 18, 60, 0.4); }
+.card[data-type="Ritual"] .card-badge  { background: rgba(29, 78, 216, 0.3); color: var(--c-ritual); border: 1px solid rgba(29, 78, 216, 0.4); }
+
+/* ============================================================
+   ✨ HOVER GLOW TIPADO POR CARTA
+   ============================================================ */
+.card[data-type="Monster"]:hover { box-shadow: 0 20px 40px rgba(0,0,0,0.85), 0 0 30px rgba(217, 119, 6, 0.2); border-color: rgba(217, 119, 6, 0.4); }
+.card[data-type="Equip"]:hover   { box-shadow: 0 20px 40px rgba(0,0,0,0.85), 0 0 30px rgba(5, 150, 105, 0.2); border-color: rgba(5, 150, 105, 0.4); }
+.card[data-type="Magic"]:hover   { box-shadow: 0 20px 40px rgba(0,0,0,0.85), 0 0 30px rgba(13, 148, 136, 0.2); border-color: rgba(13, 148, 136, 0.4); }
+.card[data-type="Field"]:hover   { box-shadow: 0 20px 40px rgba(0,0,0,0.85), 0 0 30px rgba(4, 120, 87, 0.2); border-color: rgba(4, 120, 87, 0.4); }
+.card[data-type="Trap"]:hover    { box-shadow: 0 20px 40px rgba(0,0,0,0.85), 0 0 30px rgba(190, 18, 60, 0.2); border-color: rgba(190, 18, 60, 0.4); }
+.card[data-type="Ritual"]:hover  { box-shadow: 0 20px 40px rgba(0,0,0,0.85), 0 0 30px rgba(29, 78, 216, 0.2); border-color: rgba(29, 78, 216, 0.4); }
+
+/* ============================================================
+   🎯 FOCUS VISIBLE & SELEÇÃO
+   ============================================================ */
+*:focus-visible {
+  outline: 2px solid var(--neon-cyan);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+::selection { background: rgba(0, 245, 255, 0.3); color: #fff; }
+::-moz-selection { background: rgba(0, 245, 255, 0.3); color: #fff; }
+
+/* ============================================================
+   📊 SCROLL PROGRESS BAR
+   ============================================================ */
+.scroll-progress-bar {
+  position: fixed; top: 0; left: 0; height: 3px; width: 0%;
+  background: linear-gradient(90deg, var(--neon-cyan), var(--neon-purple), var(--neon-pink));
+  z-index: 10000; transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(0, 245, 255, 0.5);
+}
+
+/* ============================================================
+   🔎 SEARCH APRIMORADO
+   ============================================================ */
+.search-input-wrapper {
+  position: relative; width: 100%;
+}
+.clear-search-btn {
+  position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+  background: rgba(255, 255, 255, 0.08); border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--text-muted); width: 28px; height: 28px; border-radius: 50%;
+  font-size: 0.85rem; cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease; font-family: 'Rajdhani', sans-serif;
+}
+.clear-search-btn:hover { background: rgba(255, 51, 102, 0.2); color: var(--neon-red); border-color: var(--neon-red); }
+
+.search-result-count {
+  text-align: center; font-family: 'Orbitron', sans-serif; font-size: 0.7rem;
+  color: var(--text-muted); letter-spacing: 2px; padding: 4px 0;
+  transition: color 0.3s ease;
+}
+.search-result-count.filtered { color: var(--neon-cyan); }
+
+/* Micro-animação focus no search */
+@keyframes searchPulse {
+  0%, 100% { box-shadow: 0 0 25px rgba(0,245,255,0.25), inset 0 2px 10px rgba(0,0,0,0.6); }
+  50% { box-shadow: 0 0 35px rgba(0,245,255,0.35), inset 0 2px 10px rgba(0,0,0,0.6); }
+}
+#searchInput:focus { animation: searchPulse 2s ease-in-out infinite; }
+
+/* ============================================================
+   📋 COPY PASSWORD CURSOR & TOAST
+   ============================================================ */
+.stat-pass .stat-val { cursor: pointer; transition: color 0.2s ease; position: relative; }
+.stat-pass .stat-val:hover { color: var(--neon-cyan); text-shadow: 0 0 8px rgba(0, 245, 255, 0.5); }
+.stat-pass .stat-val::after {
+  content: '📋'; position: absolute; right: -18px; top: 50%; transform: translateY(-50%);
+  font-size: 0.6rem; opacity: 0; transition: opacity 0.2s ease;
+}
+.stat-pass .stat-val:hover::after { opacity: 0.6; }
+
+.toast-notification {
+  position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%) translateY(20px);
+  background: rgba(10, 15, 25, 0.95); backdrop-filter: blur(20px);
+  border: 1px solid var(--neon-cyan); border-radius: 12px;
+  padding: 12px 24px; font-family: 'Orbitron', sans-serif; font-size: 0.75rem;
+  color: var(--neon-cyan); letter-spacing: 1px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.8), 0 0 20px rgba(0, 245, 255, 0.3);
+  opacity: 0; visibility: hidden; transition: all 0.3s ease; z-index: 99999;
+}
+.toast-notification.show {
+  opacity: 1; visibility: visible; transform: translateX(-50%) translateY(0);
+}
+
+/* ============================================================
+   🎵 MUSIC PLAYER (LEVE & PREMIUM)
+   ============================================================ */
+.music-toggle-btn {
+  position: fixed; bottom: 25px; left: 25px; width: 48px; height: 48px;
+  border-radius: 50%; background: rgba(168, 85, 247, 0.15); border: 1px solid rgba(168, 85, 247, 0.4);
+  color: var(--neon-purple); font-size: 1.3rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  backdrop-filter: blur(10px); z-index: 9998;
+  transition: all 0.3s ease;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+}
+.music-toggle-btn:hover {
+  background: rgba(168, 85, 247, 0.3); transform: scale(1.1);
+  box-shadow: 0 5px 25px rgba(168, 85, 247, 0.4);
+}
+.music-toggle-btn.playing {
+  animation: musicPulse 2s ease-in-out infinite;
+  border-color: var(--neon-purple);
+  box-shadow: 0 0 20px rgba(168, 85, 247, 0.4);
+}
+@keyframes musicPulse {
+  0%, 100% { box-shadow: 0 0 15px rgba(168, 85, 247, 0.3); }
+  50% { box-shadow: 0 0 25px rgba(168, 85, 247, 0.6); }
+}
+
+.music-panel {
+  position: fixed; bottom: 85px; left: 25px; width: 320px; max-height: 480px;
+  background: rgba(6, 9, 16, 0.95); backdrop-filter: blur(20px);
+  border: 1px solid rgba(168, 85, 247, 0.3); border-radius: 16px;
+  z-index: 9997; display: flex; flex-direction: column;
+  box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 30px rgba(168, 85, 247, 0.15);
+  opacity: 0; visibility: hidden; transform: translateY(20px) scale(0.95);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+.music-panel.open {
+  opacity: 1; visibility: visible; transform: translateY(0) scale(1);
+}
+
+.music-panel-header {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 16px 18px; border-bottom: 1px solid rgba(168, 85, 247, 0.15);
+  background: rgba(0,0,0,0.3);
+}
+.music-panel-title {
+  font-family: 'Orbitron', sans-serif; font-size: 0.8rem; font-weight: 700;
+  color: var(--neon-purple); letter-spacing: 1px;
+}
+.music-panel-close {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-muted); width: 26px; height: 26px; border-radius: 50%;
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  font-size: 0.8rem; transition: all 0.2s ease;
+}
+.music-panel-close:hover { color: var(--neon-red); border-color: var(--neon-red); }
+
+.music-now-playing {
+  padding: 12px 18px; background: rgba(168, 85, 247, 0.05);
+  border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+}
+.now-playing-label {
+  font-family: 'Rajdhani', sans-serif; font-size: 0.8rem; color: var(--text-muted);
+  font-weight: 600;
+}
+.now-playing-label.active { color: var(--neon-purple); }
+
+.music-controls {
+  display: flex; align-items: center; gap: 10px; padding: 10px 18px;
+  border-bottom: 1px solid rgba(168, 85, 247, 0.1);
+}
+.music-ctrl-btn {
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-muted); width: 34px; height: 34px; border-radius: 8px;
+  cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center;
+  transition: all 0.2s ease;
+}
+.music-ctrl-btn:hover:not(:disabled) { color: var(--neon-purple); border-color: var(--neon-purple); background: rgba(168, 85, 247, 0.1); }
+.music-ctrl-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+
+.music-volume {
+  flex: 1; -webkit-appearance: none; appearance: none; height: 4px;
+  background: rgba(255,255,255,0.1); border-radius: 2px; outline: none;
+  cursor: pointer;
+}
+.music-volume::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; width: 14px; height: 14px;
+  background: var(--neon-purple); border-radius: 50%; cursor: pointer;
+  box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+}
+.music-volume::-moz-range-thumb {
+  width: 14px; height: 14px; background: var(--neon-purple); border-radius: 50%;
+  cursor: pointer; border: none; box-shadow: 0 0 8px rgba(168, 85, 247, 0.5);
+}
+
+.music-track-list {
+  flex: 1; overflow-y: auto; padding: 8px; display: flex; flex-direction: column; gap: 3px;
+  max-height: 280px;
+}
+.music-track-list::-webkit-scrollbar { width: 4px; }
+.music-track-list::-webkit-scrollbar-thumb { background: rgba(168, 85, 247, 0.3); border-radius: 2px; }
+
+.music-track {
+  display: flex; align-items: center; gap: 10px; padding: 8px 12px;
+  border-radius: 8px; cursor: pointer; transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+.music-track:hover { background: rgba(168, 85, 247, 0.08); border-color: rgba(168, 85, 247, 0.2); }
+.music-track.active { background: rgba(168, 85, 247, 0.12); border-color: rgba(168, 85, 247, 0.4); }
+.music-track-number {
+  font-family: 'Orbitron', sans-serif; font-size: 0.6rem; color: var(--text-muted);
+  width: 24px; text-align: right; flex-shrink: 0;
+}
+.music-track.active .music-track-number { color: var(--neon-purple); }
+.music-track-name {
+  font-family: 'Rajdhani', sans-serif; font-size: 0.85rem; color: var(--text-main);
+  font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  flex: 1;
+}
+.music-track.active .music-track-name { color: var(--neon-purple); }
+.music-track-playing-icon {
+  font-size: 0.7rem; opacity: 0;
+}
+.music-track.active .music-track-playing-icon { opacity: 1; }
+
+/* ============================================================
+   📱 RESPONSIVIDADE MOBILE — NOVAS ADIÇÕES
+   ============================================================ */
+@media (max-width: 768px) {
+  .music-panel { left: 10px; right: 10px; width: auto; bottom: 80px; max-height: 60vh; }
+  .music-toggle-btn { bottom: 15px; left: 15px; width: 42px; height: 42px; font-size: 1.1rem; }
+  .scroll-top-btn { bottom: 15px; right: 15px; width: 42px; height: 42px; }
+  .toast-notification { width: 85vw; font-size: 0.65rem; padding: 10px 16px; bottom: 70px; }
+  .search-result-count { font-size: 0.6rem; }
+}
+
+/* ============================================================
+   🔄 OUTRAS FUSÕES — SEÇÃO EXPANDIDA
+   ============================================================ */
+.fusion-other-section {
+  margin-top: 12px;
+  border-top: 1px dashed rgba(255, 183, 3, 0.25);
+  padding-top: 10px;
+}
+.fusion-other-title {
+  color: var(--neon-gold) !important;
+  border-bottom-color: rgba(255, 183, 3, 0.2) !important;
+  font-size: 0.6rem !important;
+}
+
+.other-fusion-group {
+  background: rgba(255, 183, 3, 0.03);
+  border: 1px solid rgba(255, 183, 3, 0.12);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 8px;
+}
+.other-fusion-header {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: var(--neon-gold);
+  text-align: center;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
+  border-bottom: 1px solid rgba(255, 183, 3, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.other-fusion-header .fusion-text-link {
+  border-color: var(--neon-gold);
+  background: rgba(255, 183, 3, 0.05);
+}
+.other-fusion-header .ft-id { color: var(--neon-gold); }
+.fusion-rule-tag {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.65rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.04);
+  padding: 2px 6px;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.fusion-mat-note {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.65rem;
+  font-style: italic;
+  color: var(--text-muted);
+  display: block;
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   🏆 FUSION RESULT GOLD BORDER & EQUIP LINKS
+   ============================================================ */
+.fusion-result-gold {
+  border: 1px solid rgba(255, 215, 0, 0.6) !important;
+  box-shadow: 0 0 8px rgba(255, 215, 0, 0.3) !important;
+  background: rgba(255, 215, 0, 0.05) !important;
+  transition: all 0.3s ease;
+}
+.fusion-result-gold:hover {
+  border-color: rgba(255, 215, 0, 1) !important;
+  box-shadow: 0 0 12px rgba(255, 215, 0, 0.6) !important;
+  background: rgba(255, 215, 0, 0.15) !important;
+}
+
+.equip-link-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  text-decoration: none;
+  color: inherit;
+  width: 100%;
+  border-radius: 8px;
+  transition: background 0.2s, box-shadow 0.2s;
+  padding: 4px;
+}
+.equip-link-wrapper:hover {
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+.ritual-link-wrapper {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.2s;
+}
+.ritual-link-wrapper:hover {
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   📝 FUSION NOTE & OTHER DESC
+   ============================================================ */
+.fusion-note-text {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4px 8px;
+  margin: 4px 0 8px;
+  background: rgba(255, 255, 255, 0.03);
+  border-left: 2px solid var(--neon-gold);
+  border-radius: 4px;
+  line-height: 1.4;
+}
+
+.fusion-other-desc {
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 0.7rem;
+  font-style: italic;
+  color: var(--text-muted);
+  text-align: center;
+  padding: 4px 8px;
+  margin: 2px 0 6px;
+  line-height: 1.4;
+}
+
+/* ══ Mobile adjustments for fusion grid ══ */
+@media (max-width: 420px) {
+  .fusion-scroll-grid-QA {
+    grid-template-columns: 1fr;
+  }
+  .ft-id { font-size: 0.5rem; }
+  .ft-name { display: none; }
 }

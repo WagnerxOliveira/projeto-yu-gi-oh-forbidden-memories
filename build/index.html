@@ -2,40 +2,114 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-  <title>Yu-Gi-Oh! Forbidden Memories - Database</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <meta name="description" content="Enciclopédia digital completa e interativa com todas as 722 cartas do clássico Yu-Gi-Oh! Forbidden Memories de PlayStation 1. Pesquise, filtre e descubra senhas, drops, fusões e equipamentos.">
+  <meta name="theme-color" content="#00f5ff">
+  <meta name="author" content="Wagner Oliveira">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Yu-Gi-Oh! Forbidden Memories - Card Database">
+  <meta property="og:description" content="Enciclopédia digital completa com todas as 722 cartas do clássico Yu-Gi-Oh! Forbidden Memories de PS1. Senhas, drops, fusões e mais.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://yu-gi-oh-forbidden-memories-psx.vercel.app/">
+  <meta property="og:image" content="https://yu-gi-oh-forbidden-memories-psx.vercel.app/images/cards/001.png">
+  <meta property="og:locale" content="pt_BR">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Yu-Gi-Oh! Forbidden Memories - Card Database">
+  <meta name="twitter:description" content="Todas as 722 cartas do clássico Yu-Gi-Oh! Forbidden Memories de PS1.">
+  <meta name="twitter:image" content="https://yu-gi-oh-forbidden-memories-psx.vercel.app/images/cards/001.png">
+
+  <title>Yu-Gi-Oh! Forbidden Memories - Card Database | 722 Cartas</title>
+
+  <!-- Preconnect para fonts mais rápidas -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/jpeg" href="../yugi.jpeg">
+  <link rel="apple-touch-icon" href="../yugi.jpeg">
+
+  <!-- PWA Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Styles -->
   <link rel="stylesheet" href="styles.css">
-  
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20,400,0,0">
 </head>
 <body>
+
+  <!-- Barra de progresso de scroll -->
+  <div class="scroll-progress-bar" id="scrollProgressBar"></div>
 
   <header class="header">
     <h1 class="header__title">Yu-Gi-Oh! Forbidden Memories</h1>
     <h2 class="header__subtitle">Database Oficial - 722 Cartas</h2>
   </header>
 
-  <div class="search-container">
+  <div class="search-container" role="search">
     <div class="search-wrapper">
-      <input type="text" id="searchInput" placeholder="Pesquisar por Nome da Carta ou ID..." autocomplete="off">
-      <div class="filter-buttons">
-        <button class="filter-btn active" data-filter="name">NOME / ID</button>
-        <button class="filter-btn" data-filter="atk">ATK</button>
-        <button class="filter-btn" data-filter="def">DEF</button>
-        <button class="filter-btn" data-filter="cost">COST</button>
-        <button class="filter-btn" data-filter="card-type">CARD-TYPE</button>
-        <button class="filter-btn" data-filter="type">TYPE</button>
-        <button class="filter-btn" data-filter="level">LEVEL</button>
+      <div class="search-input-wrapper">
+        <input type="text" id="searchInput" placeholder="Pesquisar por Nome da Carta ou ID..." autocomplete="off" aria-label="Pesquisar cartas">
+        <button id="clearSearchBtn" class="clear-search-btn" aria-label="Limpar pesquisa" style="display:none;">✕</button>
+      </div>
+      <div class="search-result-count" id="resultCount" aria-live="polite">
+        <span id="resultNumber">722</span> de 722 cartas
+      </div>
+      <div class="filter-buttons" role="group" aria-label="Filtros de pesquisa">
+        <button class="filter-btn active" data-filter="name" aria-label="Filtrar por Nome ou ID">NOME / ID</button>
+        <button class="filter-btn" data-filter="atk" aria-label="Filtrar por ATK">ATK</button>
+        <button class="filter-btn" data-filter="def" aria-label="Filtrar por DEF">DEF</button>
+        <button class="filter-btn" data-filter="cost" aria-label="Filtrar por Cost">COST</button>
+        <button class="filter-btn" data-filter="card-type" aria-label="Filtrar por tipo de carta">CARD-TYPE</button>
+        <button class="filter-btn" data-filter="type" aria-label="Filtrar por tipo de monstro">TYPE</button>
+        <button class="filter-btn" data-filter="level" aria-label="Filtrar por nível">LEVEL</button>
       </div>
     </div>
   </div>
 
-  <main class="cards-grid" id="cardsGrid">
-    </main>
+  <main class="cards-grid" id="cardsGrid" aria-live="polite">
+  </main>
 
-  <button id="scrollTopBtn" class="scroll-top-btn" title="Voltar ao topo">&#8679;</button>
+  <!-- Music Player -->
+  <button id="musicToggleBtn" class="music-toggle-btn" aria-label="Abrir player de música" title="🎶 Músicas do Jogo">
+    <span class="music-icon">🎵</span>
+  </button>
+
+  <div id="musicPanel" class="music-panel">
+    <div class="music-panel-header">
+      <h3 class="music-panel-title">🎶 Soundtrack</h3>
+      <button id="musicPanelClose" class="music-panel-close" aria-label="Fechar player">✕</button>
+    </div>
+    <div class="music-now-playing" id="musicNowPlaying">
+      <span class="now-playing-label">Nenhuma música tocando</span>
+    </div>
+    <div class="music-controls">
+      <button id="musicPlayPauseBtn" class="music-ctrl-btn" aria-label="Play/Pause" disabled>⏸</button>
+      <button id="musicStopBtn" class="music-ctrl-btn" aria-label="Parar" disabled>⏹</button>
+      <input type="range" id="musicVolumeSlider" class="music-volume" min="0" max="100" value="30" aria-label="Volume">
+    </div>
+    <div class="music-track-list" id="musicTrackList"></div>
+    <audio id="musicAudio" preload="none"></audio>
+  </div>
+
+  <!-- Botão Voltar ao Topo -->
+  <button id="scrollTopBtn" class="scroll-top-btn" title="Voltar ao topo" aria-label="Voltar ao topo">&#8679;</button>
+
+  <!-- Toast Notification -->
+  <div id="toastNotification" class="toast-notification"></div>
+
+  <!-- Noscript Fallback -->
+  <noscript>
+    <div style="text-align:center;padding:60px 20px;color:#f1f5f9;font-family:sans-serif;background:#02040a;min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;">
+      <h2 style="font-size:1.5rem;margin-bottom:12px;">⚠️ JavaScript Necessário</h2>
+      <p style="max-width:400px;line-height:1.6;color:#94a3b8;">Este site precisa de JavaScript habilitado para funcionar. Por favor, habilite o JavaScript no seu navegador para acessar o database de 722 cartas.</p>
+    </div>
+  </noscript>
 
   <script src="cards-data.js"></script>
+  <script src="extra-card-data.js"></script>
   <script src="app.js"></script>
 </body>
 </html>
